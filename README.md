@@ -6,7 +6,7 @@ a web micro-framework.
 
 ## Team
 
-- MEMBER1
+- Michael Taylor
 - Andrew Chacon
 - MEMBER3
 - MEMBER4
