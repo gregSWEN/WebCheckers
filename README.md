@@ -8,7 +8,7 @@ a web micro-framework.
 
 - Michael Taylor
 - Andrew Chacon
-- 
+- Greg Villafane
 - 
 
 ## Prerequisites
