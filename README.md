@@ -8,9 +8,8 @@ a web micro-framework.
 
 - Michael Taylor
 - Andrew Chacon
-- MEMBER3
-- MEMBER4
-
+- 
+- 
 
 ## Prerequisites
 
