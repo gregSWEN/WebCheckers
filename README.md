@@ -9,7 +9,7 @@ a web micro-framework.
 - Michael Taylor
 - Andrew Chacon
 - Greg Villafane
-- 
+- Huan Huynh
 
 ## Prerequisites
 
