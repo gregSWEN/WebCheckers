@@ -3,10 +3,7 @@ package com.webcheckers.appl;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class PlayerLobby {
     private static Map<String, Player> playerList;
@@ -33,6 +30,10 @@ public class PlayerLobby {
     }
 
     public int sizeOfLobby() { return playerList.size(); }
+
+    public Set<String> listOfNames() {
+        return playerList.keySet();
+    }
 
     private boolean playerInLobby(String name) {
         return playerList.containsKey(name);
