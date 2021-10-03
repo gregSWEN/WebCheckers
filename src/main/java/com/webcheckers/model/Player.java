@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 public class Player {
     private final String name;
+    //Andrew Chacon
 
     public Player(String name) {
         this.name = name;
