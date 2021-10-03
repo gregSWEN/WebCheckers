@@ -1,7 +1,9 @@
 package com.webcheckers.model;
 
 public class Player {
+    //Michael Taylor
     private final String name;
+    //Andrew Chacon
 
     public Player(String name) {
         this.name = name;
