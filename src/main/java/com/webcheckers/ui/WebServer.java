@@ -143,6 +143,8 @@ public class WebServer {
 
     get(PLAYER_SIGN_IN, new GetSigninRoute(templateEngine));
 
+    //    get(HOME_URL, new PostSigninRoute())
+
     //
     LOG.config("WebServer is initialized.");
   }

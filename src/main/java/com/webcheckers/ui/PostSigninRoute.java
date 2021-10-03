@@ -7,6 +7,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.TemplateEngine;
+import java.util.*;
 
 import java.util.Objects;
 
@@ -35,10 +36,21 @@ public class PostSigninRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        return null;
+        final Map<String, Object> vm = new HashMap<>();
+        final String nameString = request.queryParams(PLAYER_NAME_ATTR);
+        Message message = playerLobby.addPlayer(nameString);
+
+        if (!message.isSuccessful()){
+            // Get the message that should
+             // use message.getType() to
+            vm.put(MESSAGE_ATTR, message.getText());
+        }
+        else{
+            vm.put(MESSAGE_ATTR, message.getText());
+        }
+
+        return "";
     }
-
-
 
 
 
