@@ -10,10 +10,11 @@
         <br>
         <h4>Type a Valid name to Sign-In</h4>
         <br>
-        First Name : <input type="text" size="50" >
+        First Name : <input type="text" name = "playerName" size="50" >
         <br>
-        <form action="/signin" Method = "POST">
+        <form action="./signin" Method = "POST">
         <button type="submit">Sign-In</button>
+
 
         </form>
 

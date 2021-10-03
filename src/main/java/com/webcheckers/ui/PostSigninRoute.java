@@ -3,10 +3,12 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
-import spark.*;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.TemplateEngine;
+import java.util.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class PostSigninRoute implements Route {
@@ -34,18 +36,21 @@ public class PostSigninRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        //
-        Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Welcome!");
+        final Map<String, Object> vm = new HashMap<>();
+        final String nameString = request.queryParams(PLAYER_NAME_ATTR);
+        Message message = playerLobby.addPlayer(nameString);
 
-        // display a user message in the Home page
-        vm.put("message", "esketit");
+        if (!message.isSuccessful()){
+            // Get the message that should
+             // use message.getType() to
+            vm.put(MESSAGE_ATTR, message.getText());
+        }
+        else{
+            vm.put(MESSAGE_ATTR, message.getText());
+        }
 
-        // render the View
-        return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+        return "";
     }
-
-
 
 
 
