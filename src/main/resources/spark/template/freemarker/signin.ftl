@@ -9,8 +9,6 @@
         <h2>Greg likes boys</h2>
         First Name : <input type="text" size="50" >
         <br>
-        Last Name : <input type="text" size="50" >
-        <br>
         <a href="/">Sign-In</a>
 
 
