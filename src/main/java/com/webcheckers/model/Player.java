@@ -1,6 +1,6 @@
 package com.webcheckers.model;
 
-public abstract class Player {
+public class Player {
     //Michael Taylor
     private final String name;
     //Andrew Chacon

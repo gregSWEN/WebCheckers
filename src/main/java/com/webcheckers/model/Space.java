@@ -1,10 +1,21 @@
 package com.webcheckers.model;
 
 public class Space {
-    private int cellIdx;
+    public enum SpaceColor{
+        WHITE,
+        BLACK,
+        GREY;
+    }
 
-    public Space(int index){
+
+    private int cellIdx;
+    private SpaceColor color;
+    private Piece piece;
+
+    public Space(int index, SpaceColor color, Piece piece){
+        this.color = color;
         this.cellIdx = index;
+        this.piece = piece;
     }
 
     public int getCellIdx() {
@@ -12,10 +23,13 @@ public class Space {
     }
 
     public boolean isValid(){
+        if((color == SpaceColor.GREY) && (piece == null)){
+            return true;
+        }
         return false;
     }
 
     public Piece getPiece(){
-        return null;
+        return piece;
     }
 }
