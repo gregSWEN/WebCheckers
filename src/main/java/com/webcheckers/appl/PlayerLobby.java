@@ -9,14 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class PlayerLobby {
-    private Map<String, Player> playerList;
+    private static Map<String, Player> playerList;
 
-    public PlayerLobby() {
-        this.playerList = new HashMap<>();
-    }
-    public Message addPlayer(String name) {
+    public synchronized Message addPlayer(String name) {
         if (playerInLobby(name)) {
-            return new Message("Player name is taken", Message.Type.ERROR);
+            return Message.error("Player name is taken");
         } else {
             int specialCharCount = 0;
             char[] tempName = name.toCharArray();
@@ -26,7 +23,7 @@ public class PlayerLobby {
                      || Character.isDigit(c))) {
                     specialCharCount++;
                     if (specialCharCount > 1) {
-                        return new Message("Invalid player name", Message.Type.ERROR);
+                        return Message.error("Invalid player name");
                     }
                 }
             }
@@ -35,6 +32,7 @@ public class PlayerLobby {
         }
     }
 
+    public int sizeOfLobby() { return playerList.size(); }
 
     private boolean playerInLobby(String name) {
         return playerList.containsKey(name);
