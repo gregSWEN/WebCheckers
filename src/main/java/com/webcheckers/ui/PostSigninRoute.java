@@ -1,11 +1,10 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.util.Message;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import spark.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class PostSigninRoute implements Route {
@@ -27,7 +26,15 @@ public class PostSigninRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        return null;
+        //
+        Map<String, Object> vm = new HashMap<>();
+        vm.put("title", "Welcome!");
+
+        // display a user message in the Home page
+        vm.put("message", "esketit");
+
+        // render the View
+        return templateEngine.render(new ModelAndView(vm , "home.ftl"));
     }
 
 
