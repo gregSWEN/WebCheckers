@@ -24,6 +24,7 @@ public class GetSigninRoute implements Route {
         final Session httpSession =request.session();
         final Map<String, Object> vm = new HashMap<>();
         vm.put(TITLE_ATTR, TITLE);
+        vm.put(PLAYER_NAME_ATTR, null);
         return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
     }
 }
