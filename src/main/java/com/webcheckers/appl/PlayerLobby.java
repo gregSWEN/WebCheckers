@@ -35,7 +35,7 @@ public class PlayerLobby {
         return playerList.keySet();
     }
 
-    private boolean playerInLobby(String name) {
+    public boolean playerInLobby(String name) {
         return playerList.containsKey(name);
     }
 }
