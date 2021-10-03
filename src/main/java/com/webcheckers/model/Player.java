@@ -1,6 +1,7 @@
 package com.webcheckers.model;
 
 public class Player {
+    //Michael Taylor
     private final String name;
     //Andrew Chacon
 
@@ -19,3 +20,4 @@ public class Player {
     @Override
     public int hashCode() { return name.hashCode(); }
 }
+// This is Greg Reporting for duty
