@@ -15,8 +15,22 @@ public class PlayerLobby {
     public Message addPlayer(Player player) {
         if (playerInLobby(player)) {
             return new Message("Player name is taken", Message.Type.ERROR);
+        } else {
+            int specialCharCount = 0;
+            char[] tempName = player.getName().toCharArray();
+            for (char c: tempName) {
+                if (!(Character.isSpaceChar(c)
+                     || Character.isAlphabetic(c)
+                     || Character.isDigit(c))) {
+                    specialCharCount++;
+                    if (specialCharCount > 1) {
+                        return new Message("Invalid player name", Message.Type.ERROR);
+                    }
+                }
+            }
+            playerList.add(player);
+            return new Message("Player was added to lobby", Message.Type.INFO);
         }
-        return null;
     }
 
 
