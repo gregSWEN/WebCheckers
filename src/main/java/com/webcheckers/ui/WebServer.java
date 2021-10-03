@@ -30,7 +30,7 @@ import spark.TemplateEngine;
  *     <li>HTTP verb for request (GET, POST, PUT, DELETE and so on)</li>
  *     <li><em>Optional:</em> Inclusion of request parameters</li>
  * </ul>
- * </p>
+ *
  *
  * <p>Design choices for generating a response to a request include:
  * <ul>
@@ -38,7 +38,7 @@ import spark.TemplateEngine;
  *     <li>Use different view templates based on results of executing the client request</li>
  *     <li>Redirecting to a different application URL</li>
  * </ul>
- * </p>
+ *
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
