@@ -1,12 +1,16 @@
 package com.webcheckers.model;
 
-public class Player {
+public abstract class Player {
     //Michael Taylor
     private final String name;
     //Andrew Chacon
 
     public Player(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
