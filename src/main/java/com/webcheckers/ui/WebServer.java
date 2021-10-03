@@ -56,6 +56,8 @@ public class WebServer {
 
   public static final String PLAYER_SIGN_IN = "/signin";
 
+
+
   //
   // Attributes
   //
@@ -142,6 +144,8 @@ public class WebServer {
     get(HOME_URL, new GetHomeRoute(templateEngine));
 
     get(PLAYER_SIGN_IN, new GetSigninRoute(templateEngine));
+
+    //    get(HOME_URL, new PostSigninRoute())
 
     //
     LOG.config("WebServer is initialized.");

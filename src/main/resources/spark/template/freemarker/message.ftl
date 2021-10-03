@@ -5,3 +5,10 @@
     <!-- keep here for client-side messages -->
   </div>
 </#if>
+
+<#if player??>
+    <div id="player" class="${message.type}">${message.text}</div>
+<#else>
+    <div id="message" class="INFO" style="display:none">
+    </div>
+</#if>
