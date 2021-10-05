@@ -5,6 +5,7 @@ import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
+import static spark.Spark.halt;
 
 import java.util.*;
 
@@ -42,16 +43,17 @@ public class PostSigninRoute implements Route {
         final String nameString = request.queryParams(PLAYER_NAME_ATTR);
         Message message = gameManager.returnLobby().addPlayer(nameString);
 
-        vm.put("title", "Welcome!");
+        vm.put(TITLE_ATTR, "Welcome!");
         if (!message.isSuccessful()){
             // Get the message that should
              // use message.getType() to
-            vm.put(MESSAGE_ATTR, message.getText());
+            vm.put(MESSAGE_ATTR, message);
         }
         else{
-            vm.put(MESSAGE_ATTR, message.getText());
+            vm.put(MESSAGE_ATTR, message);
         }
         return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+
     }
 
 
