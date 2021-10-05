@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class GameManager {
-    private static final logger LOG = Logger.getLogger(GameManager.class.getName());
+    private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
     private PlayerLobby lobby;
 
     public final static String GAME_PLAY_MESSAGE_YOU = "it\'s your turn. Move your piece and click the submit link. If you want to erase your move click the reset link";
@@ -16,4 +16,5 @@ public class GameManager {
     public Collection<Player> players(){
         return lobby.listOfPlayers();
     }
+    public PlayerLobby returnLobby(){return lobby;}
 }

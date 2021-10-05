@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
+import com.webcheckers.appl.GameManager;
 import spark.TemplateEngine;
 
 
@@ -56,6 +57,9 @@ public class WebServer {
 
   public static final String PLAYER_SIGN_IN = "/signin";
 
+  public static final String PLAYER_SIGNED_IN = "/home";
+
+
 
 
   //
@@ -64,7 +68,7 @@ public class WebServer {
 
   private final TemplateEngine templateEngine;
   private final Gson gson;
-
+  private final GameManager gameManager;
   //
   // Constructor
   //
@@ -80,13 +84,14 @@ public class WebServer {
    * @throws NullPointerException
    *    If any of the parameters are {@code null}.
    */
-  public WebServer(final TemplateEngine templateEngine, final Gson gson) {
+  public WebServer(final TemplateEngine templateEngine, final Gson gson, final GameManager gameManager) {
     // validation
     Objects.requireNonNull(templateEngine, "templateEngine must not be null");
     Objects.requireNonNull(gson, "gson must not be null");
     //
     this.templateEngine = templateEngine;
     this.gson = gson;
+    this.gameManager = gameManager;
   }
 
   //
@@ -144,6 +149,8 @@ public class WebServer {
     get(HOME_URL, new GetHomeRoute(templateEngine));
 
     get(PLAYER_SIGN_IN, new GetSigninRoute(templateEngine));
+
+    get(PLAYER_SIGNED_IN, new PostSigninRoute(gameManager, templateEngine));
 
     //    get(HOME_URL, new PostSigninRoute())
 
