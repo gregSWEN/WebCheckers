@@ -5,11 +5,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import com.webcheckers.appl.GameManager;
+import com.webcheckers.model.Player;
+import spark.*;
 
 import com.webcheckers.util.Message;
 
@@ -23,7 +21,11 @@ public class GetHomeRoute implements Route {
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
+  static final String gameManagerKey = "test"; //CHANGE THIS, made this to make code work
+
   private final TemplateEngine templateEngine;
+
+  private final GameManager gameManager;
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -31,8 +33,9 @@ public class GetHomeRoute implements Route {
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public GetHomeRoute(final TemplateEngine templateEngine) {
+  public GetHomeRoute(final TemplateEngine templateEngine, final GameManager gameManager) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
+    this.gameManager = gameManager;
     //
     LOG.config("GetHomeRoute is initialized.");
   }
@@ -51,12 +54,26 @@ public class GetHomeRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
-    //
-    Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
 
-    // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
+    Map<String, Object> vm = new HashMap<>();
+    final Session httpSession = request.session();
+    Player currentPlayer = httpSession.attribute("currentUser");  //get current player if there is one
+    System.out.println(currentPlayer);
+
+    //making message to show size of players
+    int num = gameManager.returnLobby().sizeOfLobby();
+    Message sizeOfLobbyMsg = Message.info("Current Number of Players: "+num);
+
+    vm.put("title", "Welcome!");
+    if(currentPlayer == null) {
+      vm.put("message", WELCOME_MSG);
+    }else{
+      vm.put(PostSigninRoute.LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()));
+      vm.put(PostSigninRoute.CURRENT_USER, gameManager.returnLobby().getPlayer(currentPlayer.getName()));
+    }
+
+    // display the number of plays currently logged in
+    vm.put("num_of_players", sizeOfLobbyMsg);
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
