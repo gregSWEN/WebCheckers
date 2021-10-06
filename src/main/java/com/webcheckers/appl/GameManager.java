@@ -1,9 +1,6 @@
 package com.webcheckers.appl;
 
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Row;
-import com.webcheckers.model.Space;
+import com.webcheckers.model.*;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -30,19 +27,33 @@ public class GameManager {
     public BoardView make_board(){
         List<Row> rows = new ArrayList<>();
         int length = 8;
+        List<Integer> numbers = new ArrayList<Integer>(Arrays.asList(0, 1, 0, 1, 0, 1, 0, 1));
         for(int i = 0; i < length; i++){
             List<Space> spaces = new ArrayList<>();
-            int swit = 0;
+            int swit = numbers.get(i);
             for(int k = 0; k < length; k++){
-                if(swit == 0){
-                    Space space = new Space(k, Space.SpaceColor.BLACK, null);
+                if(swit == 0 ){
+                    Space space = new Space(k, Space.SpaceColor.WHITE, null);
                     swit = 1;
                     spaces.add(space);
                 }
-                else{
-                    Space space = new Space(k, Space.SpaceColor.WHITE, null);
-                    swit = 0;
-                    spaces.add(space);
+
+                if(swit == 1){
+                    if(i < 3){
+                        Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.RED));
+                        swit = 0;
+                        spaces.add(space);
+                    }
+                    else if(i > 4){
+                        Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.WHITE));
+                        swit = 0;
+                        spaces.add(space);
+                    }
+                    else{
+                        Space space = new Space(k, Space.SpaceColor.BLACK, null);
+                        swit = 0;
+                        spaces.add(space);
+                    }
                 }
             }
             Row row = new Row(i, spaces);
