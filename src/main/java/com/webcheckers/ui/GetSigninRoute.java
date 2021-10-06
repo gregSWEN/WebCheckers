@@ -20,11 +20,15 @@ public class GetSigninRoute implements Route {
     }
 
     /**
-     * 
+     * Render the WebCheckers Sign in Page
+     *
      * @param request
+     *   the HTTP request
      * @param response
+     *   the HTTP response
+     *
      * @return
-     * @throws Exception
+     *   the rendered HTML for the Home page
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
