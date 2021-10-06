@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.GameManager;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Player;
 import com.webcheckers.model.ViewMode;
 import com.webcheckers.ui.GetHomeRoute;
 import spark.*;
@@ -15,6 +16,7 @@ public class GetGameRoute implements Route {
     static final String VIEW_NAME = "game.ftl";
 
     private final TemplateEngine templateEngine;
+
 
     public GetGameRoute(final TemplateEngine templateEngine){
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
@@ -36,15 +38,16 @@ public class GetGameRoute implements Route {
     public Object handle(Request request, Response response) throws Exception {
         final Session httpSession = request.session();
         final GameManager gameManager = httpSession.attribute(GetHomeRoute.gameManagerKey);
-        String currentPlayer = httpSession.attribute("currentUser");
-        String activeColor = httpSession.attribute("activeColor");
-        String redPlayer = httpSession.attribute("redPlayer");
-        String whitePlayer = httpSession.attribute("whitePlayer");
+        Player currentPlayer = httpSession.attribute("currentUser");
+        Player activeColor = httpSession.attribute("activeColor");
+        Player redPlayer = httpSession.attribute("redPlayer");
+        Player whitePlayer = httpSession.attribute("whitePlayer");
 
         // build the view-model
         if(gameManager != null){
             BoardView board = gameManager.make_board();
             final Map<String, Object> vm = new HashMap<>();
+            vm.put("title", "testing");
             vm.put("currentUser", currentPlayer);
             vm.put("activeColor", activeColor);
             vm.put("redPlayer", redPlayer);
