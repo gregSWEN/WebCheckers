@@ -12,8 +12,11 @@ public class Space {
     private SpaceColor color;
     private Piece piece;
 
-    /*
-    initializes the space object
+    /**
+     * initializes the Space object
+     * @param index
+     * @param color
+     * @param piece
      */
     public Space(int index, SpaceColor color, Piece piece){
         this.color = color;
@@ -21,15 +24,20 @@ public class Space {
         this.piece = piece;
     }
 
-    /*
-    returns the cell index
+    /**
+     *
+     * @return
+     * the cell index
      */
     public int getCellIdx() {
         return cellIdx;
     }
 
-    /*
-    this determines if the space is valid for a piece to be placed
+    /**
+     * this determines if the space if valid
+     * for a piece to be placed
+     * @return
+     * true or false
      */
     public boolean isValid(){
         if((color == SpaceColor.GREY) && (piece == null)){
@@ -38,8 +46,10 @@ public class Space {
         return false;
     }
 
-    /*
-    return the piece
+    /**
+     *
+     * @return
+     * the piece
      */
     public Piece getPiece(){
         return piece;

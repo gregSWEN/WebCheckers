@@ -13,23 +13,29 @@ public class Piece {
     private Type type;
     private Color color;
 
-    /*
-    initializes the piece object
+    /**
+     * initializes the Piece object
+     * @param type
+     * @param color
      */
     public Piece(Type type, Color color){
         this.type = type;
         this.color = color;
     }
 
-    /*
-    returns the Color of the piece
+    /**
+     *
+     * @return
+     * the color
      */
     public Color getColor() {
         return color;
     }
 
-    /*
-    returns the type of piece
+    /**
+     *
+     * @return
+     * the type
      */
     public Type getType() {
         return type;

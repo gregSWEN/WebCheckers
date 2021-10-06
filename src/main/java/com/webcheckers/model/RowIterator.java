@@ -9,26 +9,33 @@ public class RowIterator implements Iterator<Row> {
     private final int start = -1;
     private final int end = 8;
 
-    /*
-    initializes the rowIterator class
+    /**
+     * initializes the rowIterator object
+     * @param rows
      */
     public RowIterator(List<Row> rows){
         this.rows = rows;
         this.index = 0;
     }
 
-    /*
-    this determines if there is next element
-    in the list
+    /**
+     * determines if there is a
+     * next element in the list
+     * @return
+     * a boolean type whether it is
+     * true or false
      */
     @Override
     public boolean hasNext() {
         return (start < index) && (index < end);
     }
 
-    /*
-    this retrieves the element from the specified
-    index and returns that element
+    /**
+     * This retrieves the element at the
+     * specified index
+     * increment the index
+     * @return
+     * and returns the element
      */
     @Override
     public Row next() {
