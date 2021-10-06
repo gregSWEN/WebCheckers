@@ -46,6 +46,7 @@ public class GameManager {
                 }
             }
             Row row = new Row(i, spaces);
+            rows.add(row);
         }
         BoardView board = new BoardView(rows);
         return board;

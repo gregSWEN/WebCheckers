@@ -68,7 +68,5 @@ public class GetGameRoute implements Route {
             response.redirect(WebServer.HOME_URL);
             return null;
         }
-
-
     }
 }
