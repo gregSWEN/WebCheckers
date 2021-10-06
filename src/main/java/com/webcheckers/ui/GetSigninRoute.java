@@ -19,6 +19,13 @@ public class GetSigninRoute implements Route {
         this.templateEngine = templateEngine;
     }
 
+    /**
+     * 
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @Override
     public Object handle(Request request, Response response) throws Exception {
         final Session httpSession =request.session();
