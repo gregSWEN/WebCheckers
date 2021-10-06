@@ -16,6 +16,7 @@ public class GetGameRoute implements Route {
 
     private final TemplateEngine templateEngine;
 
+
     public GetGameRoute(final TemplateEngine templateEngine){
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         this.templateEngine = templateEngine;
