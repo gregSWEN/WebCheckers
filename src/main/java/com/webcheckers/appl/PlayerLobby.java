@@ -10,12 +10,15 @@ public class PlayerLobby {
 
     //initialize the player lobby
     public PlayerLobby(){
-        playerList = new HashMap<String, Player>();
+        playerList = new HashMap<>();
     }
 
     public synchronized Message addPlayer(String name) {
+        name = name.strip();
         if (playerInLobby(name)) {
             return Message.error("Player name is taken");
+        } else if (name.equals("")) {
+            return Message.error("Enter a name");
         } else {
             int specialCharCount = 0;
             char[] tempName = name.toCharArray();
@@ -30,7 +33,7 @@ public class PlayerLobby {
                 }
             }
             playerList.put(name, new Player(name));
-            return new Message("Player was added to lobby. Welcome "+ name, Message.Type.INFO);
+            return new Message("You have been added to the lobby! Welcome "+ name, Message.Type.INFO);
         }
     }
 
