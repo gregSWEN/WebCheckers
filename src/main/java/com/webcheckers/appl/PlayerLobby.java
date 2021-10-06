@@ -5,7 +5,13 @@ import com.webcheckers.util.Message;
 
 import java.util.*;
 
+/**
+ * This class is responsible for holding all the players
+ * that are signed in throughout the site.
+ * @author Michael Taylor
+ */
 public class PlayerLobby {
+    /** contains the players in the sitewide lobby. Key is player name */
     private static Map<String, Player> playerList;
 
     //initialize the player lobby
@@ -13,6 +19,15 @@ public class PlayerLobby {
         playerList = new HashMap<>();
     }
 
+    /**
+     * Attempts to add a player to the lobby,
+     * assuming the name is valid and the player isn't
+     * in the lobby
+     * @param name name of the player to be added
+     * @return a Message describing the attempt to add
+     * the player and if it was successful
+     * @author Michael Taylor
+     */
     public synchronized Message addPlayer(String name) {
         name = name.strip();
         if (playerInLobby(name)) {
@@ -37,24 +52,42 @@ public class PlayerLobby {
         }
     }
 
+    /**
+     * Gets every other player in the lobby except
+     * the player you are signed in as
+     * @param current_player player to exclude form list (you)
+     * @return a set of the other players
+     * @author Huan Hunyh
+     */
     public Set<String> listOtherPlayers(String current_player) {
         //make a new set, copy the current set, and remove the current player
-        Set<String> other_players = new HashSet<String>(listOfNames());
+        Set<String> other_players = new HashSet<>(listOfNames());
         other_players.remove(current_player);
         return other_players;
     }
 
+    /**
+     * Gets the amount of people in the lobby
+     * @return number of people in lobby
+     */
     public int sizeOfLobby() { return playerList.size(); }
 
-    public Set<String> listOfNames() {
-        return playerList.keySet();
-    }
+    /**
+     * Gets the names of all people in the lobby
+     * @return set of the names of players in the lobby
+     */
+    public Set<String> listOfNames() { return playerList.keySet(); }
 
-    public Collection<Player> listOfPlayers() {
-        return playerList.values();
-    }
+    /**
+     * Gets the {@link Player}s in the lobby
+     * @return a collection of the Players in the lobby
+     */
+    public Collection<Player> listOfPlayers() { return playerList.values(); }
 
-    public boolean playerInLobby(String name) {
-        return playerList.containsKey(name);
-    }
+    /**
+     * Checks to see if a player is in the lobby
+     * @param name name of player
+     * @return if the player is in the lobby
+     */
+    public boolean playerInLobby(String name) { return playerList.containsKey(name); }
 }
