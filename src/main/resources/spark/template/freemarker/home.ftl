@@ -20,6 +20,10 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
+    <#if num_of_players??>
+      <div id="num_of_players" class="${num_of_players.type}">${num_of_players.text}</div>
+    </#if>
+
     <!-- TODO: future content on the Home:
             to start games,
             spectating active games,
