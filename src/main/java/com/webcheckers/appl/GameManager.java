@@ -1,9 +1,11 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.Row;
+import com.webcheckers.model.Space;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class GameManager {
@@ -23,5 +25,29 @@ public class GameManager {
             lobby = new PlayerLobby();
         }
         return lobby;
+    }
+
+    public BoardView make_board(){
+        List<Row> rows = new ArrayList<>();
+        int length = 8;
+        for(int i = 0; i < length; i++){
+            List<Space> spaces = new ArrayList<>();
+            int swit = 0;
+            for(int k = 0; k < length; k++){
+                if(swit == 0){
+                    Space space = new Space(k, Space.SpaceColor.BLACK, null);
+                    swit = 1;
+                    spaces.add(space);
+                }
+                else{
+                    Space space = new Space(k, Space.SpaceColor.WHITE, null);
+                    swit = 0;
+                    spaces.add(space);
+                }
+            }
+            Row row = new Row(i, spaces);
+        }
+        BoardView board = new BoardView(rows);
+        return board;
     }
 }
