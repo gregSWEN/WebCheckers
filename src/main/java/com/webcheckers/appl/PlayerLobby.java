@@ -21,8 +21,8 @@ public class PlayerLobby {
             char[] tempName = name.toCharArray();
             for (char c: tempName) {
                 if (!(Character.isSpaceChar(c)
-                     || Character.isAlphabetic(c)
-                     || Character.isDigit(c))) {
+                        || Character.isAlphabetic(c)
+                        || Character.isDigit(c))) {
                     specialCharCount++;
                     if (specialCharCount > 1) {
                         return Message.error("Invalid player name");
