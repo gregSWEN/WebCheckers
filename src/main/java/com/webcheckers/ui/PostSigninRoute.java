@@ -19,8 +19,8 @@ public class PostSigninRoute implements Route {
 
     private static final String TITLE = "Sign-In";
     private static final String VIEW_NAME = "signin.ftl";
-    private static final String LIST_PLAYERS = "available_players";
-    private static final String CURRENT_USER = "currentUser";
+    public static final String LIST_PLAYERS = "available_players";
+    public static final String CURRENT_USER = "currentUser";
 
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;
