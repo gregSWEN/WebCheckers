@@ -17,16 +17,22 @@ public class GetGameRoute implements Route {
 
     private final TemplateEngine templateEngine;
 
-    /*
-    initialize the getgameroute
-     */
+
     public GetGameRoute(final TemplateEngine templateEngine){
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         this.templateEngine = templateEngine;
     }
 
-    /*
-    handling the request and response then returning the template engine
+
+    /**
+     *
+     * @param request
+     * the HTTP request
+     * @param response
+     * the HTTP response
+     * @return
+     * THE render of the game board displayed as a grid with the colored checkers
+     * @throws Exception
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
