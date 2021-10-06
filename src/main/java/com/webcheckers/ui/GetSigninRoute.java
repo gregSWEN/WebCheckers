@@ -19,6 +19,17 @@ public class GetSigninRoute implements Route {
         this.templateEngine = templateEngine;
     }
 
+    /**
+     * Render the WebCheckers Sign in Page
+     *
+     * @param request
+     *   the HTTP request
+     * @param response
+     *   the HTTP response
+     *
+     * @return
+     *   the rendered HTML for the Home page
+     */
     @Override
     public Object handle(Request request, Response response) throws Exception {
         final Session httpSession =request.session();

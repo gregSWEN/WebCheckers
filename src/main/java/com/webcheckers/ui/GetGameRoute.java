@@ -23,6 +23,17 @@ public class GetGameRoute implements Route {
         this.templateEngine = templateEngine;
     }
 
+
+    /**
+     *
+     * @param request
+     * the HTTP request
+     * @param response
+     * the HTTP response
+     * @return
+     * THE render of the game board displayed as a grid with the colored checkers
+     * @throws Exception
+     */
     @Override
     public Object handle(Request request, Response response) throws Exception {
         final Session httpSession = request.session();
