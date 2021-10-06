@@ -29,7 +29,10 @@
         Available Players
       </br>
       <#list available_players as n>
-        <a href="/game">${n}</a>
+        <form action="./game" method="POST" id="opposite">
+          <type="text" id="playerName" name="playerName"><br>
+        </form>
+        <button type="submit" form="opposite">${n}</button>
       </#list>
     </#if>
 

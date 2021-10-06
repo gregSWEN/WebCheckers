@@ -53,6 +53,9 @@ public class PostSigninRoute implements Route {
             return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
         }
 
+        //set current player in session
+        session.attribute(CURRENT_USER, gameManager.returnLobby().getPlayer((nameString)));
+        session.attribute(GetHomeRoute.gameManagerKey, gameManager);
         //return user to home page as a player
         vm.put(TITLE_ATTR, "Welcome!");
         vm.put(MESSAGE_ATTR, message);
