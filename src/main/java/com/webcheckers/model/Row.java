@@ -8,15 +8,26 @@ public class Row implements Iterable<Space>{
     private int index;
     private List<Space> spaces;
 
+    /*
+    initializes the row object
+     */
     public Row(int index, List<Space> spaces){
         this.index = index;
         this.spaces = spaces;
     }
 
+    /*
+    returns the index
+     */
     public int getIndex() {
         return index;
     }
 
+    /*
+    This is the built in iterator method that uses the spaceiterator class.
+    this is beneficial for the spark in order to iterate through the spaces
+    in the row
+     */
     @Override
     public Iterator<Space> iterator() {
         return new SpaceIterator(spaces);

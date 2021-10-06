@@ -10,16 +10,26 @@ public class SpaceIterator implements Iterator<Space> {
     private final int start = -1;
     private final int end = 8;
 
+    /*
+    initializes the spaceIterator
+     */
     public SpaceIterator(List<Space> spaces){
         this.spaces = spaces;
         this.index = 0;
     }
 
+    /*
+    this determines if there would be a next element
+     */
     @Override
     public boolean hasNext() {
         return (start < index) && (index < end);
     }
 
+    /*
+    this grabs the element from the specified index in
+    the list then returns the element
+     */
     @Override
     public Space next() {
         Space space = spaces.get(index);
