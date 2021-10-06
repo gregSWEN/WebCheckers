@@ -24,6 +24,18 @@
       <div id="num_of_players" class="${num_of_players.type}">${num_of_players.text}</div>
     </#if>
 
+    <#if available_players??>
+      <br>
+        Available Players
+      </br>
+      <#list available_players as n>
+        <form action="./game" method="POST" id="opposite">
+          <type="text" id="playerName" name="playerName"><br>
+        </form>
+        <button type="submit" form="opposite">${n}</button>
+      </#list>
+    </#if>
+
     <!-- TODO: future content on the Home:
             to start games,
             spectating active games,

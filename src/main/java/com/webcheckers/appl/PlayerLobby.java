@@ -37,6 +37,13 @@ public class PlayerLobby {
         }
     }
 
+    public Set<String> listOtherPlayers(String current_player) {
+        //make a new set, copy the current set, and remove the current player
+        Set<String> other_players = new HashSet<String>(listOfNames());
+        other_players.remove(current_player);
+        return other_players;
+    }
+
     public int sizeOfLobby() { return playerList.size(); }
 
     public Set<String> listOfNames() {
@@ -49,5 +56,16 @@ public class PlayerLobby {
 
     public boolean playerInLobby(String name) {
         return playerList.containsKey(name);
+    }
+
+    public Player getPlayer(String name){
+        //return a Player given String name
+        Collection<Player> players = listOfPlayers();
+            for(Player player: players){
+                if(player.getName().equals(name)){
+                    return player;
+                }
+            }
+            return null;
     }
 }
