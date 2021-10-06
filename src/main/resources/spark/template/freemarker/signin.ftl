@@ -9,7 +9,7 @@
         <h2>Sign-In Page</h2>
         <br>
         <h4>Type a Valid name to Sign-In</h4>
-        <form action="./home" Method = "POST">
+        <form action="/signin" Method = "POST">
             <br>
             First Name : <input type="text" name = "playerName" size="50" >
             <br>

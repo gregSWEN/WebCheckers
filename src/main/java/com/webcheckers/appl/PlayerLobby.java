@@ -8,6 +8,11 @@ import java.util.*;
 public class PlayerLobby {
     private static Map<String, Player> playerList;
 
+    //initialize the player lobby
+    public PlayerLobby(){
+        playerList = new HashMap<String, Player>();
+    }
+
     public synchronized Message addPlayer(String name) {
         if (playerInLobby(name)) {
             return Message.error("Player name is taken");
