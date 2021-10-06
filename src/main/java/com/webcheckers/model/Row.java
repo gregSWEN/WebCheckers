@@ -8,9 +8,9 @@ public class Row implements Iterable<Space>{
     private int index;
     private List<Space> spaces;
 
-    public Row(int index){
+    public Row(int index, List<Space> spaces){
         this.index = index;
-        spaces = new ArrayList<>();
+        this.spaces = spaces;
     }
 
     public int getIndex() {
