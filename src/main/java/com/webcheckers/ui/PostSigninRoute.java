@@ -19,6 +19,7 @@ public class PostSigninRoute implements Route {
 
     private static final String TITLE = "Sign-In";
     private static final String VIEW_NAME = "signin.ftl";
+    private static final String LIST_PLAYERS = "available_players";
 
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;
@@ -55,8 +56,9 @@ public class PostSigninRoute implements Route {
         vm.put(TITLE_ATTR, "Welcome!");
         vm.put(MESSAGE_ATTR, message);
         response.redirect("/");
-        return null;  //templateEngine.render(new ModelAndView(vm , "home.ftl"));
-
+        //return null;  //templateEngine.render(new ModelAndView(vm , "home.ftl"));
+        vm.put(LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(nameString));
+        return templateEngine.render(new ModelAndView(vm , "home.ftl"));
     }
 
 

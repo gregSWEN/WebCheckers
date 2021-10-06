@@ -37,6 +37,13 @@ public class PlayerLobby {
         }
     }
 
+    public Set<String> listOtherPlayers(String current_player) {
+        //make a new set, copy the current set, and remove the current player
+        Set<String> other_players = new HashSet<String>(listOfNames());
+        other_players.remove(current_player);
+        return other_players;
+    }
+
     public int sizeOfLobby() { return playerList.size(); }
 
     public Set<String> listOfNames() {
