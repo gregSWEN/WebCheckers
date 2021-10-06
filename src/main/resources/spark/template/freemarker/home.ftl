@@ -29,7 +29,7 @@
         Available Players
       </br>
       <#list available_players as n>
-        <p> ${n} </p>
+        <a href="/game">${n}</a>
       </#list>
     </#if>
 

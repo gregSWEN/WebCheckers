@@ -57,4 +57,15 @@ public class PlayerLobby {
     public boolean playerInLobby(String name) {
         return playerList.containsKey(name);
     }
+
+    public Player getPlayer(String name){
+        //return a Player given String name
+        Collection<Player> players = listOfPlayers();
+            for(Player player: players){
+                if(player.getName().equals(name)){
+                    return player;
+                }
+            }
+            return null;
+    }
 }
