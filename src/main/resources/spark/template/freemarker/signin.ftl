@@ -1,23 +1,37 @@
 <!DOCTYPE html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-    <title>${title}</title>
-    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+  <meta http-equiv="refresh" content="60">
+  <title>Sign-In</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
+
 <body>
-    <div class="signin">
-        <h2>Sign-In Page</h2>
-        <br>
-        <h4>Type a Valid name to Sign-In</h4>
-        <form action="/signin" Method = "POST">
-            <br>
-            First Name : <input type="text" name = "playerName" size="50" >
-            <br>
-            <button type="submit">Sign-In</button>
+<div class="page">
 
-        </form>
+  <h1>Sign-In</h1>
 
-    </div>
+  <!-- Provide a navigation bar -->
+ <div class="navigation">
+ <#if !currentUser??>
+     <a href="/">my home</a>
+ </#if>
+ </div>
 
+  <div class="body">
+    <!-- Provide a message to the user, if supplied. -->
+    <#include "message.ftl" />
+
+<form action="./signin" method="POST" id="formUser">
+<label for="playerName">Username:</label><br>
+  <input type="text" id="playerName" name="playerName"><br>
+</form>
+
+<button type="submit" form="formUser">Sign-In</button>
+  </div>
+
+</div>
 </body>
+
 </html>

@@ -44,18 +44,11 @@ public class PostSigninRoute implements Route {
         Message message = gameManager.returnLobby().addPlayer(nameString);
 
         vm.put(TITLE_ATTR, "Welcome!");
-        vm.put(MESSAGE_ATTR, message.getText());
+        vm.put(MESSAGE_ATTR, message);
 
 
         vm.put("title", "Welcome!");
-        if (!message.isSuccessful()){
-            // Get the message that should
-             // use message.getType() to
-            vm.put(MESSAGE_ATTR, message.getText());
-        }
-        else{
-            vm.put(MESSAGE_ATTR, message.getText());
-        }
+        vm.put(MESSAGE_ATTR, message);
         return templateEngine.render(new ModelAndView(vm , "home.ftl"));
 
     }
