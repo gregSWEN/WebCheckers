@@ -5,11 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import spark.*;
 
 import com.webcheckers.util.Message;
 
@@ -22,6 +18,8 @@ public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+
+  static final String gameManagerKey = "test"; //CHANGE THIS, made this to make code work
 
   private final TemplateEngine templateEngine;
 
@@ -52,6 +50,7 @@ public class GetHomeRoute implements Route {
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
     //
+
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
 

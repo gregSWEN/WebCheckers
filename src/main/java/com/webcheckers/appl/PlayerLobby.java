@@ -35,6 +35,10 @@ public class PlayerLobby {
         return playerList.keySet();
     }
 
+    public Collection<Player> listOfPlayers() {
+        return playerList.values();
+    }
+
     public boolean playerInLobby(String name) {
         return playerList.containsKey(name);
     }
