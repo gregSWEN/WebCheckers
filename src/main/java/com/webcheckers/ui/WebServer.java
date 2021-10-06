@@ -152,7 +152,7 @@ public class WebServer {
 
     post(PLAYER_SIGN_IN, new PostSigninRoute(gameManager, templateEngine));
 
-    //    get(HOME_URL, new PostSigninRoute())
+    //  get(HOME_URL, new PostSigninRoute())
 
     //
     LOG.config("WebServer is initialized.");
