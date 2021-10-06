@@ -30,7 +30,7 @@
       </br>
       <#list available_players as n>
         <form action="./game" method="POST" id="opposite">
-          <type="text" id="playerName" name="playerName"><br>
+          <type="text" id="opposite" name="opposite"><br>
         </form>
         <button type="submit" form="opposite">${n}</button>
       </#list>

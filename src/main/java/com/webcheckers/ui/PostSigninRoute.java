@@ -60,7 +60,6 @@ public class PostSigninRoute implements Route {
         //return user to home page as a player
         vm.put(TITLE_ATTR, "Welcome!");
         vm.put(MESSAGE_ATTR, message);
-        response.redirect("/");
         //return null;  //templateEngine.render(new ModelAndView(vm , "home.ftl"));
         vm.put(LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(nameString));
         vm.put(CURRENT_USER, gameManager.returnLobby().getPlayer((nameString)));

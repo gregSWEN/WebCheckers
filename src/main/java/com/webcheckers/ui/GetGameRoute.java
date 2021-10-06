@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class GetGameRoute implements Route {
     static final String VIEW_NAME = "game.ftl";
+    static final String ENEMY_PLAYER = "opposite";
 
     private final TemplateEngine templateEngine;
 
@@ -36,12 +37,15 @@ public class GetGameRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
+
         final Session httpSession = request.session();
         final GameManager gameManager = httpSession.attribute(GetHomeRoute.gameManagerKey);
         Player currentPlayer = httpSession.attribute("currentUser");
         Player activeColor = httpSession.attribute("activeColor");
         Player redPlayer = httpSession.attribute("redPlayer");
         Player whitePlayer = httpSession.attribute("whitePlayer");
+        String Enemy = request.queryParams(ENEMY_PLAYER);
+        System.out.println("TESTING "+Enemy);
 
         // build the view-model
         if(gameManager != null){
