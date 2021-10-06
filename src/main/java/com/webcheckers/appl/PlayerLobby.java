@@ -30,7 +30,7 @@ public class PlayerLobby {
                 }
             }
             playerList.put(name, new Player(name));
-            return new Message("Player was added to lobby", Message.Type.INFO);
+            return new Message("Player was added to lobby. Welcome "+ name, Message.Type.INFO);
         }
     }
 

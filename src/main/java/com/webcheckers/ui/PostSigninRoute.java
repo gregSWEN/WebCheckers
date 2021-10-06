@@ -43,11 +43,16 @@ public class PostSigninRoute implements Route {
         final String nameString = request.queryParams(PLAYER_NAME_ATTR);
         Message message = gameManager.returnLobby().addPlayer(nameString);
 
+        //if a player name is invalid, return to sign-in page with error msg
+        if(message.getType() == Message.Type.ERROR) {
+            vm.put(TITLE_ATTR, TITLE);
+            vm.put(PLAYER_NAME_ATTR, null);
+            vm.put(MESSAGE_ATTR, message);
+            return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
+        }
+
+        //return user to home page as a player
         vm.put(TITLE_ATTR, "Welcome!");
-        vm.put(MESSAGE_ATTR, message);
-
-
-        vm.put("title", "Welcome!");
         vm.put(MESSAGE_ATTR, message);
         return templateEngine.render(new ModelAndView(vm , "home.ftl"));
 
