@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.GameManager;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.ViewMode;
 import com.webcheckers.ui.GetHomeRoute;
@@ -17,11 +18,13 @@ public class GetGameRoute implements Route {
     static final String ENEMY_PLAYER = "opposite";
 
     private final TemplateEngine templateEngine;
+    private final GameManager gameManager;
 
 
-    public GetGameRoute(final TemplateEngine templateEngine){
+    public GetGameRoute(final GameManager gameManager, final TemplateEngine templateEngine){
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         this.templateEngine = templateEngine;
+        this.gameManager = gameManager;
     }
 
 
@@ -42,10 +45,10 @@ public class GetGameRoute implements Route {
         final GameManager gameManager = httpSession.attribute(GetHomeRoute.gameManagerKey);
         Player currentPlayer = httpSession.attribute("currentUser");
         Player activeColor = httpSession.attribute("activeColor");
-        Player redPlayer = httpSession.attribute("redPlayer");
-        Player whitePlayer = httpSession.attribute("whitePlayer");
+        //Player redPlayer = httpSession.attribute("redPlayer");
+        //Player whitePlayer = httpSession.attribute("whitePlayer");
         String Enemy = request.queryParams(ENEMY_PLAYER);
-        System.out.println("TESTING "+Enemy);
+        Player enemyPlayer = gameManager.returnLobby().getPlayer(Enemy);
 
         // build the view-model
         if(gameManager != null){
@@ -53,9 +56,9 @@ public class GetGameRoute implements Route {
             final Map<String, Object> vm = new HashMap<>();
             vm.put("title", "testing");
             vm.put("currentUser", currentPlayer);
-            vm.put("activeColor", activeColor);
-            vm.put("redPlayer", redPlayer);
-            vm.put("whitePlayer", whitePlayer);
+            vm.put("activeColor", Piece.Color.RED);
+            vm.put("redPlayer", currentPlayer);
+            vm.put("whitePlayer", enemyPlayer);
             vm.put("viewMode", ViewMode.PLAY);
             vm.put("board", board);
 
