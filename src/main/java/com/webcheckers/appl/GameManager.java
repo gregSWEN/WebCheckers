@@ -24,7 +24,7 @@ public class GameManager {
         return lobby;
     }
 
-    public BoardView make_board(boolean white_top){
+    public static BoardView make_board(boolean white_top){
         List<Row> rows = new ArrayList<>();
         int length = 8;
         List<Integer> numbers = new ArrayList<Integer>(Arrays.asList(0, 1, 0, 1, 0, 1, 0, 1));
