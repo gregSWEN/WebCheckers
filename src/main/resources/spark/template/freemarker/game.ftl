@@ -14,7 +14,7 @@
     "redPlayer" : "${redPlayer.name}",
     "whitePlayer" : "${whitePlayer.name}",
     "activeColor" : "${activeColor}"
-  };]
+  };
   </script>
 </head>
 <body>

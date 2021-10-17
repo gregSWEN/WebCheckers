@@ -8,10 +8,12 @@ package com.webcheckers.model;
 public class Player {
     /** name of player */
     private final String name;
+    /** the current game the player is in */
+    private GameModel game;
 
     public Player(String name) { this.name = name; }
-
     public String getName() { return name; }
+    public GameModel getGame(){return game;}
 
     /**
      * Two players are equal if their names are
@@ -30,4 +32,8 @@ public class Player {
 
     @Override
     public int hashCode() { return name.hashCode(); }
+
+    public void startGame(GameModel game){
+        this.game = game;
+    }
 }

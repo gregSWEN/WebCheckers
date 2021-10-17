@@ -2,10 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.GameManager;
 import com.webcheckers.appl.PlayerLobby;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Piece;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.ViewMode;
+import com.webcheckers.model.*;
 import com.webcheckers.ui.GetHomeRoute;
 import spark.*;
 
@@ -15,7 +12,6 @@ import java.util.Objects;
 
 public class GetGameRoute implements Route {
     static final String VIEW_NAME = "game.ftl";
-    static final String ENEMY_PLAYER = "opposite";
 
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;
@@ -26,8 +22,6 @@ public class GetGameRoute implements Route {
         this.templateEngine = templateEngine;
         this.gameManager = gameManager;
     }
-
-
     /**
      *
      * @param request
@@ -44,23 +38,19 @@ public class GetGameRoute implements Route {
         final Session httpSession = request.session();
         final GameManager gameManager = httpSession.attribute(GetHomeRoute.gameManagerKey);
         Player currentPlayer = httpSession.attribute("currentUser");
-        Player activeColor = httpSession.attribute("activeColor");
-        Player redPlayer = httpSession.attribute("redPlayer");
-        Player whitePlayer = httpSession.attribute("whitePlayer");
-        String Enemy = request.queryParams(ENEMY_PLAYER);
-        Player enemyPlayer = gameManager.returnLobby().getPlayer(Enemy);
+        GameModel game = currentPlayer.getGame();
+        System.out.println(game);
 
-        // build the view-model
-        if(gameManager != null){
-            BoardView board = gameManager.make_board();
+        // build the view-model for the player
+        if(gameManager != null && game != null){
             final Map<String, Object> vm = new HashMap<>();
             vm.put("title", "testing");
             vm.put("currentUser", currentPlayer);
-            vm.put("activeColor", Piece.Color.RED);
-            vm.put("redPlayer", currentPlayer);
-            vm.put("whitePlayer", enemyPlayer);
+            vm.put("activeColor", game.getActiveColor());
+            vm.put("redPlayer", game.getRedPlayer());
+            vm.put("whitePlayer", game.getWhitePlayer());
             vm.put("viewMode", ViewMode.PLAY);
-            vm.put("board", board);
+            vm.put("board", game.getBoard());
 
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
         }

@@ -58,7 +58,14 @@ public class GetHomeRoute implements Route {
     Map<String, Object> vm = new HashMap<>();
     final Session httpSession = request.session();
     Player currentPlayer = httpSession.attribute("currentUser");  //get current player if there is one
-    System.out.println(currentPlayer);
+
+    //put player from homescreen in game if an opponent selected them
+    if(currentPlayer != null){
+      if(currentPlayer.getGame() != null) {
+        response.redirect("/game");
+        return null;
+      }
+    }
 
     //making message to show size of players
     int num = gameManager.returnLobby().sizeOfLobby();
