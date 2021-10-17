@@ -52,7 +52,7 @@ public class GetGameRoute implements Route {
 
         // build the view-model
         if(gameManager != null){
-            BoardView board = gameManager.make_board();
+            BoardView board = gameManager.make_board(false);
             final Map<String, Object> vm = new HashMap<>();
             vm.put("title", "testing");
             vm.put("currentUser", currentPlayer);
