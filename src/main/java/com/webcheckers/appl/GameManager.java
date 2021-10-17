@@ -24,7 +24,7 @@ public class GameManager {
         return lobby;
     }
 
-    public static BoardView make_board(boolean white_top){
+    public static BoardView make_board(){
         List<Row> rows = new ArrayList<>();
         int length = 8;
         List<Integer> numbers = new ArrayList<Integer>(Arrays.asList(0, 1, 0, 1, 0, 1, 0, 1));
@@ -40,28 +40,14 @@ public class GameManager {
 
                 if(swit == 1){
                     if(i < 3){
-                        if(white_top){
-                            Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.WHITE));
-                            swit = 0;
-                            spaces.add(space);
-                        }
-                        else{
-                            Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.RED));
-                            swit = 0;
-                            spaces.add(space);
-                        }
+                        Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.RED));
+                        swit = 0;
+                        spaces.add(space);
                     }
                     else if(i > 4){
-                        if(white_top){
-                            Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.RED));
-                            swit = 0;
-                            spaces.add(space);
-                        }
-                        else{
-                            Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.WHITE));
-                            swit = 0;
-                            spaces.add(space);
-                        }
+                        Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.WHITE));
+                        swit = 0;
+                        spaces.add(space);
                     }
                     else{
                         Space space = new Space(k, Space.SpaceColor.BLACK, null);

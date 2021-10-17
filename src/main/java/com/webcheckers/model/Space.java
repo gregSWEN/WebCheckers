@@ -33,6 +33,8 @@ public class Space {
         return cellIdx;
     }
 
+    public SpaceColor getColor() {return color;}
+
     /**
      * this determines if the space if valid
      * for a piece to be placed

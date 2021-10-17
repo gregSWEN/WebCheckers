@@ -18,7 +18,7 @@ public class GameModel {
         //also makes the board using gameManger and sets first move to red
         this.red_player.startGame(this);
         this.white_player.startGame(this);
-        this.board = GameManager.make_board(true);
+        this.board = GameManager.make_board();
         this.currentColor = Piece.Color.RED;
     }
 

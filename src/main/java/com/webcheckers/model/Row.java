@@ -27,6 +27,8 @@ public class Row implements Iterable<Space>{
         return index;
     }
 
+    public List<Space> getSpaces(){return spaces;}
+
     /**
      * This is the built in iterator method that uses the spaceiterator class.
      * this is beneficial for the spark in order to iterate through the spaces
