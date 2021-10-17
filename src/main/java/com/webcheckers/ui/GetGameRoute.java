@@ -14,8 +14,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class GetGameRoute implements Route {
-    static final String VIEW_NAME = "game.ftl";
-    static final String ENEMY_PLAYER = "opposite";
+    static final String VIEW_NAME_ATTR = "game.ftl";
+    static final String ENEMY_PLAYER_ATTR = "opposite";
+
 
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;
@@ -47,7 +48,7 @@ public class GetGameRoute implements Route {
         Player activeColor = httpSession.attribute("activeColor");
         Player redPlayer = httpSession.attribute("redPlayer");
         Player whitePlayer = httpSession.attribute("whitePlayer");
-        String Enemy = request.queryParams(ENEMY_PLAYER);
+        String Enemy = request.queryParams(ENEMY_PLAYER_ATTR);
         Player enemyPlayer = gameManager.returnLobby().getPlayer(Enemy);
 
         // build the view-model
@@ -62,7 +63,7 @@ public class GetGameRoute implements Route {
             vm.put("viewMode", ViewMode.PLAY);
             vm.put("board", board);
 
-            return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
+            return templateEngine.render(new ModelAndView(vm, VIEW_NAME_ATTR));
         }
         else{
             response.redirect(WebServer.HOME_URL);
