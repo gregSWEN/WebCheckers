@@ -36,7 +36,11 @@ public class BoardView implements Iterable<Row>{
             List<Space> spaces = new ArrayList<>();
             for (int k = 0; k < length; k++){
                 List<Space> old_spaces = row.getSpaces();
-                if(old_spaces.get(k).getPiece().getColor() == Piece.Color.RED){
+                if (old_spaces.get(k).getPiece() == null){
+                    Space new_space = new Space(k, old_spaces.get(k).getColor(), null);
+                    spaces.add(new_space);
+                }
+               else if(old_spaces.get(k).getPiece().getColor() == Piece.Color.RED){
                     Piece piece = new Piece(old_spaces.get(k).getPiece().getType(), Piece.Color.WHITE);
                     Space new_space = new Space(k, old_spaces.get(k).getColor(), piece);
                     spaces.add(new_space);
@@ -46,10 +50,6 @@ public class BoardView implements Iterable<Row>{
                     Space new_space = new Space(k, old_spaces.get(k).getColor(), piece);
                     spaces.add(new_space);
                 }
-                else{
-                    Space new_space = new Space(k, old_spaces.get(k).getColor(), null);
-                    spaces.add(new_space);
-                }
             }
             Row new_row = new Row(i, spaces);
             new_rows.add(new_row);
@@ -57,4 +57,10 @@ public class BoardView implements Iterable<Row>{
         BoardView new_board = new BoardView(new_rows);
         return new_board;
     }
+
+    /*public void setRows(List<Row> rows) {
+        List<Row> rows = new ArrayList<>();
+        for(int i = 0; i < )
+        this.rows = rows;
+    }*/
 }
