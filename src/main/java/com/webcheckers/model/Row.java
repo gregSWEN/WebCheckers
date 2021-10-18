@@ -38,4 +38,6 @@ public class Row implements Iterable<Space>{
     public Iterator<Space> iterator() {
         return new SpaceIterator(spaces);
     }
+
+    public Space getSpace(int index) { return spaces.get(index); }
 }

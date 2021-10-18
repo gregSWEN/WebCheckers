@@ -14,9 +14,17 @@ import java.util.Map;
 import java.util.Objects;
 
 public class GetGameRoute implements Route {
-    static final String VIEW_NAME_ATTR = "game.ftl";
-    static final String ENEMY_PLAYER_ATTR = "opposite";
+    public static final String VIEW_NAME_ATTR = "game.ftl";
+    public static final String ENEMY_PLAYER_ATTR = "opposite";
+    public static final String TITLE_ATTR = "title";
+    public static final String CURRENT_USER_ATTR = "currentUser";
+    public static final String ACTIVE_COLOR_ATTR = "activeColor";
+    public static final String RED_PLAYER_ATTR = "redPlayer";
+    public static final String WHITE_PLAYER_ATTR  = "whitePlayer";
+    public static final String VIEW_MODE_ATTR = "viewMode";
+    public static final String BOARD_ATTR = "board";
 
+    private static final String TITLE = "Welcome to the game!";
 
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;
@@ -55,13 +63,13 @@ public class GetGameRoute implements Route {
         if(gameManager != null){
             BoardView board = gameManager.make_board();
             final Map<String, Object> vm = new HashMap<>();
-            vm.put("title", "testing");
-            vm.put("currentUser", currentPlayer);
-            vm.put("activeColor", Piece.Color.RED);
-            vm.put("redPlayer", currentPlayer);
-            vm.put("whitePlayer", enemyPlayer);
-            vm.put("viewMode", ViewMode.PLAY);
-            vm.put("board", board);
+            vm.put(TITLE_ATTR, TITLE);
+            vm.put(CURRENT_USER_ATTR, currentPlayer);
+            vm.put(ACTIVE_COLOR_ATTR, Piece.Color.RED);
+            vm.put(RED_PLAYER_ATTR, currentPlayer);
+            vm.put(WHITE_PLAYER_ATTR, enemyPlayer);
+            vm.put(VIEW_MODE_ATTR, ViewMode.PLAY);
+            vm.put(BOARD_ATTR, board);
 
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME_ATTR));
         }

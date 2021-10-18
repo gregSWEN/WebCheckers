@@ -26,4 +26,6 @@ public class BoardView implements Iterable<Row>{
     public Iterator<Row> iterator() {
         return new RowIterator(rows);
     }
+
+    public Space getSpaceAt(int rowIdx, int cellIdx) { return rows.get(rowIdx).getSpace(cellIdx); }
 }
