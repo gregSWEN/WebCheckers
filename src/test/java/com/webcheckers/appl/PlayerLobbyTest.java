@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the functionality of the PlayerLobby class, which
+ * keeps track of players currently signed in
+ */
 @Tag("Application-tier")
 public class PlayerLobbyTest {
     private PlayerLobby playerLobby = new PlayerLobby();

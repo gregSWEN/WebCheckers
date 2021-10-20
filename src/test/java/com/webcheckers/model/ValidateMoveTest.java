@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.LinkedList;
 
+/**
+ * Tests the functionality of the ValidateMove class, which
+ * is responsible for making sure an input move is legal
+ */
 @Tag("Model-tier")
 public class ValidateMoveTest {
     private List<Row> rows = new LinkedList<>();
