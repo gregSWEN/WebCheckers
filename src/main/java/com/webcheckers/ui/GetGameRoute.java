@@ -51,7 +51,11 @@ public class GetGameRoute implements Route {
             vm.put("redPlayer", game.getRedPlayer());
             vm.put("whitePlayer", game.getWhitePlayer());
             vm.put("viewMode", ViewMode.PLAY);
-            vm.put("board", game.getBoard());
+            if(currentPlayer == game.getRedPlayer()){
+                vm.put("board", game.getBoard().flip_board());
+            }else{
+                vm.put("board", game.getBoard());
+            }
 
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
         }
