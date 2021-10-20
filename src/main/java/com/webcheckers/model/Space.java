@@ -57,4 +57,6 @@ public class Space {
     public boolean isPieceWhite() { return piece.getColor() == Piece.Color.WHITE; }
 
     public boolean isPieceKing() { return piece.getType() == Piece.Type.KING; }
+
+    public void setPiece (Piece piece) { this.piece = piece; }
 }

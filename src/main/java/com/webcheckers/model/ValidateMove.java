@@ -8,6 +8,9 @@ public class ValidateMove {
     private final int endRow;
     private final int endCell;
     private final BoardView board;
+    public static final String INVALID = "Invalid move";
+    public static final String CAPTURE = "You captured a piece!";
+    public static final String CAPTURE_OWN = "You cannot capture your own piece";
 
     public ValidateMove(Move move, BoardView board) {
         this.startRow = move.getStart().getRow();
