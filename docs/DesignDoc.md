@@ -9,20 +9,24 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: thePurpleNarwhals
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Michael Taylor
+  * Greg Villafane
+  * Huan Huynh
+  * Andrew Chacon
 
 ## Executive Summary
-
-This is a summary of the project.
+The application must allow players to play checkers with other players who are currently signed in.
+The game user interface (UI) will support a game experience using drag-and-drop browser capabilities
+for making moves. Beyond this minimal set of features, we have grand vision for how we could further enhance
+the player experience with some additional features beyond the basic checkers game.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+Create a web-based Checkers game using Maven and Freemarker, implementing
+the game through frontend and backend development. Each player should be able to 
+successfully play a game of checkers.
+
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -36,12 +40,12 @@ This is a summary of the project.
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
-
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+* As a user I want to be able to sign in with the desired username of my choice.
+* As a user I want to be able to start a game and play with another.
+* <br> As a user I want to be able to move a piece when I drag a piece to a valid square.
+* As a user I want to be able to capture a piece when I drag a piece over an opponent's piece.
+* As a user I want to be able to forfeit the game when I feel helpless to end the game.
 
 ### MVP Features
 > _Provide a list of top-level Epics and/or Stories of the MVP._
@@ -54,12 +58,11 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](domain-model-placeholder.png)
+![The WebCheckers Domain Model](domain-model.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
-
+A Player will play a Checkers game, making the move using the pieces. The Game
+has a Board for the game to be played on. The Board is made up of Rows and Spaces, which
+the pieces will be stored on.
 
 ## Architecture and Design
 
@@ -87,10 +90,13 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](web-interface-placeholder.png)
+![The WebCheckers Web Interface Statechart](web-interface.png)
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+The user will go to the home page when first coming to the application. The user will
+then be able to get to the /signin page. If the name entered is valid, then they will be
+taken to the /home page. If the name entered is invalid, then they will stay at the /signin
+page. When the user is signed in and at the home page, the user will then be able to get to the
+/game page to play a game.
 
 
 ### UI Tier
