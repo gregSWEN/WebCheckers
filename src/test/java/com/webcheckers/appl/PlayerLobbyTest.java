@@ -1,8 +1,12 @@
 package com.webcheckers.appl;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import java.util.*;
 
 /**
  * Tests the functionality of the PlayerLobby class, which
@@ -19,15 +23,15 @@ public class PlayerLobbyTest {
 
     @Test
     public void testEmpty() {
-        assertNull(playerLobby.listOfPlayers());
-        assertNull(playerLobby.listOfNames());
+        assertNotNull(playerLobby.listOfPlayers());
+        assertNotNull(playerLobby.listOfNames());
         assertEquals(playerLobby.sizeOfLobby(), 0);
     }
 
     @Test
     public void testInvalidNames() {
         assertEquals(playerLobby.addPlayer("     ").getText(), BLANK_NAME);
-        assertEquals(playerLobby.addPlayer("13344242").getText(), NO_ALPHANUM);
+        assertEquals(playerLobby.addPlayer("!!").getText(), NO_ALPHANUM);
         assertEquals(playerLobby.addPlayer("acb!@#").getText(), INVALID_NAME);
     }
 
@@ -42,6 +46,6 @@ public class PlayerLobbyTest {
         assertEquals(playerLobby.addPlayer("Bob").getText(), NAME_TAKEN);
         assertTrue(playerLobby.playerInLobby("Bob"));
         assertNotNull(playerLobby.listOfNames());
-        assertEquals(playerLobby.sizeOfLobby(), 1);
+        assertEquals(playerLobby.sizeOfLobby(), 2);
     }
 }

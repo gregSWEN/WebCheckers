@@ -40,4 +40,8 @@ public class Row implements Iterable<Space>{
     }
 
     public Space getSpace(int index) { return spaces.get(index); }
+
+    public List<Space> makeEmptySpaces() {
+        return null;
+    }
 }

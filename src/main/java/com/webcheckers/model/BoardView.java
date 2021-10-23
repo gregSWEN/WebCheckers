@@ -27,6 +27,10 @@ public class BoardView implements Iterable<Row>{
         return new RowIterator(rows);
     }
 
+    public BoardView makeEmptyBoard() {
+        return null;
+    }
+
     public Space getSpaceAt(int rowIdx, int cellIdx) { return rows.get(rowIdx).getSpace(cellIdx); }
 
     public void setSpaceAt(int rowIdx, int cellIdx, Piece piece) {
