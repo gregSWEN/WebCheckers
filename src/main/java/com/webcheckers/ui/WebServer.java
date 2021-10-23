@@ -153,7 +153,9 @@ public class WebServer {
 
     post(PLAYER_SIGN_IN, new PostSigninRoute(gameManager, templateEngine));
 
-    post(GAME_URL, new GetGameRoute(gameManager, templateEngine));
+    get(GAME_URL, new GetGameRoute(gameManager, templateEngine));
+
+    post(GAME_URL, new PostGameRoute(gameManager, templateEngine));
 
     post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine));
 

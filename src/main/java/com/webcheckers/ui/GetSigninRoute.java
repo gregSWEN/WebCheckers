@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.model.Player;
 import spark.*;
 
 import java.util.HashMap;
@@ -33,6 +34,13 @@ public class GetSigninRoute implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         final Session httpSession = request.session();
+        Player currentPlayer = httpSession.attribute("currentUser");  //get current player if there is one
+
+        //dont go to sign in page if player is signed in
+        if(currentPlayer != null){
+            response.redirect("/");
+            return null;
+        }
         final Map<String, Object> vm = new HashMap<>();
         vm.put(TITLE_ATTR, TITLE);
         vm.put(PLAYER_NAME_ATTR, null);
