@@ -20,10 +20,12 @@ public class PostValidateMoveRoute implements Route {
     private final TemplateEngine templateEngine;
     private final Gson gson = new Gson();
     private GameModel gameModel;
-    public PostValidateMoveRoute(TemplateEngine templateEngine/*, GameModel gameModel*/) {
+    private GameManager manager;
+    public PostValidateMoveRoute(TemplateEngine templateEngine, GameManager manager/*, GameModel gameModel*/) {
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         Objects.requireNonNull(gameModel, "gameModel must not be null");
         this.templateEngine = templateEngine;
+        this.manager = manager;
         //this.gameModel = gameModel;
     }
 
@@ -31,6 +33,7 @@ public class PostValidateMoveRoute implements Route {
     public Object handle(Request request, Response response) throws Exception {
         final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
+        gameModel = manager.getGame();
         String moveStr = request.queryParams(ACTION_DATA_ATTR);
         String boardStr = request.queryParams("board");
         Move move = gson.fromJson(moveStr, com.webcheckers.model.Move.class);
