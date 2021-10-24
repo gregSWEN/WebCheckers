@@ -1,10 +1,13 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
+import com.webcheckers.appl.GameManager;
 import com.webcheckers.model.BoardView;
+import com.webcheckers.model.GameModel;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.ValidateMove;
+import com.webcheckers.util.Message;
 import spark.*;
 
 import java.util.HashMap;
@@ -14,12 +17,15 @@ import java.util.Objects;
 public class PostValidateMoveRoute implements Route {
     private static final String VIEW_NAME = "game.ftl";
     public static final String ACTION_DATA_ATTR = "actionData";
+    public static final String MESSAGE_ATTR = "message";
     private final TemplateEngine templateEngine;
     private final Gson gson = new Gson();
-
-    public PostValidateMoveRoute(TemplateEngine templateEngine) {
+    private GameModel gameModel;
+    public PostValidateMoveRoute(TemplateEngine templateEngine/*, GameModel gameModel*/) {
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
+        Objects.requireNonNull(gameModel, "gameModel must not be null");
         this.templateEngine = templateEngine;
+        //this.gameModel = gameModel;
     }
 
     @Override
@@ -34,5 +40,6 @@ public class PostValidateMoveRoute implements Route {
         ValidateMove validateMove = new ValidateMove(move, board);
 
         return gson.toJson(validateMove.isValidMove().toString());
+
     }
 }
