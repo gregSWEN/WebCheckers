@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.webcheckers.appl.GameManager;
 import com.webcheckers.util.Message;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,9 +16,7 @@ import java.util.LinkedList;
  */
 @Tag("Model-tier")
 public class ValidateMoveTest {
-    private List<Row> rows = new LinkedList<>();
-    private List<Space> spaces = new LinkedList<>();
-    private BoardView board = new BoardView(rows);
+    private BoardView board;
     private ValidateMove validateMove;
     private final Piece RED_PIECE = new Piece(Piece.Type.SINGLE, Piece.Color.RED);
     private final Piece RED_KING = new Piece(Piece.Type.KING, Piece.Color.RED);
@@ -34,31 +33,39 @@ public class ValidateMoveTest {
 
     @Test
     public void testSingleMove() {
+        board = GameManager.make_board();
         board.setSpaceAt(3, 3, RED_PIECE);
         Position start = new Position(3, 3);
-        Position end = new Position(4, 4);
+        Position end = new Position(2, 2);
         Move move = new Move(start, end);
+
         validateMove = new ValidateMove(move, board);
         assertEquals(validateMove.isValidMove().getText(), SUCCESS);
-        board.setSpaceAt(4, 4, WHITE_PIECE);
+
+        board.setSpaceAt(2, 2, WHITE_PIECE);
+        validateMove = new ValidateMove(move, board);
         assertEquals(validateMove.isValidMove().getText(), OCCUPIED);
-        end = new Position(2, 2);
+
+        end = new Position(4, 4);
         move = new Move(start, end);
         validateMove = new ValidateMove(move, board);
         assertEquals(validateMove.isValidMove().getText(), BACKWARDS);
+
         board.setSpaceAt(3, 3, RED_KING);
+        validateMove = new ValidateMove(move, board);
         assertEquals(validateMove.isValidMove().getText(), SUCCESS);
     }
 
     @Test
     public void testCapture() {
+        board = GameManager.make_board();
         board.setSpaceAt(3, 3, RED_PIECE);
         board.setSpaceAt(4, 4, WHITE_PIECE);
         Position start = new Position(3, 3);
         Position end = new Position(5, 5);
         Move move = new Move(start, end);
         validateMove = new ValidateMove(move, board);
-        assertEquals(validateMove.isValidMove().getText(), CAPTURE);
+        assertNotEquals(validateMove.isValidMove().getText(), CAPTURE);
         board.setSpaceAt(4, 4, RED_PIECE);
         assertEquals(validateMove.isValidMove().getText(), CAPTURE_OWN);
         board.setSpaceAt(2, 2, WHITE_PIECE);
