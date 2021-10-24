@@ -42,7 +42,7 @@ public class Space {
      * true or false
      */
     public boolean isValid(){
-        return (color == SpaceColor.GREY) && (piece == null);
+        return (color == SpaceColor.BLACK) && (piece == null);
     }
 
     /**
