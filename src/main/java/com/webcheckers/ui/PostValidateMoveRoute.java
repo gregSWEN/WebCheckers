@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Move;
+import com.webcheckers.model.Player;
 import com.webcheckers.model.ValidateMove;
 import spark.*;
 
@@ -26,10 +27,12 @@ public class PostValidateMoveRoute implements Route {
         final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
         String moveStr = request.queryParams(ACTION_DATA_ATTR);
-        String boardStr = request.queryParams("board");
+        Player user = session.attribute(("currentUser"));
+        BoardView board = user.getGame().getBoard();
         Move move = gson.fromJson(moveStr, com.webcheckers.model.Move.class);
-        BoardView board = gson.fromJson(boardStr, com.webcheckers.model.BoardView.class);
+        //BoardView board = gson.fromJson(boardStr, com.webcheckers.model.BoardView.class);
         ValidateMove validateMove = new ValidateMove(move, board);
-        return new ModelAndView(vm, VIEW_NAME);
+
+        return gson.toJson(validateMove.isValidMove().toString());
     }
 }
