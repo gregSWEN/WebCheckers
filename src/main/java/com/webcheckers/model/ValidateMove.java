@@ -22,13 +22,13 @@ public class ValidateMove {
 
     public Message isValidMove() {
         // checks if piece to move is a checker
-        if (board.getSpaceAt(startRow, startCell) != null) {
+        if (board.getSpaceAt(startRow, startCell) == null) {
             return Message.error("Need to move a checker");
         // are you moving to an occupied space?
         } else if (!board.getSpaceAt(endRow, endCell).isValid()) {
             return Message.error("Cannot move to occupied space");
         // if you are not a king, are you moving the right direction?
-        } else if (endRow-startRow <= 0 && !board.getSpaceAt(startRow, startCell).isPieceKing()) {
+        } else if (endRow-startRow >= 0 && !board.getSpaceAt(startRow, startCell).isPieceKing()) {
             return Message.error("Cannot move backwards if you are not a king!");
         // are you trying to capture a piece?
         } else if (Math.abs(endRow-startRow) == 2 && Math.abs(endCell-startCell) == 2) {

@@ -30,22 +30,22 @@ public class PlayerLobbyTest {
 
     @Test
     public void testInvalidNames() {
-        assertEquals(playerLobby.addPlayer("     ").getText(), BLANK_NAME);
-        assertEquals(playerLobby.addPlayer("!!").getText(), NO_ALPHANUM);
-        assertEquals(playerLobby.addPlayer("acb!@#").getText(), INVALID_NAME);
+        assertEquals(BLANK_NAME, playerLobby.addPlayer("     ").getText());
+        assertEquals(NO_ALPHANUM, playerLobby.addPlayer("!!").getText());
+        assertEquals(INVALID_NAME, playerLobby.addPlayer("acb!@#").getText());
     }
 
     @Test
     public void testPartFull() {
         playerLobby.addPlayer("Michael");
-        assertEquals(playerLobby.addPlayer("Michael").getText(), NAME_TAKEN);
+        assertEquals(NAME_TAKEN, playerLobby.addPlayer("Michael").getText());
         assertTrue(playerLobby.playerInLobby("Michael"));
         assertNotNull(playerLobby.listOfNames());
-        assertEquals(playerLobby.sizeOfLobby(), 1);
+        assertEquals(1, playerLobby.sizeOfLobby());
         playerLobby.addPlayer("Bob");
-        assertEquals(playerLobby.addPlayer("Bob").getText(), NAME_TAKEN);
+        assertEquals(NAME_TAKEN, playerLobby.addPlayer("Bob").getText());
         assertTrue(playerLobby.playerInLobby("Bob"));
         assertNotNull(playerLobby.listOfNames());
-        assertEquals(playerLobby.sizeOfLobby(), 2);
+        assertEquals(2, playerLobby.sizeOfLobby());
     }
 }

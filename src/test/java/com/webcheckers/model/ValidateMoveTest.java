@@ -34,46 +34,59 @@ public class ValidateMoveTest {
     @Test
     public void testSingleMove() {
         board = GameManager.make_board();
-        board.setSpaceAt(3, 3, RED_PIECE);
-        Position start = new Position(3, 3);
-        Position end = new Position(2, 2);
+        board.setSpaceAt(4, 3, RED_PIECE);
+        Position start = new Position(4, 3);
+        Position end = new Position(3, 4);
         Move move = new Move(start, end);
 
         validateMove = new ValidateMove(move, board);
-        assertEquals(validateMove.isValidMove().getText(), SUCCESS);
+        assertEquals(SUCCESS, validateMove.isValidMove().getText());
 
-        board.setSpaceAt(2, 2, WHITE_PIECE);
+        board.setSpaceAt(3, 4, WHITE_PIECE);
         validateMove = new ValidateMove(move, board);
-        assertEquals(validateMove.isValidMove().getText(), OCCUPIED);
+        assertEquals(OCCUPIED, validateMove.isValidMove().getText());
 
-        end = new Position(4, 4);
+        board = GameManager.make_board();
+        board.setSpaceAt(3,4, RED_PIECE);
+        start = new Position(3, 4);
+        end = new Position(4, 3);
         move = new Move(start, end);
         validateMove = new ValidateMove(move, board);
-        assertEquals(validateMove.isValidMove().getText(), BACKWARDS);
+        assertEquals(BACKWARDS, validateMove.isValidMove().getText());
 
-        board.setSpaceAt(3, 3, RED_KING);
+        board.setSpaceAt(3, 4, RED_KING);
         validateMove = new ValidateMove(move, board);
-        assertEquals(validateMove.isValidMove().getText(), SUCCESS);
+        assertEquals(SUCCESS, validateMove.isValidMove().getText());
     }
 
     @Test
     public void testCapture() {
         board = GameManager.make_board();
-        board.setSpaceAt(3, 3, RED_PIECE);
-        board.setSpaceAt(4, 4, WHITE_PIECE);
-        Position start = new Position(3, 3);
-        Position end = new Position(5, 5);
+        board.setSpaceAt(5, 4, RED_PIECE);
+        board.setSpaceAt(4, 3, WHITE_PIECE);
+        Position start = new Position(5, 4);
+        Position end = new Position(3, 2);
         Move move = new Move(start, end);
+
         validateMove = new ValidateMove(move, board);
-        assertNotEquals(validateMove.isValidMove().getText(), CAPTURE);
-        board.setSpaceAt(4, 4, RED_PIECE);
-        assertEquals(validateMove.isValidMove().getText(), CAPTURE_OWN);
-        board.setSpaceAt(2, 2, WHITE_PIECE);
-        end = new Position(1, 1);
+        assertEquals(CAPTURE, validateMove.isValidMove().getText());
+
+        board.setSpaceAt(4, 3, RED_PIECE);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(CAPTURE_OWN, validateMove.isValidMove().getText());
+
+        board = GameManager.make_board();
+        board.setSpaceAt(3, 2, RED_PIECE);
+        board.setSpaceAt(4, 1, WHITE_PIECE);
+        board.setSpaceAt(5, 0, null);
+        start = new Position(3, 2);
+        end = new Position(5, 0);
         move = new Move(start, end);
         validateMove = new ValidateMove(move, board);
-        assertEquals(validateMove.isValidMove().getText(), BACKWARDS);
-        board.setSpaceAt(3, 3, RED_KING);
-        assertEquals(validateMove.isValidMove().getText(), SUCCESS);
+        assertEquals(BACKWARDS, validateMove.isValidMove().getText());
+
+        board.setSpaceAt(3, 2, RED_KING);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(CAPTURE, validateMove.isValidMove().getText());
     }
 }
