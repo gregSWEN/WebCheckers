@@ -23,7 +23,7 @@ public class PostValidateMoveRoute implements Route {
     private GameModel gameModel;
     public PostValidateMoveRoute(TemplateEngine templateEngine/*, GameModel gameModel*/) {
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
-        Objects.requireNonNull(gameModel, "gameModel must not be null");
+        //Objects.requireNonNull(gameModel, "gameModel must not be null");
         this.templateEngine = templateEngine;
         //this.gameModel = gameModel;
     }
