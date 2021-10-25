@@ -44,7 +44,7 @@ public class PostValidateMoveRoute implements Route {
                 board.update_board(move, false);
             }
         }
-
+        System.out.println(move.toString());
         return gson.toJson(validateMove.isValidMove().toString());
 
     }

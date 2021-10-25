@@ -12,4 +12,9 @@ public class Move {
     public Position getStart() { return start; }
 
     public Position getEnd() { return end; }
+
+    @Override
+    public String toString(){
+        return "["+start.getRow()+", "+start.getCell()+"]  ["+end.getRow()+", "+end.getCell()+"]";
+    }
 }

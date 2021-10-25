@@ -78,8 +78,7 @@ public class BoardView implements Iterable<Row>{
 
         Piece start_piece = start_space.getPiece();
         Piece end_piece = new Piece(start_piece.getType(), start_piece.getColor());
-        start_piece = null;
-        start_space.setPiece((start_piece));
+        start_space.setPiece((null));
         end_space.setPiece((end_piece));
     }
 

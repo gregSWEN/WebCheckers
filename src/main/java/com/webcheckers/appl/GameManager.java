@@ -38,8 +38,7 @@ public class GameManager {
                     swit = 1;
                     spaces.add(space);
                 }
-
-                if(swit == 1){
+                else if(swit == 1){
                     if(i < 3){
                         Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.RED));
                         swit = 0;
