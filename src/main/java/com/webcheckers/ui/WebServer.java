@@ -157,7 +157,7 @@ public class WebServer {
 
     post(GAME_URL, new PostGameRoute(gameManager, templateEngine));
 
-    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine));
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(templateEngine, gameManager));
 
     post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(templateEngine));
 

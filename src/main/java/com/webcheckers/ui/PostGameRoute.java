@@ -35,6 +35,7 @@ public class PostGameRoute implements Route {
         if(player.getGame() == null && enemyPlayer.getGame() == null){
             final Map<String, Object> vm = new HashMap<>();
             GameModel game = new GameModel(player, enemyPlayer);
+            gameManager.setGame(game);
             vm.put("title", "testing");
             vm.put("currentUser", player);
             vm.put("activeColor", game.getActiveColor());
