@@ -29,6 +29,10 @@ public class GameModel {
     public Player getWhitePlayer(){return white_player;}
     public Piece.Color getActiveColor(){return currentColor;}
     public BoardView getBoard(){return board;}
+    public void setActiveColor(Piece.Color color){
+        this.currentColor = color;
+    }
+
 
     public void updateBoard(BoardView newBoard) {this.board = newBoard;}
 

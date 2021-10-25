@@ -1,14 +1,15 @@
 package com.webcheckers.ui;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import com.google.gson.Gson;
+import com.webcheckers.model.*;
+import com.webcheckers.util.Message;
+import spark.*;
 
 import java.util.Objects;
 
 public class PostSubmitTurnRoute implements Route {
     private final TemplateEngine templateEngine;
+    private final Gson gson = new Gson();
 
     public PostSubmitTurnRoute(TemplateEngine templateEngine) {
         Objects.requireNonNull(templateEngine, "template engine must not be null");
@@ -17,6 +18,17 @@ public class PostSubmitTurnRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        return null;
+        final Session session = request.session();
+        Player user = session.attribute("currentUser");
+        GameModel game = user.getGame();
+        if(game.getActiveColor() == Piece.Color.RED){
+            game.setActiveColor(Piece.Color.WHITE);
+        }else{
+            game.setActiveColor(Piece.Color.RED);
+        }
+        BoardView board = user.getGame().getBoard();
+
+
+        return gson.toJson(Message.info("Good Move"));
     }
 }

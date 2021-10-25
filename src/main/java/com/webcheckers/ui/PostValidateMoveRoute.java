@@ -2,11 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameManager;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.GameModel;
-import com.webcheckers.model.Move;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.ValidateMove;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -41,6 +37,13 @@ public class PostValidateMoveRoute implements Route {
         Move move = gson.fromJson(moveStr, com.webcheckers.model.Move.class);
         //BoardView board = gson.fromJson(boardStr, com.webcheckers.model.BoardView.class);
         ValidateMove validateMove = new ValidateMove(move, board);
+        if(validateMove.isValidMove().getType() == Message.Type.INFO){
+            if(user.getGame().getActiveColor() == Piece.Color.RED) {
+                board.update_board(move, true);
+            }else{
+                board.update_board(move, false);
+            }
+        }
 
         return gson.toJson(validateMove.isValidMove().toString());
 
