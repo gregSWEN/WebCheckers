@@ -4,7 +4,7 @@ public class Space {
     public enum SpaceColor{
         WHITE,
         BLACK,
-        GREY;
+        GREY
     }
 
 
@@ -42,10 +42,7 @@ public class Space {
      * true or false
      */
     public boolean isValid(){
-        if((color == SpaceColor.GREY) && (piece == null)){
-            return true;
-        }
-        return false;
+        return (color == SpaceColor.BLACK) && (piece == null);
     }
 
     /**
@@ -56,4 +53,12 @@ public class Space {
     public Piece getPiece(){
         return piece;
     }
+
+    public boolean isPieceRed() { return piece.getColor() == Piece.Color.RED; }
+
+    public boolean isPieceWhite() { return piece.getColor() == Piece.Color.WHITE; }
+
+    public boolean isPieceKing() { return piece.getType() == Piece.Type.KING; }
+
+    public void setPiece (Piece piece) { this.piece = piece; }
 }

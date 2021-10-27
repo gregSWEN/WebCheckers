@@ -3,26 +3,25 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
-* Team name: TEAMNAME
+* Team name: thePurpleNarwhals
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Michael Taylor
+  * Greg Villafane
+  * Huan Huynh
+  * Andrew Chacon
 
 ## Executive Summary
-
-This is a summary of the project.
+The application must allow players to play checkers with other players who are currently signed in.
+The game user interface (UI) will support a game experience using drag-and-drop browser capabilities
+for making moves. Beyond this minimal set of features, we have grand vision for how we could further enhance
+the player experience with some additional features beyond the basic checkers game.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+Create a web-based Checkers game using Maven and Freemarker, implementing
+the game through frontend and backend development. Each player should be able to 
+successfully play a game of checkers.
+
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -36,15 +35,19 @@ This is a summary of the project.
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
-
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+A user should be able to sign in to start playing checkers. A user once signed in
+can start a game with another player. Each player should be able to play a standard game of
+checkers and have the option to resign during the game.
 
 ### MVP Features
 > _Provide a list of top-level Epics and/or Stories of the MVP._
+
+* As a user I want to be able to sign in with the desired username of my choice.
+* As a user I want to be able to start a game and play with another.
+* As a user I want to be able to move a piece when I drag a piece to a valid square.
+* As a user I want to be able to capture a piece when I drag a piece over an opponent's piece.
+* As a user I want to be able to forfeit the game when I feel helpless to end the game.
 
 ### Roadmap of Enhancements
 > _Provide a list of top-level features in the order you plan to consider them._
@@ -54,12 +57,11 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](domain-model-placeholder.png)
+![The WebCheckers Domain Model](domain-model.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
-
+A Player will play a Checkers game, making the move using the pieces. The Game
+has a Board for the game to be played on. The Board is made up of Rows and Spaces, which
+the pieces will be stored on.
 
 ## Architecture and Design
 
@@ -87,10 +89,13 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](web-interface-placeholder.png)
+![The WebCheckers Web Interface Statechart](web-interface.png)
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+The user will go to the home page when first coming to the application. The user will
+then be able to get to the /signin page. If the name entered is valid, then they will be
+taken to the /home page. If the name entered is invalid, then they will stay at the /signin
+page. When the user is signed in and at the home page, the user will then be able to get to the
+/game page to play a game. `GET /GameRoute` is called to begin the game.
 
 
 ### UI Tier
@@ -116,17 +121,37 @@ with the WebCheckers application.
 > separate section for describing significant features. Place this after
 > you describe the design of the three tiers._
 
+The UI is composed of the routes needed to properly navigate the website and
+play the game. The user starts at the home route, then `GET /signin` is called to allow
+the user to log in. After a successful log in, the user is taken back to the homepage, 
+where `GET /GameRoute` is called to begin. When a move is made, `POST /ValidateMove`
+is called which will verify the move is legal. If the move is legal and the submit button 
+is pressed, then `POST /SubmitTurn` is called, which will update the board and allow the 
+opponent to move. This process repeats until the game is over.
+
 
 ### Application Tier
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
 
+When a user goes to sign in, their name is put in the `PlayerLobby` to be stored. If
+the name entered is already in the lobby, then the name is invalid and the user will have to
+use a different name to sign in. When a game is started, the `GameManager` will put the players 
+in a game and create the board.
+
 
 ### Model Tier
-> _Provide a summary of the Application tier of your architecture. This
+> _Provide a summary of the Model tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
+
+When a user successfully signs in, they now become a `Player` in the lobby. When 
+the players start a game, the `Boardview` represents the board, which consists of `Row`s
+and `Space`s, which the `Piece`s are then placed on. A `GameModel` is also used to represent one game.
+When a move is made on the board, a `Move` is created, which contains the start and end `Position` of 
+the piece moved. The `ValidateMove` class is then used to verify whether the move was valid.
+
 
 ### Design Improvements
 > _Discuss design improvements that you would make if the project were
@@ -138,9 +163,15 @@ with the WebCheckers application.
 > hot spots the metrics identified in your code base, and your
 > suggested design improvements to address those hot spots._
 
+
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
+
+`PlayerLoby`, `ValidateMove`, `GetSignInRoute`, `PostSignInRoute`,
+`GetHomeRoute`, `GameModel`, and a few others were tested. The tests could
+have been more through with more testing.
+
 
 ### Acceptance Testing
 > _Report on the number of user stories that have passed all their
@@ -149,9 +180,15 @@ with the WebCheckers application.
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
+No stories have passed all their tests, 
+three stories have some acceptance criteria passed, and four have none passed.
+
+
 ### Unit Testing and Code Coverage
 > _Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
 > coverage targets, why you selected those values, and how well your
 > code coverage met your targets. If there are any anomalies, discuss
 > those._
+
+More unit tests have to be done to get a more complete coverage at this time.

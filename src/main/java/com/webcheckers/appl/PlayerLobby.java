@@ -38,28 +38,25 @@ public class PlayerLobby {
             int letterCount = 0;
             int characterCount = 0;
             char[] tempName = name.toCharArray();
-            for (char c: tempName) {
+            for (char c : tempName) {
                 if (!(Character.isSpaceChar(c)
                         || Character.isAlphabetic(c)
                         || Character.isDigit(c))) {
                     specialCharCount++;
-                    }
-                else{
+                } else {
                     characterCount += 1;
                 }
-                if (specialCharCount > 1) {
-                    return Message.error("Invalid player name");
-                }
             }
-            if(characterCount == 0) {
+            if (characterCount == 0) {
                 return Message.error("Need at least one Alphanumeric character");
             }
+            if (specialCharCount > 1) {
+                return Message.error("Invalid player name");
             }
-
-
-            playerList.put(name, new Player(name));
-            return new Message("You have been added to the lobby! Welcome "+ name, Message.Type.INFO);
         }
+        playerList.put(name, new Player(name));
+        return new Message("You have been added to the lobby! Welcome " + name, Message.Type.INFO);
+    }
 
 
     /**
@@ -70,7 +67,7 @@ public class PlayerLobby {
      */
     public Set<String> listOtherPlayers(String current_player) {
         //make a new set, copy the current set, and remove the current player
-        Set<String> other_players = new HashSet<String>(listOfNames());
+        Set<String> other_players = new HashSet<>(listOfNames());
         other_players.remove(current_player);
         return other_players;
     }

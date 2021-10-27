@@ -31,36 +31,61 @@ public class BoardView implements Iterable<Row>{
     public BoardView flip_board(){
         List<Row> new_rows = new ArrayList<>();
         int length = rows.size();
-        for (int i = 0; i < length; i++){
+        for (int i = 7; i >= 0; i--){
             Row row = rows.get(i);
             List<Space> spaces = new ArrayList<>();
-            for (int k = 0; k < length; k++){
+            for(int k = 7; k >= 0; k--){
                 List<Space> old_spaces = row.getSpaces();
                 if (old_spaces.get(k).getPiece() == null){
-                    Space new_space = new Space(k, old_spaces.get(k).getColor(), null);
+                    Space new_space = new Space(Math.abs(7-k), old_spaces.get(k).getColor(), null);
                     spaces.add(new_space);
-                }
-               else if(old_spaces.get(k).getPiece().getColor() == Piece.Color.RED){
-                    Piece piece = new Piece(old_spaces.get(k).getPiece().getType(), Piece.Color.WHITE);
-                    Space new_space = new Space(k, old_spaces.get(k).getColor(), piece);
+                }else if(old_spaces.get(k).getPiece().getColor() == Piece.Color.RED){
+                    Piece piece = new Piece(old_spaces.get(k).getPiece().getType(), Piece.Color.RED);
+                    Space new_space = new Space(Math.abs(7-k), old_spaces.get(k).getColor(), piece);
                     spaces.add(new_space);
                 }
                 else if(old_spaces.get(k).getPiece().getColor() == Piece.Color.WHITE){
-                    Piece piece = new Piece(old_spaces.get(k).getPiece().getType(), Piece.Color.RED);
-                    Space new_space = new Space(k, old_spaces.get(k).getColor(), piece);
+                    Piece piece = new Piece(old_spaces.get(k).getPiece().getType(), Piece.Color.WHITE);
+                    Space new_space = new Space(Math.abs(7-k), old_spaces.get(k).getColor(), piece);
                     spaces.add(new_space);
                 }
             }
-            Row new_row = new Row(i, spaces);
+            Row new_row = new Row(Math.abs(7-i), spaces);
             new_rows.add(new_row);
         }
         BoardView new_board = new BoardView(new_rows);
         return new_board;
     }
 
-    /*public void setRows(List<Row> rows) {
-        List<Row> rows = new ArrayList<>();
-        for(int i = 0; i < )
-        this.rows = rows;
-    }*/
+    //update the board when a move is validated and submitted
+    public void update_board(Move move, boolean flipped){
+        int oppositeSide;
+        if(flipped){
+            oppositeSide = 7;
+        }else{
+            oppositeSide = 0;
+        }
+
+        Position start_pos = move.getStart();
+        Position end_pos = move.getEnd();
+        int start_row = Math.abs(oppositeSide - start_pos.getRow());
+        int start_cell = Math.abs(oppositeSide - start_pos.getCell());
+        int end_row = Math.abs(oppositeSide - end_pos.getRow());
+        int end_cell = Math.abs(oppositeSide - end_pos.getCell());
+
+        Space start_space = rows.get(start_row).getSpace(start_cell);
+        Space end_space = rows.get(end_row).getSpace(end_cell);
+
+        Piece start_piece = start_space.getPiece();
+        Piece end_piece = new Piece(start_piece.getType(), start_piece.getColor());
+        start_piece = null;
+        start_space.setPiece((start_piece));
+        end_space.setPiece((end_piece));
+    }
+
+    public Space getSpaceAt(int rowIdx, int cellIdx) { return rows.get(rowIdx).getSpace(cellIdx); }
+
+    public void setSpaceAt(int rowIdx, int cellIdx, Piece piece) {
+        rows.get(rowIdx).getSpace(cellIdx).setPiece(piece);
+    }
 }

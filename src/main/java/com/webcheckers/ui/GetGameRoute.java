@@ -39,9 +39,8 @@ public class GetGameRoute implements Route {
         final GameManager gameManager = httpSession.attribute(GetHomeRoute.gameManagerKey);
         Player currentPlayer = httpSession.attribute("currentUser");
         GameModel game = currentPlayer.getGame();
-        System.out.println(game);
 
-        BoardView board = gameManager.make_board();
+        BoardView board = GameManager.make_board();
         // build the view-model for the player
         if(gameManager != null && game != null){
             final Map<String, Object> vm = new HashMap<>();
