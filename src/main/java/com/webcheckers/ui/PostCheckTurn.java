@@ -19,7 +19,6 @@ public class PostCheckTurn implements Route{
     public static final String MESSAGE_ATTR = "message";
     private static final String VIEW_NAME = "game.ftl";
 
-    private static Logger LOG = Logger.getLogger(PostCheckTurn.class.getName());
     GameManager manager;
 
     public PostCheckTurn(GameManager manager) {
