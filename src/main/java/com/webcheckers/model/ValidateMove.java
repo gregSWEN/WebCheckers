@@ -8,7 +8,6 @@ public class ValidateMove {
     private final int endRow;
     private final int endCell;
     private final BoardView board;
-    private final Move possible_move;
     public static final String INVALID = "Invalid move";
     public static final String CAPTURE = "You captured a piece!";
     public static final String CAPTURE_OWN = "You cannot capture your own piece";
@@ -19,7 +18,6 @@ public class ValidateMove {
         this.endRow = move.getEnd().getRow();
         this.endCell = move.getEnd().getCell();
         this.board = board;
-        this.possible_move = move;
     }
 
     public Message isValidMove() {
@@ -39,7 +37,6 @@ public class ValidateMove {
             // is a white piece capturing a red piece?
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
-                    board.getMoves().add(possible_move);
                     return Message.info("You captured a piece!");
                 }
                 else
@@ -47,7 +44,6 @@ public class ValidateMove {
             // is a red piece capturing a white piece?
             } else {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
-                    board.getMoves().add(possible_move);
                     return Message.info("You captured a piece!");
                 }
                 else
@@ -55,7 +51,6 @@ public class ValidateMove {
             }
         // are you making a valid single move?
         } else if (Math.abs(endRow-startRow) == 1 && Math.abs(endCell-startCell) == 1){
-            board.getMoves().add(possible_move);
             return Message.info("Moved successfully");
         } else {
             return Message.error("Invalid move");

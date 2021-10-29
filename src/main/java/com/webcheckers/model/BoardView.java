@@ -73,9 +73,9 @@ public class BoardView implements Iterable<Row>{
         if(flipped){
             oppositeSide = 7;
         }else{
-            oppositeSide = 1;
+            oppositeSide = 0;
         }
-
+        System.out.println(move);
         Position start_pos = move.getStart();
         Position end_pos = move.getEnd();
         int start_row = Math.abs(oppositeSide - start_pos.getRow());
@@ -100,21 +100,25 @@ public class BoardView implements Iterable<Row>{
         }else{
             oppositeSide = 0;
         }
-
+        System.out.println(move);
         Position start_pos = move.getStart();
+        System.out.println(start_pos);
         Position end_pos = move.getEnd();
+        System.out.println(end_pos);
         int start_row = Math.abs(oppositeSide - start_pos.getRow());
         int start_cell = Math.abs(oppositeSide - start_pos.getCell());
         int end_row = Math.abs(oppositeSide - end_pos.getRow());
         int end_cell = Math.abs(oppositeSide - end_pos.getCell());
 
-        Space start_space = rows.get(end_row).getSpace(start_cell);
-        Space end_space = rows.get(start_row).getSpace(end_cell);
+        Space start_space = rows.get(start_row).getSpace(start_cell);
+        System.out.println(start_space);
+        Space end_space = rows.get(end_row).getSpace(end_cell);
+        System.out.println(end_space);
 
-        Piece start_piece = start_space.getPiece();
-        //Piece end_piece = new Piece(start_piece.getType(), start_piece.getColor());
+        Piece end_piece = end_space.getPiece();
+        Piece start_piece = new Piece(end_piece.getType(), end_piece.getColor());
         start_space.setPiece((start_piece));
-        Piece end_piece = null;
+        System.out.println(start_piece);
         end_space.setPiece((null));
     }
 
