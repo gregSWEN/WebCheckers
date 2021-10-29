@@ -45,7 +45,7 @@ public class GameManager {
                         swit = 0;
                         spaces.add(space);
                     }
-                    else if(i > 4){
+                    else if(i > 7){
                         Space space = new Space(k, Space.SpaceColor.BLACK, new Piece(Piece.Type.SINGLE, Piece.Color.WHITE));
                         swit = 0;
                         spaces.add(space);
