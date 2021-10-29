@@ -36,14 +36,16 @@ public class ValidateMove {
             int checkerCell = (endCell + startCell) / 2;   // cell of piece being captured
             // is a white piece capturing a red piece?
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
-                if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed())
+                if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
                     return Message.info("You captured a piece!");
+                }
                 else
                     return Message.error("You cannot capture your own piece");
             // is a red piece capturing a white piece?
             } else {
-                if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite())
+                if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
                     return Message.info("You captured a piece!");
+                }
                 else
                     return Message.error("You cannot capture your own piece");
             }

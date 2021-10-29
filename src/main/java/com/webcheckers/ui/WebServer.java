@@ -65,6 +65,8 @@ public class WebServer {
 
   public static final String CHECK_TURN_URL = "/checkTurn";
 
+  public static final String BACKUP_MOVE_URL = "/backupMove";
+
   //
   // Attributes
   //
@@ -164,6 +166,8 @@ public class WebServer {
     post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(templateEngine));
 
     post(CHECK_TURN_URL, new PostCheckTurnRoute());
+
+    post(BACKUP_MOVE_URL, new PostBackupMove(gameManager));
 
 
     //    get(HOME_URL, new PostSigninRoute())
