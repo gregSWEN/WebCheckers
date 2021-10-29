@@ -27,7 +27,7 @@ public class PostSubmitTurnRoute implements Route {
             game.setActiveColor(Piece.Color.RED);
         }
         BoardView board = user.getGame().getBoard();
-
+        board.flush();
 
         return gson.toJson(Message.info("Good Move"));
     }
