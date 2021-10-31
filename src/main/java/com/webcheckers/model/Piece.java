@@ -41,6 +41,14 @@ public class Piece {
         return type;
     }
 
+    public Color getOppositeColor(){
+        if(this.color == Color.RED){
+            return Color.WHITE;
+        }else{
+            return Color.RED;
+        }
+    }
+
     @Override
     public String toString(){
         return "type: " + this.type + "color: " + this.color;

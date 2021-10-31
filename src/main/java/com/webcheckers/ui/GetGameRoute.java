@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.GameManager;
 import com.webcheckers.appl.PlayerLobby;
 import com.webcheckers.model.*;
@@ -12,7 +13,7 @@ import java.util.Objects;
 
 public class GetGameRoute implements Route {
     static final String VIEW_NAME = "game.ftl";
-
+    private final Gson gson = new Gson();
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;
 
@@ -40,10 +41,11 @@ public class GetGameRoute implements Route {
         Player currentPlayer = httpSession.attribute("currentUser");
         GameModel game = currentPlayer.getGame();
 
-        BoardView board = GameManager.make_board();
         // build the view-model for the player
         if(gameManager != null && game != null){
             final Map<String, Object> vm = new HashMap<>();
+
+            //build the board
             vm.put("title", "testing");
             vm.put("currentUser", currentPlayer);
             vm.put("activeColor", game.getActiveColor());
@@ -54,6 +56,19 @@ public class GetGameRoute implements Route {
                 vm.put("board", game.getBoard().flip_board());
             }else{
                 vm.put("board", game.getBoard());
+            }
+
+            //check if the game ended
+            if(game.getGameStatus() == true){
+                final Map<String, Object> modeOptions = new HashMap<>(2);
+                modeOptions.put("isGameOver", true);
+                if(game.get_how_game_ended() == "resigned") {
+                    modeOptions.put("gameOverMessage", game.get_loser().getName() + " resigned");
+                }else{
+                    modeOptions.put("gameOverMessage", "I'll fix this later");
+                }
+                vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+                currentPlayer.endGame();
             }
 
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));

@@ -77,5 +77,7 @@ public class Player {
         this.game = game;
     }
 
+    public void endGame(){this.game = null;}
+
 
 }

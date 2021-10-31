@@ -10,6 +10,10 @@ public class GameModel {
     private Piece.Color currentColor;
     private boolean isRedTurn;
     private boolean isWhiteTurn;
+    private String how_game_ended;
+    private boolean game_end;
+    private Player loser;
+    private Player winner;
 
     //initiates the class
     public GameModel(Player red_player, Player white_player){
@@ -25,6 +29,9 @@ public class GameModel {
         this.white_player.startGame(this);
         this.board = GameManager.make_board();
         this.currentColor = Piece.Color.RED;
+        this.how_game_ended = "resigned";
+        this.game_end = false;
+        this.loser = null;
     }
 
     /*
@@ -34,6 +41,11 @@ public class GameModel {
     public Player getWhitePlayer(){return white_player;}
     public Piece.Color getActiveColor(){return currentColor;}
     public BoardView getBoard(){return board;}
+    public boolean getGameStatus(){return game_end;}
+    public String get_how_game_ended(){return how_game_ended;}
+    public Player get_loser(){return loser;}
+    public Player get_winnder(){return winner;}
+
     public void setActiveColor(Piece.Color color){
         this.currentColor = color;
     }
@@ -50,6 +62,19 @@ public class GameModel {
         }
         else{
             return Message.error("false");
+        }
+    }
+    /**
+     * set the game to end
+     * @param loser player that lost
+     */
+    public void resign (Player loser){
+        this.game_end = true;
+        this.loser = loser;
+        if(loser == this.white_player){
+            this.winner = red_player;
+        }else{
+            this.winner = white_player;
         }
     }
 

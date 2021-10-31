@@ -25,14 +25,14 @@ public class PostResignGameRoute implements Route {
         //make it so can only resign on your turn
         if(game.getRedPlayer() == user && game.getActiveColor() == Piece.Color.RED){
             message = Message.info("resigned");
+            game.resign(user);
         }else if(game.getWhitePlayer() == user && game.getActiveColor() == Piece.Color.WHITE){
             message = Message.info("resigned");
+            game.resign(user);
         }else{
             message = Message.error(("wait for your turn to resign"));
         }
         return gson.toJson(message);
-
-
     }
 
 }

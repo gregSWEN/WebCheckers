@@ -2,22 +2,28 @@ package com.webcheckers.model;
 
 import com.webcheckers.util.Message;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class ValidateMove {
     private final int startRow;
     private final int startCell;
     private final int endRow;
     private final int endCell;
     private final BoardView board;
+    private final Piece.Color currentColor;
     public static final String INVALID = "Invalid move";
     public static final String CAPTURE = "You captured a piece!";
     public static final String CAPTURE_OWN = "You cannot capture your own piece";
 
-    public ValidateMove(Move move, BoardView board) {
+    public ValidateMove(Move move, BoardView board, Piece.Color color) {
         this.startRow = move.getStart().getRow();
         this.startCell = move.getStart().getCell();
         this.endRow = move.getEnd().getRow();
         this.endCell = move.getEnd().getCell();
         this.board = board;
+        this.currentColor = color;
     }
 
     public Message isValidMove() {
@@ -54,4 +60,37 @@ public class ValidateMove {
             return Message.error("Invalid move");
         }
     }
+
+    //check on the board if a capture can be made
+    private Move canCapture(){
+        List<Integer> Capture1 = Arrays.asList( 1, 1, -1, -1);
+        List<Integer> Capture2 = Arrays.asList(-1, 1, -1, 1);
+        List<Integer> Capture3 = Arrays.asList( 2, 2, -2, -2);
+        List<Integer> Capture4 = Arrays.asList(-2, 2, -2, 2);
+
+        Space start_space = board.getSpaceAt(startRow, startCell);
+        int kingSpaceCheck;
+        if(start_space.getPiece().getType() == Piece.Type.KING){
+            kingSpaceCheck = 4;
+        }else{
+            kingSpaceCheck = 2;
+        }
+
+        for (int row = 0; row < 8; row++) {
+            for (int cell = 0; cell < 8; cell++) {
+                Space space = board.getSpaceAt(row, cell);
+                try{
+                    if(space.getPiece().getColor() == currentColor){
+
+                    }
+
+                }catch(NullPointerException e){
+                    //do nothing
+                }
+            }
+        }
+        return null;
+    }
+
+
 }

@@ -41,9 +41,9 @@ public class PostValidateMoveRoute implements Route {
 
         if(user.getMadeMove() == false) {
             if (game.getActiveColor() == Piece.Color.RED) {
-                validateMove = new ValidateMove(move, board.flip_board());
+                validateMove = new ValidateMove(move, board.flip_board(), Piece.Color.RED);
             } else {
-                validateMove = new ValidateMove(move, board);
+                validateMove = new ValidateMove(move, board, Piece.Color.WHITE);
             }
 
             if (validateMove.isValidMove().getType() == Message.Type.INFO) {

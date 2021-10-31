@@ -77,7 +77,13 @@ public class BoardView implements Iterable<Row>{
         Space end_space = this.rows.get(end_row).getSpace(end_cell);
 
         Piece start_piece = start_space.getPiece();
-        Piece end_piece = new Piece(start_piece.getType(), start_piece.getColor());
+        Piece end_piece;
+
+        if(end_row == 0 || end_row == 7) {
+            end_piece = new Piece(Piece.Type.KING, start_piece.getColor());
+        }else{
+            end_piece = new Piece(start_piece.getType(), start_piece.getColor());
+        }
         start_space.setNull();
         end_space.setPiece((end_piece));
 
