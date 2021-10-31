@@ -66,7 +66,6 @@ public class ValidateMove {
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
-                    System.out.println(move);
                     if(move != null){
                         return Message.info("You can Capture another Piece, move first");
                     }
@@ -78,7 +77,6 @@ public class ValidateMove {
             } else {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
-                    System.out.println(move);
                     if(move != null){
                         return Message.info("You can Capture another Piece, move first");
                     }

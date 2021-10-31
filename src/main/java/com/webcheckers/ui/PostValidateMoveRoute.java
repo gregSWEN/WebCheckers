@@ -37,7 +37,6 @@ public class PostValidateMoveRoute implements Route {
         BoardView board = user.getGame().getBoard();
         Move move = gson.fromJson(moveStr, com.webcheckers.model.Move.class);
         //BoardView board = gson.fromJson(boardStr, com.webcheckers.model.BoardView.class);
-
         ValidateMove validateMove;
 
         if(user.getMadeMove() == false) {
@@ -45,14 +44,6 @@ public class PostValidateMoveRoute implements Route {
                 validateMove = new ValidateMove(move, board.flip_board());
             } else {
                 validateMove = new ValidateMove(move, board);
-        ValidateMove validateMove = new ValidateMove(move, board);
-        if(validateMove.isValidMove().getType() == Message.Type.INFO){
-            System.out.println(move);
-            board.getMoves().add(move);
-            if(user.getGame().getActiveColor() == Piece.Color.RED) {
-                board.update_board(move, true);
-            }else{
-                board.update_board(move, false);
             }
 
             if (validateMove.isValidMove().getType() == Message.Type.INFO) {

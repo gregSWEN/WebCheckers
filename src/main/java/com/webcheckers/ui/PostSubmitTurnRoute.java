@@ -33,6 +33,7 @@ public class PostSubmitTurnRoute implements Route {
             board.update_board(move, false);
             game.setActiveColor(Piece.Color.RED);
         }
+
         //give player another move to capture multiple pieces.
         if(user.getMultiCapture()){
             if(game.getActiveColor() == Piece.Color.RED) {
