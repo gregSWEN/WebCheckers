@@ -2,25 +2,53 @@ package com.webcheckers.model;
 
 import com.webcheckers.util.Message;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 public class ValidateMove {
+    private final Move move;
     private final int startRow;
     private final int startCell;
     private final int endRow;
     private final int endCell;
     private final BoardView board;
+    private final Piece piece;
+    private final Piece.Color currentColor;
     public static final String INVALID = "Invalid move";
     public static final String CAPTURE = "You captured a piece!";
     public static final String CAPTURE_OWN = "You cannot capture your own piece";
 
     public ValidateMove(Move move, BoardView board) {
+        this.move = move;
         this.startRow = move.getStart().getRow();
         this.startCell = move.getStart().getCell();
         this.endRow = move.getEnd().getRow();
         this.endCell = move.getEnd().getCell();
         this.board = board;
+        this.piece = board.getSpaceAt(startRow, startCell).getPiece();
+        if(this.piece == null){
+            this.currentColor = null;
+        }else {
+            this.currentColor = piece.getColor();
+        }
     }
 
+
+
     public Message isValidMove() {
+        int kingSpaceCheck;
+        if(this.piece.getType() == Piece.Type.KING){
+            kingSpaceCheck = 4;
+        }else{
+            kingSpaceCheck = 2;
+        }
+        List<Move> captureMove = canCapture();
+
+        if(captureMove.size() != 0 && !captureMove.contains(move)){
+            return Message.error("Must play capture move");
+        }
         // checks if piece to move is a checker
         if (board.getSpaceAt(startRow, startCell) == null) {
             return Message.error("Need to move a checker");
@@ -37,6 +65,11 @@ public class ValidateMove {
             // is a white piece capturing a red piece?
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
+                    Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
+                    System.out.println(move);
+                    if(move != null){
+                        return Message.info("You can Capture another Piece, move first");
+                    }
                     return Message.info("You captured a piece!");
                 }
                 else
@@ -44,6 +77,11 @@ public class ValidateMove {
             // is a red piece capturing a white piece?
             } else {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
+                    Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
+                    System.out.println(move);
+                    if(move != null){
+                        return Message.info("You can Capture another Piece, move first");
+                    }
                     return Message.info("You captured a piece!");
                 }
                 else
@@ -56,4 +94,96 @@ public class ValidateMove {
             return Message.error("Invalid move");
         }
     }
+
+
+    private Move PieceCanCapture(int row, int cell, int kingSpaceCheck){
+        int[] capture1row = {-1, -1, 1, 1};
+        int[] capture1cell = {-1, 1, -1, 1};
+        int[] capture2row = { -2, -2, 2, 2};
+        int[] capture2cell = {-2, 2, -2, 2};
+
+        for(int i = 0; i<kingSpaceCheck; i++){
+            try {
+                Space OneBlockAwaySpace = board.getSpaceAt(row + capture1row[i], cell + capture1cell[i]);
+                Space TwoBlockAwaySpace = board.getSpaceAt(row + capture2row[i], cell + capture2cell[i]);
+                if (OneBlockAwaySpace.getPiece().getColor() == board.getSpaceAt(row,cell).getPiece().getOppositeColor()) {
+                    if (TwoBlockAwaySpace.getPiece() == null) {
+                        Position start = new Position(row, cell);
+                        Position end = new Position(row + capture2row[i], cell + capture2cell[i]);
+                        return new Move(start, end);
+                    }
+                }
+            }catch(NullPointerException e){
+                //pass
+            }catch(IndexOutOfBoundsException e){
+                //pass
+            }
+        }
+        return null;
+    }
+
+    //check on the board if a capture can be made
+    private List<Move> canCapture(){
+        List<Move> captureMoves = new ArrayList<>();
+        int kingSpaceCheck;
+        /**
+         * iterate through every spot on the board
+         * if there's a spot that has the current user's piece
+         * check if that piece has a piece next to it that can be captured
+         *
+         * Only check what the piece can move to
+         * For example a regular piece can only move to 2 spaces
+         * so it only checks for 2 spaces, while a king piece
+         * has to check for 4 available spots
+         */
+        for (int row = 0; row < 8; row++) {
+            for (int cell = 0; cell < 8; cell++) {
+                Space space = board.getSpaceAt(row, cell);
+                try{
+                    if(space.getPiece().getColor() == currentColor){
+                        if(space.getPiece().getType() == Piece.Type.KING){
+                            kingSpaceCheck = 4;
+                        }else{
+                            kingSpaceCheck = 2;
+                        }
+                        Move tempMove = PieceCanCapture(row, cell, kingSpaceCheck);
+                        if(tempMove != null){
+                            captureMoves.add(tempMove);
+                        }
+                    }
+                }catch(NullPointerException e){
+                    //pass
+                }
+            }
+        }
+        return captureMoves;
+    }
+
+    private Move PieceCanCaptureMulti(int row, int cell, int kingSpaceCheck, Piece.Color color){
+        int[] capture1row = {-1, -1, 1, 1};
+        int[] capture1cell = {-1, 1, -1, 1};
+        int[] capture2row = { -2, -2, 2, 2};
+        int[] capture2cell = {-2, 2, -2, 2};
+
+        for(int i = 0; i<kingSpaceCheck; i++){
+            try {
+                Space OneBlockAwaySpace = board.getSpaceAt(row + capture1row[i], cell + capture1cell[i]);
+                Space TwoBlockAwaySpace = board.getSpaceAt(row + capture2row[i], cell + capture2cell[i]);
+                if (OneBlockAwaySpace.getPiece().getColor() != color) {
+                    if (TwoBlockAwaySpace.getPiece() == null) {
+                        Position start = new Position(row, cell);
+                        Position end = new Position(row + capture2row[i], cell + capture2cell[i]);
+                        return new Move(start, end);
+                    }
+                }
+            }catch(NullPointerException e){
+                //pass
+            }catch(IndexOutOfBoundsException e){
+                //pass
+            }
+        }
+        return null;
+    }
+
+
 }

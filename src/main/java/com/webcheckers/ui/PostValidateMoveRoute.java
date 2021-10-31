@@ -33,9 +33,18 @@ public class PostValidateMoveRoute implements Route {
         gameModel = manager.getGame();
         String moveStr = request.queryParams(ACTION_DATA_ATTR);
         Player user = session.attribute(("currentUser"));
+        GameModel game = user.getGame();
         BoardView board = user.getGame().getBoard();
         Move move = gson.fromJson(moveStr, com.webcheckers.model.Move.class);
         //BoardView board = gson.fromJson(boardStr, com.webcheckers.model.BoardView.class);
+
+        ValidateMove validateMove;
+
+        if(user.getMadeMove() == false) {
+            if (game.getActiveColor() == Piece.Color.RED) {
+                validateMove = new ValidateMove(move, board.flip_board());
+            } else {
+                validateMove = new ValidateMove(move, board);
         ValidateMove validateMove = new ValidateMove(move, board);
         if(validateMove.isValidMove().getType() == Message.Type.INFO){
             System.out.println(move);
@@ -45,9 +54,20 @@ public class PostValidateMoveRoute implements Route {
             }else{
                 board.update_board(move, false);
             }
-        }
 
-        return gson.toJson(validateMove.isValidMove().toString());
+            if (validateMove.isValidMove().getType() == Message.Type.INFO) {
+                user.addMove(move);
+                user.madeTurn(true);
+                if(validateMove.isValidMove().getText() == "You can Capture another Piece, move first"){
+                    user.setMultiCapture(true);
+                }
+
+                //System.out.println(move);
+            }
+            return gson.toJson(validateMove.isValidMove());
+        }else{
+            return gson.toJson(Message.error("Already made a move"));
+        }
 
     }
 }

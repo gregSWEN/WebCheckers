@@ -61,4 +61,11 @@ public class Space {
     public boolean isPieceKing() { return piece.getType() == Piece.Type.KING; }
 
     public void setPiece (Piece piece) { this.piece = piece; }
+
+    public void setNull() {this.piece =null;}
+
+    @Override
+    public String toString(){
+        return "Color: "+this.color + "  Piece: "+this.piece;
+    }
 }

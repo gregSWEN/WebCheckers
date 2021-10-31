@@ -82,14 +82,28 @@ public class BoardView implements Iterable<Row>{
         int end_row = Math.abs(oppositeSide - end_pos.getRow());
         int end_cell = Math.abs(oppositeSide - end_pos.getCell());
 
-        Space start_space = rows.get(start_row).getSpace(start_cell);
-        Space end_space = rows.get(end_row).getSpace(end_cell);
+        Space start_space = this.rows.get(start_row).getSpace(start_cell);
+        Space end_space = this.rows.get(end_row).getSpace(end_cell);
 
         Piece start_piece = start_space.getPiece();
-        Piece end_piece = new Piece(start_piece.getType(), start_piece.getColor());
-        start_piece = null;
-        start_space.setPiece((start_piece));
+        Piece end_piece;
+
+        if(end_row == 0 || end_row == 7) {
+            end_piece = new Piece(Piece.Type.KING, start_piece.getColor());
+        }else{
+            end_piece = new Piece(start_piece.getType(), start_piece.getColor());
+        }
+        start_space.setNull();
         end_space.setPiece((end_piece));
+
+        //check if a piece captured another piece
+        if(Math.abs(start_row-end_row)==2){
+            int captured_row = (start_row + end_row)/2;
+            int captured_cell = (start_cell + end_cell)/2;
+            Space captured = this.rows.get(captured_row).getSpace(captured_cell);
+
+            captured.setNull();
+        }
     }
 
     public void reverse_piece(Move move, boolean flipped){

@@ -65,7 +65,10 @@ public class WebServer {
 
   public static final String CHECK_TURN_URL = "/checkTurn";
 
-  public static final String BACKUP_MOVE_URL = "/backupMove";
+  public static final String BACKUP_URL = "/backupMove";
+
+  public static final String RESIGN_URL = "/resignGame";
+  
 
   //
   // Attributes
@@ -167,8 +170,9 @@ public class WebServer {
 
     post(CHECK_TURN_URL, new PostCheckTurnRoute());
 
-    post(BACKUP_MOVE_URL, new PostBackupMove(gameManager));
+    post(BACKUP_URL, new PostBackupRoute());
 
+    post(RESIGN_URL, new PostResignGameRoute());
 
     //    get(HOME_URL, new PostSigninRoute())
     LOG.config("WebServer is initialized.");
