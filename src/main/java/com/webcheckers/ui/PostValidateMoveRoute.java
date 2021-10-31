@@ -49,7 +49,7 @@ public class PostValidateMoveRoute implements Route {
             if (validateMove.isValidMove().getType() == Message.Type.INFO) {
                 user.addMove(move);
                 user.madeTurn(true);
-                System.out.println(move);
+                //System.out.println(move);
             }
             return gson.toJson(validateMove.isValidMove());
         }else{
