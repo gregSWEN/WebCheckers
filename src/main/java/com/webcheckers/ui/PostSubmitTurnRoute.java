@@ -21,14 +21,19 @@ public class PostSubmitTurnRoute implements Route {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
         GameModel game = user.getGame();
-        if(game.getActiveColor() == Piece.Color.RED){
+        BoardView board = user.getGame().getBoard();
+        Move move = user.peekMove();
+
+        //make move when player submits
+        //change game turn to the other player
+        if(game.getActiveColor() == Piece.Color.RED) {
+            board.update_board(move, true);
             game.setActiveColor(Piece.Color.WHITE);
         }else{
+            board.update_board(move, false);
             game.setActiveColor(Piece.Color.RED);
         }
-        BoardView board = user.getGame().getBoard();
-
-
+        user.madeTurn(false);
         return gson.toJson(Message.info("Good Move"));
     }
 }

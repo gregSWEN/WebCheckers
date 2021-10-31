@@ -40,4 +40,9 @@ public class Piece {
     public Type getType() {
         return type;
     }
+
+    @Override
+    public String toString(){
+        return "type: " + this.type + "color: " + this.color;
+    }
 }

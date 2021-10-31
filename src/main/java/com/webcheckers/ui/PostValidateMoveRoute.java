@@ -33,19 +33,28 @@ public class PostValidateMoveRoute implements Route {
         gameModel = manager.getGame();
         String moveStr = request.queryParams(ACTION_DATA_ATTR);
         Player user = session.attribute(("currentUser"));
+        GameModel game = user.getGame();
         BoardView board = user.getGame().getBoard();
         Move move = gson.fromJson(moveStr, com.webcheckers.model.Move.class);
         //BoardView board = gson.fromJson(boardStr, com.webcheckers.model.BoardView.class);
-        ValidateMove validateMove = new ValidateMove(move, board);
-        if(validateMove.isValidMove().getType() == Message.Type.INFO){
-            if(user.getGame().getActiveColor() == Piece.Color.RED) {
-                board.update_board(move, true);
-            }else{
-                board.update_board(move, false);
+        ValidateMove validateMove;
+
+        if(user.getMadeMove() == false) {
+            if (game.getActiveColor() == Piece.Color.RED) {
+                validateMove = new ValidateMove(move, board.flip_board());
+            } else {
+                validateMove = new ValidateMove(move, board);
             }
+
+            if (validateMove.isValidMove().getType() == Message.Type.INFO) {
+                user.addMove(move);
+                user.madeTurn(true);
+                System.out.println(move);
+            }
+            return gson.toJson(validateMove.isValidMove());
+        }else{
+            return gson.toJson(Message.error("Already made a move"));
         }
-        System.out.println(move.toString());
-        return gson.toJson(validateMove.isValidMove().toString());
 
     }
 }
