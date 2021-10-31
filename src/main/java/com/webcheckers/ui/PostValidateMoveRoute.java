@@ -41,14 +41,19 @@ public class PostValidateMoveRoute implements Route {
 
         if(user.getMadeMove() == false) {
             if (game.getActiveColor() == Piece.Color.RED) {
-                validateMove = new ValidateMove(move, board.flip_board(), Piece.Color.RED);
+                validateMove = new ValidateMove(move, board.flip_board());
             } else {
-                validateMove = new ValidateMove(move, board, Piece.Color.WHITE);
+                validateMove = new ValidateMove(move, board);
             }
 
             if (validateMove.isValidMove().getType() == Message.Type.INFO) {
                 user.addMove(move);
                 user.madeTurn(true);
+                if(validateMove.isValidMove().getText() == "You can Capture another Piece"){
+                    user.addMultiMove(move);
+                    user.madeTurn(false);
+                }
+
                 //System.out.println(move);
             }
             return gson.toJson(validateMove.isValidMove());

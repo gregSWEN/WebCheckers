@@ -44,7 +44,7 @@ public class GameModel {
     public boolean getGameStatus(){return game_end;}
     public String get_how_game_ended(){return how_game_ended;}
     public Player get_loser(){return loser;}
-    public Player get_winnder(){return winner;}
+    public Player get_winner(){return winner;}
 
     public void setActiveColor(Piece.Color color){
         this.currentColor = color;

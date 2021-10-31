@@ -14,24 +14,33 @@ public class ValidateMove {
     private final int endRow;
     private final int endCell;
     private final BoardView board;
+    private final Piece piece;
     private final Piece.Color currentColor;
     public static final String INVALID = "Invalid move";
     public static final String CAPTURE = "You captured a piece!";
     public static final String CAPTURE_OWN = "You cannot capture your own piece";
 
-    public ValidateMove(Move move, BoardView board, Piece.Color color) {
+    public ValidateMove(Move move, BoardView board) {
         this.move = move;
         this.startRow = move.getStart().getRow();
         this.startCell = move.getStart().getCell();
         this.endRow = move.getEnd().getRow();
         this.endCell = move.getEnd().getCell();
         this.board = board;
-        this.currentColor = color;
+        this.piece = board.getSpaceAt(startRow, startCell).getPiece();
+        this.currentColor = piece.getColor();
     }
 
     public Message isValidMove() {
+        int kingSpaceCheck;
+        if(this.piece.getType() == Piece.Type.KING){
+            kingSpaceCheck = 4;
+        }else{
+            kingSpaceCheck = 2;
+        }
         List<Move> captureMove = canCapture();
         System.out.println(captureMove);
+
         if(captureMove.size() != 0 && !captureMove.contains(move)){
             return Message.error("Must play capture move");
         }
@@ -50,14 +59,24 @@ public class ValidateMove {
             int checkerCell = (endCell + startCell) / 2;   // cell of piece being captured
             // is a white piece capturing a red piece?
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
-                if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed())
+                if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
+                    Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
+                    if(move != null){
+                        return Message.info("You can Capture another Piece");
+                    }
                     return Message.info("You captured a piece!");
+                }
                 else
                     return Message.error("You cannot capture your own piece");
             // is a red piece capturing a white piece?
             } else {
-                if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite())
+                if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
+                    Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
+                    if(move != null){
+                        return Message.info("You can Capture another Piece");
+                    }
                     return Message.info("You captured a piece!");
+                }
                 else
                     return Message.error("You cannot capture your own piece");
             }
@@ -97,8 +116,6 @@ public class ValidateMove {
     //check on the board if a capture can be made
     private List<Move> canCapture(){
         List<Move> captureMoves = new ArrayList<>();
-
-        Space start_space = board.getSpaceAt(startRow, startCell);
         int kingSpaceCheck;
         /**
          * iterate through every spot on the board
@@ -131,6 +148,32 @@ public class ValidateMove {
             }
         }
         return captureMoves;
+    }
+
+    private Move PieceCanCaptureMulti(int row, int cell, int kingSpaceCheck, Piece.Color color){
+        int[] capture1row = {-1, -1, 1, 1};
+        int[] capture1cell = {-1, 1, -1, 1};
+        int[] capture2row = { -2, -2, 2, 2};
+        int[] capture2cell = {-2, 2, -2, 2};
+
+        for(int i = 0; i<kingSpaceCheck; i++){
+            try {
+                Space OneBlockAwaySpace = board.getSpaceAt(row + capture1row[i], cell + capture1cell[i]);
+                Space TwoBlockAwaySpace = board.getSpaceAt(row + capture2row[i], cell + capture2cell[i]);
+                if (OneBlockAwaySpace.getPiece().getColor() != color) {
+                    if (TwoBlockAwaySpace.getPiece() == null) {
+                        Position start = new Position(row, cell);
+                        Position end = new Position(row + capture2row[i], cell + capture2cell[i]);
+                        return new Move(start, end);
+                    }
+                }
+            }catch(NullPointerException e){
+                //pass
+            }catch(IndexOutOfBoundsException e){
+                //pass
+            }
+        }
+        return null;
     }
 
 
