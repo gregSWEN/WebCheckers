@@ -7,12 +7,14 @@ import java.util.List;
 public class BoardView implements Iterable<Row>{
 
     private List<Row> rows;
+    private List<Move> moves;
 
     /**
      * initializes the boardview object
      * @param rows
      */
     public BoardView(List<Row> rows){
+        this.moves = new ArrayList<>();
         this.rows = rows;
     }
 
@@ -26,6 +28,14 @@ public class BoardView implements Iterable<Row>{
     @Override
     public Iterator<Row> iterator() {
         return new RowIterator(rows);
+    }
+
+    public List<Move> getMoves() {
+        return moves;
+    }
+
+    public void flush(){
+        this.moves = new ArrayList<>();
     }
 
     public BoardView flip_board(){
@@ -65,7 +75,6 @@ public class BoardView implements Iterable<Row>{
         }else{
             oppositeSide = 0;
         }
-
         Position start_pos = move.getStart();
         Position end_pos = move.getEnd();
         int start_row = Math.abs(oppositeSide - start_pos.getRow());
@@ -95,6 +104,29 @@ public class BoardView implements Iterable<Row>{
 
             captured.setNull();
         }
+    }
+
+    public void reverse_piece(Move move, boolean flipped){
+        int oppositeSide;
+        if(flipped){
+            oppositeSide = 7;
+        }else{
+            oppositeSide = 0;
+        }
+        Position start_pos = move.getStart();
+        Position end_pos = move.getEnd();
+        int start_row = Math.abs(oppositeSide - start_pos.getRow());
+        int start_cell = Math.abs(oppositeSide - start_pos.getCell());
+        int end_row = Math.abs(oppositeSide - end_pos.getRow());
+        int end_cell = Math.abs(oppositeSide - end_pos.getCell());
+
+        Space start_space = rows.get(start_row).getSpace(start_cell);
+        Space end_space = rows.get(end_row).getSpace(end_cell);
+
+        Piece end_piece = end_space.getPiece();
+        Piece start_piece = new Piece(end_piece.getType(), end_piece.getColor());
+        start_space.setPiece((start_piece));
+        end_space.setPiece((null));
     }
 
     public Space getSpaceAt(int rowIdx, int cellIdx) { return rows.get(rowIdx).getSpace(cellIdx); }
