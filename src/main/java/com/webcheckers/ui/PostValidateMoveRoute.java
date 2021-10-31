@@ -49,9 +49,8 @@ public class PostValidateMoveRoute implements Route {
             if (validateMove.isValidMove().getType() == Message.Type.INFO) {
                 user.addMove(move);
                 user.madeTurn(true);
-                if(validateMove.isValidMove().getText() == "You can Capture another Piece"){
-                    user.addMultiMove(move);
-                    user.madeTurn(false);
+                if(validateMove.isValidMove().getText() == "You can Capture another Piece, move first"){
+                    user.setMultiCapture(true);
                 }
 
                 //System.out.println(move);

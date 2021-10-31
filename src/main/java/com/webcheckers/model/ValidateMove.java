@@ -28,8 +28,14 @@ public class ValidateMove {
         this.endCell = move.getEnd().getCell();
         this.board = board;
         this.piece = board.getSpaceAt(startRow, startCell).getPiece();
-        this.currentColor = piece.getColor();
+        if(this.piece == null){
+            this.currentColor = null;
+        }else {
+            this.currentColor = piece.getColor();
+        }
     }
+
+
 
     public Message isValidMove() {
         int kingSpaceCheck;
@@ -39,7 +45,6 @@ public class ValidateMove {
             kingSpaceCheck = 2;
         }
         List<Move> captureMove = canCapture();
-        System.out.println(captureMove);
 
         if(captureMove.size() != 0 && !captureMove.contains(move)){
             return Message.error("Must play capture move");
@@ -61,8 +66,9 @@ public class ValidateMove {
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
+                    System.out.println(move);
                     if(move != null){
-                        return Message.info("You can Capture another Piece");
+                        return Message.info("You can Capture another Piece, move first");
                     }
                     return Message.info("You captured a piece!");
                 }
@@ -72,8 +78,9 @@ public class ValidateMove {
             } else {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
+                    System.out.println(move);
                     if(move != null){
-                        return Message.info("You can Capture another Piece");
+                        return Message.info("You can Capture another Piece, move first");
                     }
                     return Message.info("You captured a piece!");
                 }
@@ -87,6 +94,8 @@ public class ValidateMove {
             return Message.error("Invalid move");
         }
     }
+
+
     private Move PieceCanCapture(int row, int cell, int kingSpaceCheck){
         int[] capture1row = {-1, -1, 1, 1};
         int[] capture1cell = {-1, 1, -1, 1};

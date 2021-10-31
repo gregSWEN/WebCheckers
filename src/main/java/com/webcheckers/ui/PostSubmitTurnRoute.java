@@ -24,17 +24,6 @@ public class PostSubmitTurnRoute implements Route {
         BoardView board = user.getGame().getBoard();
         Move move = user.peekMove();
 
-        if(user.getMultiCapture() != null){
-            if(game.getActiveColor() == Piece.Color.RED) {
-                board.update_board(user.getMultiCapture(), true);
-                game.setActiveColor(Piece.Color.WHITE);
-            }else{
-                board.update_board(user.getMultiCapture(), false);
-                game.setActiveColor(Piece.Color.RED);
-            }
-            user.addMultiMove(null);
-        }
-
         //make move when player submits
         //change game turn to the other player
         if(game.getActiveColor() == Piece.Color.RED) {
@@ -44,7 +33,17 @@ public class PostSubmitTurnRoute implements Route {
             board.update_board(move, false);
             game.setActiveColor(Piece.Color.RED);
         }
+
+        //give player another move to capture multiple pieces.
+        if(user.getMultiCapture()){
+            if(game.getActiveColor() == Piece.Color.RED) {
+                game.setActiveColor(Piece.Color.WHITE);
+            }else{
+                game.setActiveColor(Piece.Color.RED);
+            }
+        }
         user.madeTurn(false);
+        user.setMultiCapture(false);
         return gson.toJson(Message.info("Good Move"));
     }
 }

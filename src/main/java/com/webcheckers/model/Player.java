@@ -17,13 +17,13 @@ public class Player {
     private Stack<Move> moves;
     /** boolean if player made a move that turn */
     private boolean madeMove;
-    private Move multiCapture;
+    private boolean multiCapture;
 
     public Player(String name) {
         this.name = name;
         this.moves = new Stack<>();
         this.madeMove = false;
-        this.multiCapture = null;
+        this.multiCapture = false;
     }
     public String getName() { return name; }
     public GameModel getGame(){return game;}
@@ -81,7 +81,7 @@ public class Player {
 
     public void endGame(){this.game = null;}
 
-    public void addMultiMove(Move move){this.multiCapture = move;}
+    public void setMultiCapture(boolean move){this.multiCapture = move;}
 
-    public Move getMultiCapture(){return multiCapture;}
+    public boolean getMultiCapture(){return multiCapture;}
 }
