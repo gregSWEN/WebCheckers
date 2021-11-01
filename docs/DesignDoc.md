@@ -128,6 +128,7 @@ where `GET /GameRoute` is called to begin. When a move is made, `POST /ValidateM
 is called which will verify the move is legal. If the move is legal and the submit button 
 is pressed, then `POST /SubmitTurn` is called, which will update the board and allow the 
 opponent to move. This process repeats until the game is over.
+![Sequence Diagram for PostValidateMoveRoute](validateMoveSD.png)
 
 
 ### Application Tier
@@ -151,6 +152,8 @@ the players start a game, the `Boardview` represents the board, which consists o
 and `Space`s, which the `Piece`s are then placed on. A `GameModel` is also used to represent one game.
 When a move is made on the board, a `Move` is created, which contains the start and end `Position` of 
 the piece moved. The `ValidateMove` class is then used to verify whether the move was valid.
+![UML Diagram for the checkers board](boardUML.png)
+
 
 
 ### Design Improvements
@@ -162,6 +165,13 @@ the piece moved. The `ValidateMove` class is then used to verify whether the mov
 > will also discuss the resutling metric measurements.  Indicate the
 > hot spots the metrics identified in your code base, and your
 > suggested design improvements to address those hot spots._
+
+While Object-Oriented principles are followed, the use and consistency of them
+are not apparent throughout the architecture. The Law of Demeter, in particular, is
+a principle that could be improved throughout the design. In addition, there are some
+classes that have been replaced with new classes, but have not been removed from the architecture.
+This causes issues with coupling and can be fixed by replacing the obsolete classes with their successor
+in the design, as well as implementing more abstraction so the issue can be avoided in the future.
 
 
 ## Testing
