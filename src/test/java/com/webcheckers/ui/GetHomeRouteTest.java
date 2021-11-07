@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ public class GetHomeRouteTest {
         CuT.handle(request, response);
 
         testHelper.assertViewModelAttribute("title", "Welcome!");
-        testHelper.assertViewModelAttribute("num_of_players", 0);
+        testHelper.assertViewModelAttribute("num_of_players", Message.info("Current Number of Players: "+0));
     }
 }
 

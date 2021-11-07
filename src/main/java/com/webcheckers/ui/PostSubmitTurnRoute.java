@@ -24,6 +24,7 @@ public class PostSubmitTurnRoute implements Route {
         BoardView board = user.getGame().getBoard();
         Move move = user.peekMove();
 
+
         //make move when player submits
         //change game turn to the other player
         if(game.getActiveColor() == Piece.Color.RED) {
