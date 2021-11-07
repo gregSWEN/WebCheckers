@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * This class represents the lobby of all players
  * currently playing throughout the whole site.
- * @author Michael Taylor
+ * @author Michael Taylor]]
  * @author Huan Huynh
  */
 public class PlayerLobby {
