@@ -103,4 +103,6 @@ public class PlayerLobby {
      * @return the Player object in the lobby
      */
     public Player getPlayer(String name){ return playerList.get(name); }
+
+    public void popPlayer(String player){ playerList.remove(player);}
 }
