@@ -32,7 +32,11 @@ public class PostSignOutRoute implements Route {
         GameModel game = user.getGame();
         Message message;
 
-        //sign out and resign the game
+        /*
+        remove the current player from the player list
+        set the current user to null
+        If the player is in a game, resign the game
+         */
         session.attribute("currentUser", null);
         gameManager.returnLobby().popPlayer(user.getName());
         if(game != null) {

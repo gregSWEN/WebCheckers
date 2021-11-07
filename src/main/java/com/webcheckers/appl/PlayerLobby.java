@@ -104,5 +104,9 @@ public class PlayerLobby {
      */
     public Player getPlayer(String name){ return playerList.get(name); }
 
+    /**
+     * Remove a player from th lobby
+     * @param player name of player in lobby
+     */
     public void popPlayer(String player){ playerList.remove(player);}
 }
