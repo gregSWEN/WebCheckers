@@ -1,4 +1,5 @@
 package com.webcheckers.ui;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -43,16 +44,6 @@ public class GetHomeRouteTest {
         // the GameCenter is friendly but the engine mock will need configuration
         gameManager = new GameManager();
         CuT = new GetHomeRoute(engine, gameManager);
-    }
-    @Test
-    public void new_session() {
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
-        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
-        CuT.handle(request, response);
-
-        testHelper.assertViewModelAttribute("title", "Welcome!");
-        testHelper.assertViewModelAttribute("num_of_players", 0);
     }
 }
 
