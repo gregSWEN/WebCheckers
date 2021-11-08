@@ -45,6 +45,10 @@ public class PostSubmitTurnRoute implements Route {
         }
         user.madeTurn(false);
         user.setMultiCapture(false);
+        Player loser = game.checkIfOver();
+        if(loser != null){
+            game.finished_game(loser);
+        }
         return gson.toJson(Message.info("Good Move"));
     }
 }

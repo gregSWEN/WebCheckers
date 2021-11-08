@@ -128,7 +128,7 @@ public class ValidateMove {
     private List<Move> canCapture(){
         List<Move> captureMoves = new ArrayList<>();
         int kingSpaceCheck;
-        /**
+        /*
          * iterate through every spot on the board
          * if there's a spot that has the current user's piece
          * check if that piece has a piece next to it that can be captured
