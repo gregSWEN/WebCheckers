@@ -1,0 +1,12 @@
+Information for testers:
+
+    1. Unzip the file and locate the main term-project-2211-swen-261-01-d-thepurplenarwhals directory.
+    2. Once in the directory, ensure you have maven installed by typing mvn --version and see that an appropriate version
+       of maven installed.
+    3. Now that you are in the directory and have ensured you have maven installed, run the following command in the
+       command line - <mvn compile exec:java>
+    4. Now once the build is successful, and you get a message saying that your server has been started, open up a browser
+       to the page "localhost:4567"
+    5. When testing, use different signin names to test our login functionality. Additionally, get a king with one of the
+       colors and test kings functionality with double captures and moving backwards. Finally, test the signout, and
+       resign functionality.
