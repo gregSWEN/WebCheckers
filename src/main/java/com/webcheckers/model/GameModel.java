@@ -78,5 +78,54 @@ public class GameModel {
         }
     }
 
+    /**
+     * set the game to end
+     * @param loser player that lost
+     */
+    public void finished_game (Player loser){
+        this.game_end = true;
+        this.loser = loser;
+        if(loser == this.white_player){
+            this.winner = red_player;
+        }else{
+            this.winner = white_player;
+        }
+        this.how_game_ended = "all pieces captured";
+    }
+
+    /**
+     * check if the game is over by seeing if they're pieces left
+     */
+    public Player checkIfOver(){
+        boolean red = false;
+        boolean white = false;
+        for (int row = 0; row < 8; row++) {
+            for (int cell = 0; cell < 8; cell++) {
+                try{
+                    Space space = board.getSpaceAt(row, cell);
+                    if(space.getPiece().getColor() == Piece.Color.RED){
+                        red = true;
+                    }else if(space.getPiece().getColor() == Piece.Color.WHITE){
+                        white = true;
+                    }
+
+                    if(red && white){
+                        break;
+                    }
+                }catch(NullPointerException e){
+                    //pass
+                }
+            }
+        }
+        if(red == false){
+            return red_player;
+        }
+        else if(white == false){
+            return white_player;
+        }else{
+            return null;
+        }
+    }
+
 
 }
