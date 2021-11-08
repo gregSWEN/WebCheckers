@@ -7,6 +7,7 @@ Information for testers:
        command line - <mvn compile exec:java>
     4. Now once the build is successful, and you get a message saying that your server has been started, open up a browser
        to the page "localhost:4567"
-    5. When testing, test only the MVP and nothing below. Use different signin names to test our login functionality.
+    5. When testing, test only the MVP and nothing below, meaning test up to "As a Player, I want to leave a game so I\
+       can do other things until my opponent makes a move". Use different signin names to test our login functionality.
        Additionally, get a king with one of the colors and test kings functionality with double captures and moving
        backwards. Finally, test the signout, and resign functionality.
