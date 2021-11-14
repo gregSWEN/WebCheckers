@@ -26,6 +26,7 @@ define(function () {
     , CHECKING_MY_TURN: 'Checking for My Turn on the Server'
     // The "Game Over" singular state
     , GAME_OVER: 'Showing Game Over'
+    , WAITING_FOR_HINT_VALIDATION: 'Waiting for hint'
 
     //
     // Buttons

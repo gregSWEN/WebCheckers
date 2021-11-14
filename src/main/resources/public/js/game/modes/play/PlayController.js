@@ -69,6 +69,8 @@ define(function(require){
         new WaitingForTurnValidationState(this));
     this.addStateDefinition(PlayModeConstants.WAITING_FOR_BACKUP_VALIDATION,
         new WaitingForBackupValidationState(this));
+    //this.addStateDefinition(PlayModeConstants.WAITING_FOR_HINT_VALIDATION,
+    //    new WaitingForHintValidationState(this));
     // "Waiting for My Turn" composite states
     this.addStateDefinition(PlayModeConstants.WAITING_TO_CHECK_MY_TURN,
         new WaitingForMyTurnState(this));
