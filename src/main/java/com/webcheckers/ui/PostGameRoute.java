@@ -32,10 +32,12 @@ public class PostGameRoute implements Route {
 
         //make the game if both players aren't in a game
         //and return to home if players are in game
-        if(player.getGame() == null && enemyPlayer.getGame() == null){
+        if(true /*player.getGame() == null && enemyPlayer.getGame() == null*/){
             final Map<String, Object> vm = new HashMap<>();
-            GameModel game = new GameModel(player, enemyPlayer);
-            gameManager.setGame(game);
+            GameModel game = new GameModel(player, enemyPlayer, gameManager.howManyGames());
+            gameManager.addGame(game);
+            player.addGameToPlayer(game);
+            enemyPlayer.addGameToPlayer(game);
             vm.put("title", "testing");
             vm.put("currentUser", player);
             vm.put("activeColor", game.getActiveColor());

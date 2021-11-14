@@ -14,13 +14,15 @@ public class GameModel {
     private boolean game_end;
     private Player loser;
     private Player winner;
+    private int id;
 
     //initiates the class
-    public GameModel(Player red_player, Player white_player){
+    public GameModel(Player red_player, Player white_player, int id){
         this.red_player = red_player;
         this.white_player = white_player;
         this.isRedTurn = true;
         this.isWhiteTurn = false;
+        this.id = id;
 
         //put both players into this game, this will also not allow other
         //players to start a game with them
@@ -76,6 +78,13 @@ public class GameModel {
         }else{
             this.winner = white_player;
         }
+    }
+
+    public int getId(){return id;}
+
+    @Override
+    public String toString(){
+        return this.red_player.getName() + " VS " + this.white_player.getName();
     }
 
 

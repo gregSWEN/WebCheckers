@@ -1,5 +1,6 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.model.GameModel;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 

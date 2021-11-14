@@ -30,10 +30,22 @@
       </br>
       <#list available_players as n>
         <form action="./game" method="POST" id="opposite">
-          <input type="hidden" id="opposite" name="opposite" value="${n}"">
+          <input type="hidden" id="opposite" name="opposite" value="${n}">
         </form>
         <button type="submit" form="opposite">${n}</button>
       </#list>
+    </#if>
+
+    <#if current_games??>
+          <br>
+            Current Games
+          </br>
+          <#list current_games as p>
+            <form action="./game" method="GET" id="game_id">
+              <input type="hidden" id="game_id" name="game_id" value="${p.getId()}">
+            </form>
+            <button type="submit" form="game_id" value="${p}">${p}</button>
+          </#list>
     </#if>
 
     <!-- TODO: future content on the Home:

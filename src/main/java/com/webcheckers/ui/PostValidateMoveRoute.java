@@ -30,7 +30,6 @@ public class PostValidateMoveRoute implements Route {
     public Object handle(Request request, Response response) throws Exception {
         final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
-        gameModel = manager.getGame();
         String moveStr = request.queryParams(ACTION_DATA_ATTR);
         Player user = session.attribute(("currentUser"));
         GameModel game = user.getGame();
