@@ -62,12 +62,16 @@ public class ValidateMove {
         } else if (Math.abs(endRow-startRow) == 2 && Math.abs(endCell-startCell) == 2) {
             int checkerRow = (endRow + startRow) / 2;      // row of piece being captured
             int checkerCell = (endCell + startCell) / 2;   // cell of piece being captured
+            //check if there is a piece to be captured
+            if(board.getSpaceAt(checkerRow, checkerCell).getPiece() == null){
+                return Message.error("Invalid move");
+            }
             // is a white piece capturing a red piece?
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
                     if(move != null){
-                        return Message.info("You can Capture another Piece, move first");
+                        return Message.info("You can Capture another Piece, submit first");
                     }
                     return Message.info("You captured a piece!");
                 }
@@ -78,7 +82,7 @@ public class ValidateMove {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
                     if(move != null){
-                        return Message.info("You can Capture another Piece, move first");
+                        return Message.info("You can Capture another Piece, submit first");
                     }
                     return Message.info("You captured a piece!");
                 }
@@ -124,7 +128,7 @@ public class ValidateMove {
     private List<Move> canCapture(){
         List<Move> captureMoves = new ArrayList<>();
         int kingSpaceCheck;
-        /**
+        /*
          * iterate through every spot on the board
          * if there's a spot that has the current user's piece
          * check if that piece has a piece next to it that can be captured

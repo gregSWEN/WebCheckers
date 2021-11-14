@@ -19,7 +19,6 @@ public class PostResignGameRoute implements Route {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
         GameModel game = user.getGame();
-
         Message message;
 
         //make it so can only resign on your turn

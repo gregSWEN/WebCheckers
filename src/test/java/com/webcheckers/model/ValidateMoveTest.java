@@ -30,63 +30,63 @@ public class ValidateMoveTest {
     private static final String BACKWARDS = "Cannot move backwards if you are not a king!";
     private static final String SUCCESS = "Moved successfully";
 
-//
-//    @Test
-//    public void testSingleMove() {
-//        board = GameManager.make_board();
-//        board.setSpaceAt(4, 3, RED_PIECE);
-//        Position start = new Position(4, 3);
-//        Position end = new Position(3, 4);
-//        Move move = new Move(start, end);
-//
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(SUCCESS, validateMove.isValidMove().getText());
-//
-//        board.setSpaceAt(3, 4, WHITE_PIECE);
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(OCCUPIED, validateMove.isValidMove().getText());
-//
-//        board = GameManager.make_board();
-//        board.setSpaceAt(3,4, RED_PIECE);
-//        start = new Position(3, 4);
-//        end = new Position(4, 3);
-//        move = new Move(start, end);
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(BACKWARDS, validateMove.isValidMove().getText());
-//
-//        board.setSpaceAt(3, 4, RED_KING);
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(SUCCESS, validateMove.isValidMove().getText());
-//    }
-//
-//    @Test
-//    public void testCapture() {
-//        board = GameManager.make_board();
-//        board.setSpaceAt(5, 4, RED_PIECE);
-//        board.setSpaceAt(4, 3, WHITE_PIECE);
-//        Position start = new Position(5, 4);
-//        Position end = new Position(3, 2);
-//        Move move = new Move(start, end);
-//
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(CAPTURE, validateMove.isValidMove().getText());
-//
-//        board.setSpaceAt(4, 3, RED_PIECE);
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(CAPTURE_OWN, validateMove.isValidMove().getText());
-//
-//        board = GameManager.make_board();
-//        board.setSpaceAt(3, 2, RED_PIECE);
-//        board.setSpaceAt(4, 1, WHITE_PIECE);
-//        board.setSpaceAt(5, 0, null);
-//        start = new Position(3, 2);
-//        end = new Position(5, 0);
-//        move = new Move(start, end);
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(BACKWARDS, validateMove.isValidMove().getText());
-//
-//        board.setSpaceAt(3, 2, RED_KING);
-//        validateMove = new ValidateMove(move, board);
-//        assertEquals(CAPTURE, validateMove.isValidMove().getText());
-//    }
+
+    @Test
+    public void testSingleMove() {
+        board = GameManager.make_board();
+        board.setSpaceAt(4, 3, RED_PIECE);
+        Position start = new Position(4, 3);
+        Position end = new Position(3, 4);
+        Move move = new Move(start, end);
+
+        validateMove = new ValidateMove(move, board);
+        assertEquals(SUCCESS, validateMove.isValidMove().getText());
+
+        board.setSpaceAt(3, 4, WHITE_PIECE);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(OCCUPIED, validateMove.isValidMove().getText());
+
+        board = GameManager.make_board();
+        board.setSpaceAt(3,4, RED_PIECE);
+        start = new Position(3, 4);
+        end = new Position(4, 3);
+        move = new Move(start, end);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(BACKWARDS, validateMove.isValidMove().getText());
+
+        board.setSpaceAt(3, 4, RED_KING);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(SUCCESS, validateMove.isValidMove().getText());
+    }
+
+    @Test
+    public void testCapture() {
+        board = GameManager.make_board();
+        board.setSpaceAt(5, 4, RED_PIECE);
+        board.setSpaceAt(4, 3, WHITE_PIECE);
+        Position start = new Position(5, 4);
+        Position end = new Position(3, 2);
+        Move move = new Move(start, end);
+
+        validateMove = new ValidateMove(move, board);
+        assertEquals(CAPTURE, validateMove.isValidMove().getText());
+
+        board.setSpaceAt(4, 3, RED_PIECE);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(CAPTURE_OWN, validateMove.isValidMove().getText());
+
+        board = GameManager.make_board();
+        board.setSpaceAt(3, 2, RED_PIECE);
+        board.setSpaceAt(4, 1, WHITE_PIECE);
+        board.setSpaceAt(5, 0, null);
+        start = new Position(3, 2);
+        end = new Position(5, 0);
+        move = new Move(start, end);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(BACKWARDS, validateMove.isValidMove().getText());
+
+        board.setSpaceAt(3, 2, RED_KING);
+        validateMove = new ValidateMove(move, board);
+        assertEquals(CAPTURE, validateMove.isValidMove().getText());
+    }
 }

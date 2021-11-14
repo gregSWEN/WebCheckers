@@ -65,7 +65,7 @@ public class GetGameRoute implements Route {
                 if(game.get_how_game_ended() == "resigned") {
                     modeOptions.put("gameOverMessage", game.get_loser().getName() + " resigned");
                 }else{
-                    modeOptions.put("gameOverMessage", "I'll fix this later");
+                    modeOptions.put("gameOverMessage", game.get_winner().getName() + " won, captured all pieces");
                 }
                 vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
                 currentPlayer.endGame();
