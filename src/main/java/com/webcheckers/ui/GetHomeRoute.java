@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.appl.GameManager;
+import com.webcheckers.model.GameModel;
 import com.webcheckers.model.Player;
 import spark.*;
 
@@ -80,6 +81,11 @@ public class GetHomeRoute implements Route {
       vm.put(PostSigninRoute.LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()));
       vm.put(PostSigninRoute.CURRENT_USER, gameManager.returnLobby().getPlayer(currentPlayer.getName()));
       vm.put(CURRENT_GAMES, currentPlayer.getPlayerGames());
+
+      for(String test: gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()))
+      {
+        System.out.println(test);
+      }
     }
 
     // display the number of plays currently logged in
