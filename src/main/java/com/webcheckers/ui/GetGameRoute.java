@@ -46,7 +46,7 @@ public class GetGameRoute implements Route {
             final Map<String, Object> vm = new HashMap<>();
 
             //build the board
-            vm.put("title", "testing");
+            vm.put("title", "Game");
             vm.put("currentUser", currentPlayer);
             vm.put("activeColor", game.getActiveColor());
             vm.put("redPlayer", game.getRedPlayer());
