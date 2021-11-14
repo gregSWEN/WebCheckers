@@ -89,8 +89,8 @@ define(function(require){
         PlayModeConstants.RESIGN_BUTTON_TOOLTIP, this.resignGame);
     this.addButton(PlayModeConstants.EXIT_BUTTON_ID, 'Exit', true,
         PlayModeConstants.EXIT_BUTTON_TOOLTIP, this.exitGame);
-    //this.addButton(PlayModeConstants.HINT_BUTTON_ID, 'Hint', true,
-    //    PlayModeConstants.HINT_BUTTON_TOOLTIP, this.makeHint)
+    this.addButton(PlayModeConstants.HINT_BUTTON_ID, 'Hint', true,
+        PlayModeConstants.HINT_BUTTON_TOOLTIP, this.makeHint)
 
     // Public (internal) methods
 
@@ -148,6 +148,10 @@ define(function(require){
   PlayController.prototype.submitTurn = function submitTurn() {
     this._delegateStateMessage('submitTurn', arguments);
   };
+
+  PlayController.prototype.makeHint = function makeHint() {
+    this._delegateStateMessage('makeHint', arguments);
+  }
 
   /**
    * Queries whether the Game View can be deactivated; usually from

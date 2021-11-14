@@ -39,6 +39,8 @@ define(function () {
     , RESIGN_BUTTON_TOOLTIP: 'Resign from the game.'
     , EXIT_BUTTON_ID: 'exitBtn'
     , EXIT_BUTTON_TOOLTIP: 'Click here to exit the game and go to the Home page.'
+    , HINT_BUTTON_ID: 'hintBtn'
+    , HINT_BUTTON_TOOLTIP: 'Click here to get a suggestion for a move'
 
   };
 });
