@@ -57,6 +57,7 @@ define(function (require) {
         this._controller.refresh();
       } else {
         this._controller.setState(PlayModeConstants.WAITING_TO_CHECK_MY_TURN);
+        this._controller.refresh();
       }
     }
     // handle error message
