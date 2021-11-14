@@ -28,7 +28,6 @@ public class PostValidateMoveRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        final Map<String, Object> vm = new HashMap<>();
         final Session session = request.session();
         String moveStr = request.queryParams(ACTION_DATA_ATTR);
         Player user = session.attribute(("currentUser"));
