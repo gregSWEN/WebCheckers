@@ -26,7 +26,7 @@ define(function () {
     , CHECKING_MY_TURN: 'Checking for My Turn on the Server'
     // The "Game Over" singular state
     , GAME_OVER: 'Showing Game Over'
-    , WAITING_FOR_HINT_VALIDATION: 'Waiting for hint'
+    , WAITING_FOR_HINT_VALIDATION: 'Waiting for Hint Validation'
 
     //
     // Buttons
@@ -41,7 +41,7 @@ define(function () {
     , EXIT_BUTTON_ID: 'exitBtn'
     , EXIT_BUTTON_TOOLTIP: 'Click here to exit the game and go to the Home page.'
     , HINT_BUTTON_ID: 'hintBtn'
-    , HINT_BUTTON_TOOLTIP: 'Click here to get a suggestion for a move'
+    , HINT_BUTTON_TOOLTIP: 'Get a suggestion for a move.'
 
   };
 });

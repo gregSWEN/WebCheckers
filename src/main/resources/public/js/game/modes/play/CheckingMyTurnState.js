@@ -57,6 +57,7 @@ define(function (require) {
         this._controller.refresh();
       } else {
         this._controller.setState(PlayModeConstants.WAITING_TO_CHECK_MY_TURN);
+        // forces page update (used when opponent resigns, not the best method)
         this._controller.refresh();
       }
     }

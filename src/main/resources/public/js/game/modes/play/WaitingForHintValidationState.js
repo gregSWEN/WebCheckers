@@ -32,4 +32,4 @@ define(function(require) {
     }
 
     return WaitingForHintValidationState;
-}
+});
