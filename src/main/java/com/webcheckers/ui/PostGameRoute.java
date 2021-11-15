@@ -36,7 +36,7 @@ public class PostGameRoute implements Route {
             final Map<String, Object> vm = new HashMap<>();
             GameModel game = new GameModel(player, enemyPlayer);
             gameManager.setGame(game);
-            vm.put("title", "testing");
+            vm.put("title", "Game");
             vm.put("currentUser", player);
             vm.put("activeColor", game.getActiveColor());
             vm.put("redPlayer", game.getRedPlayer());

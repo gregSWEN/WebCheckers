@@ -13,6 +13,10 @@ import spark.Session;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * This handles the user signing out. If the user is in a game,
+ * it will automatically end when the user signs out.
+ */
 public class PostSignOutRoute implements Route {
     private final Gson gson = new Gson();
     private static final Logger LOG = Logger.getLogger(PostCheckTurnRoute.class.getName());

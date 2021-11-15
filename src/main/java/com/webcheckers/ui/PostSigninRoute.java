@@ -11,6 +11,11 @@ import java.util.*;
 
 import java.util.Objects;
 
+/**
+ * This class handles the sign in of the user and sending
+ * then to either the home page or the sign in page depending
+ * on the success of the sign in.
+ */
 public class PostSigninRoute implements Route {
     private static final String TITLE_ATTR = "title";
     private static final String PLAYER_NAME_ATTR = "playerName";

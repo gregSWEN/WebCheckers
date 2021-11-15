@@ -59,10 +59,10 @@ public class GetGameRoute implements Route {
             }
 
             //check if the game ended
-            if(game.getGameStatus() == true){
+            if(game.getGameStatus()){
                 final Map<String, Object> modeOptions = new HashMap<>(2);
                 modeOptions.put("isGameOver", true);
-                if(game.get_how_game_ended() == "resigned") {
+                if(game.get_how_game_ended().equals("resigned")) {
                     modeOptions.put("gameOverMessage", game.get_loser().getName() + " resigned");
                 }else{
                     modeOptions.put("gameOverMessage", game.get_winner().getName() + " won, captured all pieces");
