@@ -7,6 +7,9 @@ import spark.*;
 
 import java.util.logging.Logger;
 
+/**
+ * This class handles the user resigning a game.
+ */
 public class PostResignGameRoute implements Route {
     private final Gson gson = new Gson();
     private static final Logger LOG = Logger.getLogger(PostCheckTurnRoute.class.getName());

@@ -1,3 +1,8 @@
+/**
+* This represents the state for when a hint is to be made.
+* It should call the POST /makeHint route to receive a message,
+* then print the message.
+*/
 define(function(require){
     'use strict';
 

@@ -8,6 +8,10 @@ import spark.TemplateEngine;
 
 import java.util.Objects;
 
+/**
+ * This class handles the user asking for a hint, then sending
+ * that hint as a Message.
+ */
 public class PostMakeHintRoute implements Route {
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;

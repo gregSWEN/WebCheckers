@@ -7,6 +7,10 @@ import spark.*;
 
 import java.util.Objects;
 
+/**
+ * This class handles the user submitting their move. It will update the
+ * board and change the turn appropriately.
+ */
 public class PostSubmitTurnRoute implements Route {
     private final TemplateEngine templateEngine;
     private final Gson gson = new Gson();
