@@ -1,4 +1,4 @@
-define(function(require) {
+define(function(require){
     'use strict';
 
     // imports
@@ -14,6 +14,8 @@ define(function(require) {
     };
 
     WaitingForHintValidationState.prototype.onEntry = function onEntry() {
+        this._controller.makeHint();
+
         // 1) disable UI controls
         this._controller.disableButton(PlayModeConstants.BACKUP_BUTTON_ID);
         this._controller.disableButton(PlayModeConstants.SUBMIT_BUTTON_ID);

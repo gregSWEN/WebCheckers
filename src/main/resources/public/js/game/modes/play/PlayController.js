@@ -24,6 +24,7 @@ define(function(require){
   const StableTurnState = require('./StableTurnState');
   const WaitingForTurnValidationState = require('./WaitingForTurnValidationState');
   const WaitingForBackupValidationState = require('./WaitingForBackupValidationState');
+  const WaitingForHintValidationState = require('./WaitingForHintValidationState')
   // "Waiting for My Turn" composite states
   const WaitingForMyTurnState = require('./WaitingForMyTurnState');
   const CheckingMyTurnState = require('./CheckingMyTurnState');
@@ -71,7 +72,7 @@ define(function(require){
         new WaitingForBackupValidationState(this));
     this.addStateDefinition(PlayModeConstants.WAITING_FOR_HINT_VALIDATION,
         new WaitingForHintValidationState(this));
-     "Waiting for My Turn" composite states
+     // "Waiting for My Turn" composite states
     this.addStateDefinition(PlayModeConstants.WAITING_TO_CHECK_MY_TURN,
         new WaitingForMyTurnState(this));
     this.addStateDefinition(PlayModeConstants.CHECKING_MY_TURN,
@@ -153,7 +154,7 @@ define(function(require){
 
   PlayController.prototype.makeHint = function makeHint() {
     this._delegateStateMessage('makeHint', arguments);
-  }
+  };
 
   /**
    * Queries whether the Game View can be deactivated; usually from
