@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * This class represents the lobby of all players
  * currently playing throughout the whole site.
- * @author Michael Taylor
+ * @author Michael Taylor]]
  * @author Huan Huynh
  */
 public class PlayerLobby {
@@ -104,4 +104,10 @@ public class PlayerLobby {
      * @return the Player object in the lobby
      */
     public Player getPlayer(String name){ return playerList.get(name); }
+
+    /**
+     * Remove a player from th lobby
+     * @param player name of player in lobby
+     */
+    public void popPlayer(String player){ playerList.remove(player);}
 }

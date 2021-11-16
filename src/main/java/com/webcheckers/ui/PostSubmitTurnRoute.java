@@ -7,6 +7,10 @@ import spark.*;
 
 import java.util.Objects;
 
+/**
+ * This class handles the user submitting their move. It will update the
+ * board and change the turn appropriately.
+ */
 public class PostSubmitTurnRoute implements Route {
     private final TemplateEngine templateEngine;
     private final Gson gson = new Gson();
@@ -23,6 +27,7 @@ public class PostSubmitTurnRoute implements Route {
         GameModel game = user.getGame();
         BoardView board = user.getGame().getBoard();
         Move move = user.peekMove();
+
 
         //make move when player submits
         //change game turn to the other player
@@ -44,6 +49,10 @@ public class PostSubmitTurnRoute implements Route {
         }
         user.madeTurn(false);
         user.setMultiCapture(false);
+        Player loser = game.checkIfOver();
+        if(loser != null){
+            game.finished_game(loser);
+        }
         return gson.toJson(Message.info("Good Move"));
     }
 }

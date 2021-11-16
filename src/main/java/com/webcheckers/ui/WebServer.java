@@ -69,6 +69,10 @@ public class WebServer {
 
   public static final String RESIGN_URL = "/resignGame";
 
+  public static final String SIGNOUT_URL = "/signout";
+
+  public static final String MAKE_HINT_URL = "/makeHint";
+
   //
   // Attributes
   //
@@ -172,6 +176,10 @@ public class WebServer {
     post(BACKUP_URL, new PostBackupRoute());
 
     post(RESIGN_URL, new PostResignGameRoute());
+
+    post(SIGNOUT_URL, new PostSignOutRoute(gameManager));
+
+    post(MAKE_HINT_URL, new PostMakeHintRoute(templateEngine, gameManager));
 
 
     //    get(HOME_URL, new PostSigninRoute())

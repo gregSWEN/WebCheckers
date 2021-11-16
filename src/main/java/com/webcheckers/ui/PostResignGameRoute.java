@@ -7,6 +7,9 @@ import spark.*;
 
 import java.util.logging.Logger;
 
+/**
+ * This class handles the user resigning a game.
+ */
 public class PostResignGameRoute implements Route {
     private final Gson gson = new Gson();
     private static final Logger LOG = Logger.getLogger(PostCheckTurnRoute.class.getName());
@@ -19,7 +22,6 @@ public class PostResignGameRoute implements Route {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
         GameModel game = user.getGame();
-
         Message message;
 
         //make it so can only resign on your turn

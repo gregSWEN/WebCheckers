@@ -11,6 +11,11 @@ import java.util.*;
 
 import java.util.Objects;
 
+/**
+ * This class handles the sign in of the user and sending
+ * then to either the home page or the sign in page depending
+ * on the success of the sign in.
+ */
 public class PostSigninRoute implements Route {
     private static final String TITLE_ATTR = "title";
     private static final String PLAYER_NAME_ATTR = "playerName";
@@ -58,13 +63,10 @@ public class PostSigninRoute implements Route {
         session.attribute(GetHomeRoute.gameManagerKey, gameManager);
 
         //return user to home page as a player
-        vm.put(TITLE_ATTR, "Welcome!");
-        vm.put(MESSAGE_ATTR, message);
-        //return null;  //templateEngine.render(new ModelAndView(vm , "home.ftl"));
-        vm.put(LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(nameString));
-        vm.put(CURRENT_USER, gameManager.returnLobby().getPlayer((nameString)));
-        return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+        response.redirect("/");
+        return null;
     }
+
 
 
 

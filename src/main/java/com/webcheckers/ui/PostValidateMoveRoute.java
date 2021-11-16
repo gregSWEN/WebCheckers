@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * This class tests the legality of a move and returns a message on
+ * whether the move was successful. It also checks if another capture
+ * is possible.
+ */
 public class PostValidateMoveRoute implements Route {
     private static final String VIEW_NAME = "game.ftl";
     public static final String ACTION_DATA_ATTR = "actionData";
@@ -47,7 +52,7 @@ public class PostValidateMoveRoute implements Route {
             if (validateMove.isValidMove().getType() == Message.Type.INFO) {
                 user.addMove(move);
                 user.madeTurn(true);
-                if(validateMove.isValidMove().getText() == "You can Capture another Piece, move first"){
+                if(validateMove.isValidMove().getText().equals("You can Capture another Piece, submit first")){
                     user.setMultiCapture(true);
                 }
 

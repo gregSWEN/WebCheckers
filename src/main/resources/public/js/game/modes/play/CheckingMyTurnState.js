@@ -40,6 +40,7 @@ define(function (require) {
    */
   CheckingMyTurnState.prototype.onEntry = function onEntry() {
     this._controller.disableButton(PlayModeConstants.RESIGN_BUTTON_ID);
+    this._controller.disableButton(PlayModeConstants.HINT_BUTTON_ID);
     // query the server if it's my turn
     AjaxUtils.callServer('/checkTurn',
         // the handler method should be run in the context of 'this' State object
@@ -57,6 +58,8 @@ define(function (require) {
         this._controller.refresh();
       } else {
         this._controller.setState(PlayModeConstants.WAITING_TO_CHECK_MY_TURN);
+        // forces page update (used when opponent resigns, not the best method)
+        this._controller.refresh();
       }
     }
     // handle error message

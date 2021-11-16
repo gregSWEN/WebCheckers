@@ -38,7 +38,7 @@ public class PostGameRoute implements Route {
             gameManager.addGame(game);
             player.addGameToPlayer(game);
             enemyPlayer.addGameToPlayer(game);
-            vm.put("title", "testing");
+            vm.put("title", "Game");
             vm.put("currentUser", player);
             vm.put("activeColor", game.getActiveColor());
             vm.put("redPlayer", game.getRedPlayer());
