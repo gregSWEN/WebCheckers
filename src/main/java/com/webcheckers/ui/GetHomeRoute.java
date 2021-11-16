@@ -82,10 +82,10 @@ public class GetHomeRoute implements Route {
       vm.put(PostSigninRoute.CURRENT_USER, gameManager.returnLobby().getPlayer(currentPlayer.getName()));
       vm.put(CURRENT_GAMES, currentPlayer.getPlayerGames());
 
-      for(String test: gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()))
-      {
-        System.out.println(test);
-      }
+//      for(String test: gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()))
+//      {
+//        System.out.println(test);
+//      }
     }
 
     // display the number of plays currently logged in

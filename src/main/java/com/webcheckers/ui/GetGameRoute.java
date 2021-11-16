@@ -42,7 +42,6 @@ public class GetGameRoute implements Route {
         String string_of_Id = request.queryParams("game_id");
         GameModel game;
         if(string_of_Id != null) {
-            System.out.println(string_of_Id);
             int game_id = Integer.parseInt(string_of_Id);
             game = gameManager.getGame(game_id);
             currentPlayer.startGame(game);//THIS DOESN't START GAME IT SETS THE GAME IN PLAYER

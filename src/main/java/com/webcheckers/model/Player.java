@@ -72,8 +72,19 @@ public class Player {
     public void madeTurn(boolean turn){
         this.madeMove = turn;
     }
-    public Move popMove(){
-        return this.moves.pop();
+
+    /**
+     * check if the game is already happening with the same opponent
+     * @param enemy Enemy player
+     */
+    public boolean checkIfPlayerInGame(Player enemy){
+        for (GameModel s : games) {
+            boolean alreadyGame = s.checkTwoPlayers(this, enemy);
+            if(alreadyGame){    //if two players already in a game return true
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
