@@ -80,8 +80,9 @@ public class GameModel {
     public int getId(){return id;}
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.red_player.getName() + " VS " + this.white_player.getName();
+    }
     /**
      * set the game to end
      * @param loser player that lost
