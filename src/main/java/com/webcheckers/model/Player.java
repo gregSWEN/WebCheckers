@@ -1,6 +1,8 @@
 package com.webcheckers.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -18,12 +20,14 @@ public class Player {
     /** boolean if player made a move that turn */
     private boolean madeMove;
     private boolean multiCapture;
+    private Set<GameModel> games;
 
     public Player(String name) {
         this.name = name;
         this.moves = new Stack<>();
         this.madeMove = false;
         this.multiCapture = false;
+        this.games = new HashSet<>();
     }
     public String getName() { return name; }
     public GameModel getGame(){return game;}
@@ -68,8 +72,19 @@ public class Player {
     public void madeTurn(boolean turn){
         this.madeMove = turn;
     }
-    public Move popMove(){
-        return this.moves.pop();
+
+    /**
+     * check if the game is already happening with the same opponent
+     * @param enemy Enemy player
+     */
+    public boolean checkIfPlayerInGame(Player enemy){
+        for (GameModel s : games) {
+            boolean alreadyGame = s.checkTwoPlayers(this, enemy);
+            if(alreadyGame){    //if two players already in a game return true
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -84,4 +99,8 @@ public class Player {
     public void setMultiCapture(boolean move){this.multiCapture = move;}
 
     public boolean getMultiCapture(){return multiCapture;}
+
+    public void addGameToPlayer(GameModel game){games.add(game);}
+
+    public Set<GameModel> getPlayerGames(){return games;}
 }
