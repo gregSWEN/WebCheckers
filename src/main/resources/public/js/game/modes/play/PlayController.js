@@ -70,8 +70,8 @@ define(function(require){
         new WaitingForTurnValidationState(this));
     this.addStateDefinition(PlayModeConstants.WAITING_FOR_BACKUP_VALIDATION,
         new WaitingForBackupValidationState(this));
-    this.addStateDefinition(PlayModeConstants.WAITING_FOR_HINT_VALIDATION,
-        new WaitingForHintValidationState(this));
+//    this.addStateDefinition(PlayModeConstants.WAITING_FOR_HINT_VALIDATION,
+//        new WaitingForHintValidationState(this));
      // "Waiting for My Turn" composite states
     this.addStateDefinition(PlayModeConstants.WAITING_TO_CHECK_MY_TURN,
         new WaitingForMyTurnState(this));
@@ -152,9 +152,9 @@ define(function(require){
     this._delegateStateMessage('submitTurn', arguments);
   };
 
-  PlayController.prototype.makeHint = function makeHint() {
-    this._delegateStateMessage('makeHint', arguments);
-  };
+//  PlayController.prototype.makeHint = function makeHint() {
+//    this._delegateStateMessage('makeHint', arguments);
+//  };
 
   /**
    * Queries whether the Game View can be deactivated; usually from
@@ -186,7 +186,8 @@ define(function(require){
         // the handler method should be run in the context of 'this' Controller object
         handleResponse, this);
 
-    // 
+    //
+
     function handleResponse(message) {
       if (message.type === 'INFO') {
         // tell the browser to route the player to the Home page
@@ -198,6 +199,14 @@ define(function(require){
       }
     }
   };
+
+  PlayController.prototype.makeHint = function makeHint() {
+
+        AjaxUtils.callServer('/makeHint', handleResponse, this);
+        function handleResponse(message){
+            this.displayMessage(message);
+        }
+      };
 
   /**
    * Exit the game by navigating to the Home page.
