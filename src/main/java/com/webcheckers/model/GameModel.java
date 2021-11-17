@@ -69,7 +69,7 @@ public class GameModel {
     public boolean checkTwoPlayers(Player p1, Player p2){
         if(red_player == p1 && white_player == p2){
             return true;
-        }else if(white_player == p1 && red_player == p1){
+        }else if(white_player == p1 && red_player == p2){
             return true;
         }else {
             return false;
