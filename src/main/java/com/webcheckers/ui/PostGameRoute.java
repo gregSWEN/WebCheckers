@@ -50,7 +50,6 @@ public class PostGameRoute implements Route {
                 vm.put("board", game.getBoard());
             }
 
-
             return templateEngine.render(new ModelAndView(vm , VIEW_NAME));
         }else if(player.checkIfPlayerInGame(enemyPlayer)) {
             response.redirect("/game");
