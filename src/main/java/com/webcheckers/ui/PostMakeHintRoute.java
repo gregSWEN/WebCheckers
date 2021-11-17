@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.appl.GameManager;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -25,8 +26,18 @@ public class PostMakeHintRoute implements Route {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         final Session session = request.session();
+        Player user = session.attribute("currentUser");
+        GameModel game = user.getGame();
+        BoardView board = user.getGame().getBoard();
         Message message;
-        message = Message.info("fuck off");
+        ValidateMove validateMove;
+        if(game.getActiveColor() == Piece.Color.RED){
+            validateMove = new ValidateMove(board.flip_board(), game.getActiveColor());
+        }
+        else{
+            validateMove = new ValidateMove(board, game.getActiveColor());
+        }
+        message = validateMove.hint_message();
         return gson.toJson(message);
     }
 }
