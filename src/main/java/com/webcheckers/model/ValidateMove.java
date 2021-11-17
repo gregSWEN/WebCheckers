@@ -47,19 +47,19 @@ public class ValidateMove {
     public Message hint_message(){
         Message message;
         String result = "A space is derived from rows 1-8 and columns 1-8\n" +
-                "for example (1,1) will be the top left corner";
+                "for example (1,1) will be the top left corner ";
         List<Move> captures = canCapture();
         List<Move> possibleMoves = possibleMoves();
         if(captures.size() > 0){
             for (Move move: captures){
                 result += "You can go from (" + (move.getStart().getRow() + 1) + ", " + (move.getStart().getCell() + 1) +
-                        ") to (" + (move.getEnd().getRow() + 1) + ", " + (move.getEnd().getCell() + 1) + ")";
+                        ") to (" + (move.getEnd().getRow() + 1) + ", " + (move.getEnd().getCell() + 1) + ") for a capture";
             }
         }
         else{
             for(Move move: possibleMoves){
                 result += "You can go from (" + (move.getStart().getRow() + 1) + ", " + (move.getStart().getCell() + 1) +
-                        ") to (" + (move.getEnd().getRow() + 1) + ", " + (move.getEnd().getCell() + 1) + ")";
+                        ") to (" + (move.getEnd().getRow() + 1) + ", " + (move.getEnd().getCell() + 1) + ") for a move   ";
             }
         }
         message = Message.info(result);
@@ -220,13 +220,13 @@ public class ValidateMove {
     private List<Move> pieceCanMoveSingle(Space space, int row){
         List<Move> moves = new ArrayList<>();
         int startCol = space.getCellIdx();
-        if(row - 1 > -1 && startCol - 1 > -1){
+        if(row - 1 > -1 && startCol - 1 > -1 && board.getSpaceAt(row - 1, startCol - 1).getPiece() == null){
             Position start = new Position(row, startCol);
             Position end = new Position(row - 1, startCol - 1);
             Move move = new Move(start, end);
             moves.add(move);
         }
-        if(row - 1 > -1 && startCol + 1 < 8){
+        if(row - 1 > -1 && startCol + 1 < 8 && board.getSpaceAt(row - 1, startCol + 1).getPiece() == null){
             Position start = new Position(row, startCol);
             Position end = new Position(row - 1, startCol + 1);
             Move move = new Move(start, end);
@@ -241,14 +241,21 @@ public class ValidateMove {
 
         for(int i = 0; i < boardLength; i++){
             for(int k = 0; k < boardLength; k++){
-                Space space = board.getSpaceAt(i, k);
-                if(space.getPiece().getColor() == currentColor){
-                    if(space.getPiece().getType() == Piece.Type.SINGLE){
-                        List<Move> singleMoves = pieceCanMoveSingle(space, i);
-                        for (Move move: singleMoves){
-                            moves.add(move);
+                try{
+                    Space space = board.getSpaceAt(i, k);
+                    if(space.getPiece().getColor() == currentColor){
+                        if(space.getPiece().getType() == Piece.Type.SINGLE){
+                            List<Move> singleMoves = pieceCanMoveSingle(space, i);
+                            if(singleMoves != null){
+                                for (Move move: singleMoves){
+                                    moves.add(move);
+                                }
+                            }
                         }
                     }
+                }
+                catch (NullPointerException e){
+                    //continue
                 }
             }
         }
