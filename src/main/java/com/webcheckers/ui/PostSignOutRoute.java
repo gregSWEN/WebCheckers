@@ -10,7 +10,7 @@ import spark.Response;
 import spark.Route;
 import spark.Session;
 
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -32,8 +32,6 @@ public class PostSignOutRoute implements Route {
     public Object handle(Request request, Response response) throws Exception {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
-
-        GameModel game = user.getGame();
         Message message;
 
         /*
@@ -41,15 +39,21 @@ public class PostSignOutRoute implements Route {
         set the current user to null
         If the player is in a game, resign the game
          */
-        session.attribute("currentUser", null);
-        gameManager.returnLobby().popPlayer(user.getName());
-        if(game != null) {
-            message = Message.info("resigned");
-            game.resign(user);
+        Set<GameModel> gamesSet = user.getPlayerGames();
+        List<GameModel> games = new ArrayList<>(gamesSet);
 
+        if(!games.isEmpty()) {
+            for(GameModel s: games) {
+                s.resign(user);
+            }
+            message = Message.info("resigned");
+            gameManager.returnLobby().popPlayer(user.getName());
+            session.attribute("currentUser", null);
             response.redirect("/");
             return gson.toJson(message);
         }
+        gameManager.returnLobby().popPlayer(user.getName());
+        session.attribute("currentUser", null);
         response.redirect("/");
         return null;
     }

@@ -80,7 +80,7 @@ public class GetHomeRoute implements Route {
     }else{
       vm.put(PostSigninRoute.LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()));
       vm.put(PostSigninRoute.CURRENT_USER, gameManager.returnLobby().getPlayer(currentPlayer.getName()));
-      vm.put(CURRENT_GAMES, currentPlayer.getPlayerGames());
+      vm.put(CURRENT_GAMES, currentPlayer.getPlayerGames());  //only games that aren't over
 
 //      for(String test: gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()))
 //      {

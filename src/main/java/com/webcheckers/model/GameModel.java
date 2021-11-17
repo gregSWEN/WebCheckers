@@ -64,6 +64,8 @@ public class GameModel {
         }else{
             this.winner = white_player;
         }
+        red_player.popGame(this);
+        white_player.popGame(this);
     }
 
     public boolean checkTwoPlayers(Player p1, Player p2){

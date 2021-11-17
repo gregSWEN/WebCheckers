@@ -27,7 +27,7 @@ public class Player {
         this.moves = new Stack<>();
         this.madeMove = false;
         this.multiCapture = false;
-        this.games = new HashSet<>();
+        this.games = new HashSet<GameModel>();
     }
     public String getName() { return name; }
     public GameModel getGame(){return game;}
@@ -103,4 +103,8 @@ public class Player {
     public void addGameToPlayer(GameModel game){games.add(game);}
 
     public Set<GameModel> getPlayerGames(){return games;}
+
+    public void popGame(GameModel game){
+        games.remove(game);
+    }
 }
