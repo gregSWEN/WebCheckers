@@ -26,7 +26,7 @@ public class PostMakeHintRoute implements Route {
     public Object handle(Request request, Response response) throws Exception {
         final Session session = request.session();
         Message message;
-        message = Message.info("fuck off");
+        message = Message.info("button works :)");
         return gson.toJson(message);
     }
 }
