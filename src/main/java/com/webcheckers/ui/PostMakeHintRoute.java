@@ -1,10 +1,9 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.appl.GameManager;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import com.webcheckers.util.Message;
+import spark.*;
 
 import java.util.Objects;
 
@@ -13,6 +12,7 @@ import java.util.Objects;
  * that hint as a Message.
  */
 public class PostMakeHintRoute implements Route {
+    private final Gson gson = new Gson();
     private final TemplateEngine templateEngine;
     private final GameManager gameManager;
 
@@ -24,6 +24,9 @@ public class PostMakeHintRoute implements Route {
     }
     @Override
     public Object handle(Request request, Response response) throws Exception {
-        return null;
+        final Session session = request.session();
+        Message message;
+        message = Message.info("fuck off");
+        return gson.toJson(message);
     }
 }
