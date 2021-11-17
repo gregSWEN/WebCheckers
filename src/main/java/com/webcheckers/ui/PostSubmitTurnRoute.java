@@ -52,6 +52,8 @@ public class PostSubmitTurnRoute implements Route {
         Player loser = game.checkIfOver();
         if(loser != null){
             game.finished_game(loser);
+            game.getRedPlayer().popGame(game);
+            game.getWhitePlayer().popGame(game);
         }
         return gson.toJson(Message.info("Good Move"));
     }

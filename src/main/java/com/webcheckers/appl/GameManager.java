@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class GameManager {
     private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
     private PlayerLobby lobby = null;
-    private static GameModel game = null;
+    private Map<Integer, GameModel> games = new HashMap<>();
 
     public final static String GAME_PLAY_MESSAGE_YOU = "it\'s your turn. Move your piece and click the submit link. If you want to erase your move click the reset link";
     public final static String GAME_PLAY_MESSAGE_OTHER = "it\'s %s turn. The page will refresh periodically and you will be informed when it is your turn";
@@ -63,11 +63,17 @@ public class GameManager {
         return board;
     }
 
-    public static void setGame(GameModel game) {
-        GameManager.game = game;
+    public void addGame(GameModel game) {
+        games.put(games.size(), game);
     }
 
-    public static GameModel getGame() {
-        return game;
+    public int howManyGames(){return games.size();}
+
+    public GameModel getGame(int id) {
+        return games.get(id);
+    }
+
+    public Set<GameModel> list_all_games(){
+        return new HashSet<>(games.values());
     }
 }

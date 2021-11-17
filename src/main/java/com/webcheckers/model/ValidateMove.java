@@ -75,7 +75,6 @@ public class ValidateMove {
             kingSpaceCheck = 2;
         }
         List<Move> captureMove = canCapture();
-
         if(captureMove.size() != 0 && !captureMove.contains(move)){
             return Message.error("Must play capture move");
         }

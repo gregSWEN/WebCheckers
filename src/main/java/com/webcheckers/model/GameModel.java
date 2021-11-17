@@ -14,13 +14,15 @@ public class GameModel {
     private boolean game_end;
     private Player loser;
     private Player winner;
+    private int id;
 
     //initiates the class
-    public GameModel(Player red_player, Player white_player){
+    public GameModel(Player red_player, Player white_player, int id){
         this.red_player = red_player;
         this.white_player = white_player;
         this.isRedTurn = true;
         this.isWhiteTurn = false;
+        this.id = id;
 
         //put both players into this game, this will also not allow other
         //players to start a game with them
@@ -50,20 +52,6 @@ public class GameModel {
         this.currentColor = color;
     }
 
-
-    public void updateBoard(BoardView newBoard) {this.board = newBoard;}
-
-    public Message checkTurn(Player current){
-        if(current.equals(red_player) && isRedTurn){
-            return Message.info("true");
-        }
-        else if(current.equals(white_player) && isWhiteTurn){
-            return Message.info("true");
-        }
-        else{
-            return Message.error("false");
-        }
-    }
     /**
      * set the game to end
      * @param loser player that lost
@@ -76,8 +64,27 @@ public class GameModel {
         }else{
             this.winner = white_player;
         }
+        red_player.popGame(this);
+        white_player.popGame(this);
     }
 
+    public boolean checkTwoPlayers(Player p1, Player p2){
+        if(red_player == p1 && white_player == p2){
+            return true;
+        }else if(white_player == p1 && red_player == p2){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    public int getId(){return id;}
+
+    @Override
+    public String toString() {
+        return this.red_player.getName() + " VS " + this.white_player.getName();
+    }
     /**
      * set the game to end
      * @param loser player that lost

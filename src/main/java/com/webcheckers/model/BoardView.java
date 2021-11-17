@@ -97,6 +97,12 @@ public class BoardView implements Iterable<Row>{
         }
     }
 
+    /**
+     * get random move from the current game
+     * @return
+     * the new RowIterator object
+     */
+
     public Space getSpaceAt(int rowIdx, int cellIdx) { return rows.get(rowIdx).getSpace(cellIdx); }
 
     public void setSpaceAt(int rowIdx, int cellIdx, Piece piece) {

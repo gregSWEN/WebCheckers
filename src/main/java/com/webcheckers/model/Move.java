@@ -15,7 +15,7 @@ public class Move {
 
     @Override
     public int hashCode(){
-        return start.getRow()^5+start.getCell()*7+end.getRow()^9+end.getCell()^8;
+        return (start.getRow()^5)*(start.getCell()^7)*(end.getRow()^9)*(end.getCell()^8);
     }
 
     @Override

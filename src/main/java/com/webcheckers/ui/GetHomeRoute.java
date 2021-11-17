@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.appl.GameManager;
+import com.webcheckers.model.GameModel;
 import com.webcheckers.model.Player;
 import spark.*;
 
@@ -17,6 +18,8 @@ import com.webcheckers.util.Message;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class GetHomeRoute implements Route {
+  private static final String CURRENT_GAMES = "current_games";
+
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
@@ -60,12 +63,12 @@ public class GetHomeRoute implements Route {
     Player currentPlayer = httpSession.attribute("currentUser");  //get current player if there is one
 
     //put player from homescreen in game if an opponent selected them
-    if(currentPlayer != null){
-      if(currentPlayer.getGame() != null) {
-        response.redirect("/game");
-        return null;
-      }
-    }
+//    if(currentPlayer != null){
+//      if(currentPlayer.getGame() != null) {
+//        response.redirect("/game");
+//        return null;
+//      }
+//    }
 
     //making message to show size of players
     int num = gameManager.returnLobby().sizeOfLobby();
@@ -77,6 +80,12 @@ public class GetHomeRoute implements Route {
     }else{
       vm.put(PostSigninRoute.LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()));
       vm.put(PostSigninRoute.CURRENT_USER, gameManager.returnLobby().getPlayer(currentPlayer.getName()));
+      vm.put(CURRENT_GAMES, currentPlayer.getPlayerGames());  //only games that aren't over
+
+//      for(String test: gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()))
+//      {
+//        System.out.println(test);
+//      }
     }
 
     // display the number of plays currently logged in

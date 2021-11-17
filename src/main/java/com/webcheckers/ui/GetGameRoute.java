@@ -39,7 +39,15 @@ public class GetGameRoute implements Route {
         final Session httpSession = request.session();
         final GameManager gameManager = httpSession.attribute(GetHomeRoute.gameManagerKey);
         Player currentPlayer = httpSession.attribute("currentUser");
-        GameModel game = currentPlayer.getGame();
+        String string_of_Id = request.queryParams("game_id");
+        GameModel game;
+        if(string_of_Id != null) {
+            int game_id = Integer.parseInt(string_of_Id);
+            game = gameManager.getGame(game_id);
+            currentPlayer.startGame(game);//THIS DOESN't START GAME IT SETS THE GAME IN PLAYER
+        }else{
+            game = currentPlayer.getGame();
+        }
 
         // build the view-model for the player
         if(gameManager != null && game != null){
