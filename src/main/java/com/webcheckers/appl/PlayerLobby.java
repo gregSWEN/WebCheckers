@@ -109,5 +109,5 @@ public class PlayerLobby {
      * Remove a player from th lobby
      * @param player name of player in lobby
      */
-    public void popPlayer(String player){ playerList.remove(player);}
+    public void popPlayer(String player){ playerList.remove(player); }
 }

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 /**
  * This route handles the user undoing a move.
  */
-public class PostBackupRoute implements Route{
+public class PostBackupRoute implements Route {
     private final Gson gson = new Gson();
     private static final Logger LOG = Logger.getLogger(PostCheckTurnRoute.class.getName());
 
@@ -19,7 +19,7 @@ public class PostBackupRoute implements Route{
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
         user.madeTurn(false);

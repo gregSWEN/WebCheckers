@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SpaceIterator implements Iterator<Space> {
 
-    private List<Space> spaces;
+    private final List<Space> spaces;
     private int index;
     private final int start = -1;
     private final int end = 8;
@@ -14,7 +14,7 @@ public class SpaceIterator implements Iterator<Space> {
      * initializes the spaceiterator
      * @param spaces
      */
-    public SpaceIterator(List<Space> spaces){
+    public SpaceIterator(List<Space> spaces) {
         this.spaces = spaces;
         this.index = 0;
     }

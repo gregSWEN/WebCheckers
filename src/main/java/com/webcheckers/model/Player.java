@@ -16,22 +16,22 @@ public class Player {
     /** the current game the player is in */
     private GameModel game;
     /** list of moves a player did */
-    private Stack<Move> moves;
+    private final Stack<Move> moves;
     /** boolean if player made a move that turn */
     private boolean madeMove;
     private boolean multiCapture;
-    private Set<GameModel> games;
+    private final Set<GameModel> games;
 
     public Player(String name) {
         this.name = name;
         this.moves = new Stack<>();
         this.madeMove = false;
         this.multiCapture = false;
-        this.games = new HashSet<GameModel>();
+        this.games = new HashSet<>();
     }
     public String getName() { return name; }
-    public GameModel getGame(){return game;}
-    public boolean getMadeMove(){return madeMove;}
+    public GameModel getGame() { return game; }
+    public boolean getMadeMove() { return madeMove; }
 
     /**
      * Two players are equal if their names are
@@ -51,7 +51,6 @@ public class Player {
     /**
      * add move to moves (a stack)
      * @param move valid move
-     * @return void
      */
     public void addMove(Move move){
         this.moves.add((move));
@@ -59,8 +58,8 @@ public class Player {
 
     /**
      * add move to moves (a stack)
-     * @param
-     * @return lastest Move from the player
+     *
+     * @return latest Move from the player
      */
     public Move peekMove(){
         return this.moves.peek();
@@ -77,10 +76,10 @@ public class Player {
      * check if the game is already happening with the same opponent
      * @param enemy Enemy player
      */
-    public boolean checkIfPlayerInGame(Player enemy){
+    public boolean checkIfPlayerInGame(Player enemy) {
         for (GameModel s : games) {
             boolean alreadyGame = s.checkTwoPlayers(this, enemy);
-            if(alreadyGame){    //if two players already in a game return true
+            if(alreadyGame) {    //if two players already in a game return true
                 return true;
             }
         }
@@ -94,15 +93,15 @@ public class Player {
         this.game = game;
     }
 
-    public void endGame(){this.game = null;}
+    public void endGame(){ this.game = null; }
 
-    public void setMultiCapture(boolean move){this.multiCapture = move;}
+    public void setMultiCapture(boolean move) { this.multiCapture = move;  }
 
-    public boolean getMultiCapture(){return multiCapture;}
+    public boolean getMultiCapture() { return multiCapture; }
 
-    public void addGameToPlayer(GameModel game){games.add(game);}
+    public void addGameToPlayer(GameModel game) { games.add(game); }
 
-    public Set<GameModel> getPlayerGames(){return games;}
+    public Set<GameModel> getPlayerGames() { return games; }
 
     public void popGame(GameModel game){
         games.remove(game);

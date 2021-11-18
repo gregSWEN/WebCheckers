@@ -33,7 +33,7 @@ public class ValidateMove {
         }
     }
 
-    public ValidateMove(BoardView board, Piece.Color currentColor){
+    public ValidateMove(BoardView board, Piece.Color currentColor) {
         this.move = null;
         this.startRow = 0;
         this.startCell = 0;
@@ -44,38 +44,41 @@ public class ValidateMove {
         this.currentColor = currentColor;
     }
 
-    public Message hint_message(){
+    public Message hint_message() {
         Message message;
-        String result = "A space is derived from rows 1-8 and columns 1-8\n" +
-                "for example (1,1) will be the top left corner ";
+        StringBuilder result = new StringBuilder("A space is derived from rows 1-8 and columns 1-8. " +
+                "For example (1,1) will be the top left corner. Rows go top to bottom and columns go left to right. ");
         List<Move> captures = canCapture();
         List<Move> possibleMoves = possibleMoves();
-        if(captures.size() > 0){
+        if(captures.size() > 0) {
             for (Move move: captures){
-                result += "You can go from (" + (move.getStart().getRow() + 1) + ", " + (move.getStart().getCell() + 1) +
-                        ") to (" + (move.getEnd().getRow() + 1) + ", " + (move.getEnd().getCell() + 1) + ") for a capture";
+                result.append("You can go from (").append(move.getStart().getRow() + 1).append(", ")
+                        .append(move.getStart().getCell() + 1)
+                        .append(") to (").append(move.getEnd().getRow() + 1).append(", ")
+                        .append(move.getEnd().getCell() + 1).append(") for a capture. ");
             }
-        }
-        else{
+        } else {
             for(Move move: possibleMoves){
-                result += "You can go from (" + (move.getStart().getRow() + 1) + ", " + (move.getStart().getCell() + 1) +
-                        ") to (" + (move.getEnd().getRow() + 1) + ", " + (move.getEnd().getCell() + 1) + ") for a move   ";
+                result.append("You can go from (").append(move.getStart().getRow() + 1)
+                        .append(", ").append(move.getStart().getCell() + 1).append(") to (")
+                        .append(move.getEnd().getRow() + 1).append(", ")
+                        .append(move.getEnd().getCell() + 1).append(") for a move. ");
             }
         }
-        message = Message.info(result);
+        message = Message.info(result.toString());
         return message;
     }
 
 
     public Message isValidMove() {
         int kingSpaceCheck;
-        if(this.piece.getType() == Piece.Type.KING){
+        if(this.piece.getType() == Piece.Type.KING) {
             kingSpaceCheck = 4;
-        }else{
+        } else {
             kingSpaceCheck = 2;
         }
         List<Move> captureMove = canCapture();
-        if(captureMove.size() != 0 && !captureMove.contains(move)){
+        if(captureMove.size() != 0 && !captureMove.contains(move)) {
             return Message.error("Must play capture move");
         }
         // checks if piece to move is a checker
@@ -99,24 +102,24 @@ public class ValidateMove {
             if (board.getSpaceAt(startRow, startCell).isPieceWhite()) {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceRed()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
-                    if(move != null){
+                    if(move != null) {
                         return Message.info("You can Capture another Piece, submit first");
                     }
                     return Message.info("You captured a piece!");
-                }
-                else
+                } else {
                     return Message.error("You cannot capture your own piece");
+                }
             // is a red piece capturing a white piece?
             } else {
                 if (board.getSpaceAt(checkerRow, checkerCell).isPieceWhite()) {
                     Move move = PieceCanCaptureMulti(endRow, endCell, kingSpaceCheck, currentColor);
-                    if(move != null){
+                    if(move != null) {
                         return Message.info("You can Capture another Piece, submit first");
                     }
                     return Message.info("You captured a piece!");
-                }
-                else
+                } else {
                     return Message.error("You cannot capture your own piece");
+                }
             }
         // are you making a valid single move?
         } else if (Math.abs(endRow-startRow) == 1 && Math.abs(endCell-startCell) == 1){
@@ -127,13 +130,13 @@ public class ValidateMove {
     }
 
 
-    private Move PieceCanCapture(int row, int cell, int kingSpaceCheck){
+    private Move PieceCanCapture(int row, int cell, int kingSpaceCheck) {
         int[] capture1row = {-1, -1, 1, 1};
         int[] capture1cell = {-1, 1, -1, 1};
         int[] capture2row = { -2, -2, 2, 2};
         int[] capture2cell = {-2, 2, -2, 2};
 
-        for(int i = 0; i<kingSpaceCheck; i++){
+        for(int i = 0; i<kingSpaceCheck; i++) {
             try {
                 Space OneBlockAwaySpace = board.getSpaceAt(row + capture1row[i], cell + capture1cell[i]);
                 Space TwoBlockAwaySpace = board.getSpaceAt(row + capture2row[i], cell + capture2cell[i]);
@@ -144,9 +147,7 @@ public class ValidateMove {
                         return new Move(start, end);
                     }
                 }
-            }catch(NullPointerException e){
-                //pass
-            }catch(IndexOutOfBoundsException e){
+            }catch(NullPointerException | IndexOutOfBoundsException e){
                 //pass
             }
         }
@@ -154,7 +155,7 @@ public class ValidateMove {
     }
 
     //check on the board if a capture can be made
-    private List<Move> canCapture(){
+    private List<Move> canCapture() {
         List<Move> captureMoves = new ArrayList<>();
         int kingSpaceCheck;
         /*
@@ -170,7 +171,7 @@ public class ValidateMove {
         for (int row = 0; row < 8; row++) {
             for (int cell = 0; cell < 8; cell++) {
                 Space space = board.getSpaceAt(row, cell);
-                try{
+                try {
                     if(space.getPiece().getColor() == currentColor){
                         if(space.getPiece().getType() == Piece.Type.KING){
                             kingSpaceCheck = 4;
@@ -182,7 +183,7 @@ public class ValidateMove {
                             captureMoves.add(tempMove);
                         }
                     }
-                }catch(NullPointerException e){
+                } catch(NullPointerException e){
                     //pass
                 }
             }
@@ -190,13 +191,13 @@ public class ValidateMove {
         return captureMoves;
     }
 
-    private Move PieceCanCaptureMulti(int row, int cell, int kingSpaceCheck, Piece.Color color){
+    private Move PieceCanCaptureMulti(int row, int cell, int kingSpaceCheck, Piece.Color color) {
         int[] capture1row = {-1, -1, 1, 1};
         int[] capture1cell = {-1, 1, -1, 1};
         int[] capture2row = { -2, -2, 2, 2};
         int[] capture2cell = {-2, 2, -2, 2};
 
-        for(int i = 0; i<kingSpaceCheck; i++){
+        for(int i = 0; i<kingSpaceCheck; i++) {
             try {
                 Space OneBlockAwaySpace = board.getSpaceAt(row + capture1row[i], cell + capture1cell[i]);
                 Space TwoBlockAwaySpace = board.getSpaceAt(row + capture2row[i], cell + capture2cell[i]);
@@ -207,25 +208,23 @@ public class ValidateMove {
                         return new Move(start, end);
                     }
                 }
-            }catch(NullPointerException e){
-                //pass
-            }catch(IndexOutOfBoundsException e){
+            } catch(NullPointerException | IndexOutOfBoundsException e) {
                 //pass
             }
         }
         return null;
     }
 
-    private List<Move> pieceCanMoveSingle(Space space, int row){
+    private List<Move> pieceCanMoveSingle(Space space, int row) {
         List<Move> moves = new ArrayList<>();
         int startCol = space.getCellIdx();
-        if(row - 1 > -1 && startCol - 1 > -1 && board.getSpaceAt(row - 1, startCol - 1).getPiece() == null){
+        if(row - 1 > -1 && startCol - 1 > -1 && board.getSpaceAt(row - 1, startCol - 1).getPiece() == null) {
             Position start = new Position(row, startCol);
             Position end = new Position(row - 1, startCol - 1);
             Move move = new Move(start, end);
             moves.add(move);
         }
-        if(row - 1 > -1 && startCol + 1 < 8 && board.getSpaceAt(row - 1, startCol + 1).getPiece() == null){
+        if(row - 1 > -1 && startCol + 1 < 8 && board.getSpaceAt(row - 1, startCol + 1).getPiece() == null) {
             Position start = new Position(row, startCol);
             Position end = new Position(row - 1, startCol + 1);
             Move move = new Move(start, end);
@@ -234,7 +233,7 @@ public class ValidateMove {
         return moves;
     }
 
-    private List<Move> possibleMoves(){
+    private List<Move> possibleMoves() {
         List<Move> moves = new ArrayList<>();
         int boardLength = 8;
 
@@ -245,11 +244,7 @@ public class ValidateMove {
                     if(space.getPiece().getColor() == currentColor){
                         if(space.getPiece().getType() == Piece.Type.SINGLE){
                             List<Move> singleMoves = pieceCanMoveSingle(space, i);
-                            if(singleMoves != null){
-                                for (Move move: singleMoves){
-                                    moves.add(move);
-                                }
-                            }
+                            moves.addAll(singleMoves);
                         }
                     }
                 }

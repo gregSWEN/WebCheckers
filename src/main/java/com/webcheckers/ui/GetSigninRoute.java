@@ -32,12 +32,12 @@ public class GetSigninRoute implements Route {
      *   the rendered HTML for the Home page
      */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         final Session httpSession = request.session();
         Player currentPlayer = httpSession.attribute("currentUser");  //get current player if there is one
 
         //dont go to sign in page if player is signed in
-        if(currentPlayer != null){
+        if(currentPlayer != null) {
             response.redirect("/");
             return null;
         }

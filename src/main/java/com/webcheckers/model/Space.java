@@ -1,15 +1,14 @@
 package com.webcheckers.model;
 
 public class Space {
-    public enum SpaceColor{
+    public enum SpaceColor {
         WHITE,
         BLACK,
         GREY
     }
 
-
-    private int cellIdx;
-    private SpaceColor color;
+    private final int cellIdx;
+    private final SpaceColor color;
     private Piece piece;
 
     /**
@@ -18,7 +17,7 @@ public class Space {
      * @param color
      * @param piece
      */
-    public Space(int index, SpaceColor color, Piece piece){
+    public Space(int index, SpaceColor color, Piece piece) {
         this.color = color;
         this.cellIdx = index;
         this.piece = piece;
@@ -33,7 +32,7 @@ public class Space {
         return cellIdx;
     }
 
-    public SpaceColor getColor() {return color;}
+    public SpaceColor getColor() { return color; }
 
     /**
      * this determines if the space if valid
@@ -62,7 +61,7 @@ public class Space {
 
     public void setPiece (Piece piece) { this.piece = piece; }
 
-    public void setNull() {this.piece =null;}
+    public void setNull() { this.piece =null; }
 
     @Override
     public String toString(){

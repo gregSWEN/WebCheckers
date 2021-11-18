@@ -23,18 +23,18 @@ public class PostMakeHintRoute implements Route {
         this.templateEngine = templateEngine;
         this.gameManager = gameManager;
     }
+
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
         GameModel game = user.getGame();
         BoardView board = user.getGame().getBoard();
         Message message;
         ValidateMove validateMove;
-        if(game.getActiveColor() == Piece.Color.RED){
+        if(game.getActiveColor() == Piece.Color.RED) {
             validateMove = new ValidateMove(board.flip_board(), game.getActiveColor());
-        }
-        else{
+        } else {
             validateMove = new ValidateMove(board, game.getActiveColor());
         }
         message = validateMove.hint_message();

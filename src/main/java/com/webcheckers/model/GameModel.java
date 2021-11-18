@@ -56,30 +56,25 @@ public class GameModel {
      * set the game to end
      * @param loser player that lost
      */
-    public void resign (Player loser){
+    public void resign (Player loser) {
         this.game_end = true;
         this.loser = loser;
-        if(loser == this.white_player){
+        if(loser == this.white_player) {
             this.winner = red_player;
-        }else{
+        } else {
             this.winner = white_player;
         }
         red_player.popGame(this);
         white_player.popGame(this);
     }
 
-    public boolean checkTwoPlayers(Player p1, Player p2){
-        if(red_player == p1 && white_player == p2){
+    public boolean checkTwoPlayers(Player p1, Player p2) {
+        if(red_player == p1 && white_player == p2) {
             return true;
-        }else if(white_player == p1 && red_player == p2){
-            return true;
-        }else {
-            return false;
-        }
-
+        } else return white_player == p1 && red_player == p2;
     }
 
-    public int getId(){return id;}
+    public int getId(){ return id; }
 
     @Override
     public String toString() {
@@ -89,12 +84,12 @@ public class GameModel {
      * set the game to end
      * @param loser player that lost
      */
-    public void finished_game (Player loser){
+    public void finished_game (Player loser) {
         this.game_end = true;
         this.loser = loser;
-        if(loser == this.white_player){
+        if(loser == this.white_player) {
             this.winner = red_player;
-        }else{
+        } else {
             this.winner = white_player;
         }
         this.how_game_ended = "all pieces captured";
@@ -103,33 +98,31 @@ public class GameModel {
     /**
      * check if the game is over by seeing if they're pieces left
      */
-    public Player checkIfOver(){
+    public Player checkIfOver() {
         boolean red = false;
         boolean white = false;
         for (int row = 0; row < 8; row++) {
             for (int cell = 0; cell < 8; cell++) {
-                try{
+                try {
                     Space space = board.getSpaceAt(row, cell);
-                    if(space.getPiece().getColor() == Piece.Color.RED){
+                    if(space.getPiece().getColor() == Piece.Color.RED) {
                         red = true;
-                    }else if(space.getPiece().getColor() == Piece.Color.WHITE){
+                    } else if(space.getPiece().getColor() == Piece.Color.WHITE) {
                         white = true;
                     }
-
                     if(red && white){
                         break;
                     }
-                }catch(NullPointerException e){
+                } catch(NullPointerException e){
                     //pass
                 }
             }
         }
-        if(red == false){
+        if(!red) {
             return red_player;
-        }
-        else if(white == false){
+        } else if(!white) {
             return white_player;
-        }else{
+        } else {
             return null;
         }
     }

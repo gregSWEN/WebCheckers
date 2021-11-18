@@ -28,29 +28,28 @@ public class PostSubmitTurnRoute implements Route {
         BoardView board = user.getGame().getBoard();
         Move move = user.peekMove();
 
-
         //make move when player submits
         //change game turn to the other player
         if(game.getActiveColor() == Piece.Color.RED) {
             board.update_board(move, true);
             game.setActiveColor(Piece.Color.WHITE);
-        }else{
+        } else {
             board.update_board(move, false);
             game.setActiveColor(Piece.Color.RED);
         }
 
         //give player another move to capture multiple pieces.
-        if(user.getMultiCapture()){
+        if(user.getMultiCapture()) {
             if(game.getActiveColor() == Piece.Color.RED) {
                 game.setActiveColor(Piece.Color.WHITE);
-            }else{
+            } else {
                 game.setActiveColor(Piece.Color.RED);
             }
         }
         user.madeTurn(false);
         user.setMultiCapture(false);
         Player loser = game.checkIfOver();
-        if(loser != null){
+        if(loser != null) {
             game.finished_game(loser);
             game.getRedPlayer().popGame(game);
             game.getWhitePlayer().popGame(game);

@@ -6,10 +6,11 @@ import java.util.List;
 
 public class BoardView implements Iterable<Row>{
 
-    private List<Row> rows;
+    private final List<Row> rows;
 
     /**
      * initializes the boardview object
+     *
      * @param rows
      */
     public BoardView(List<Row> rows){
@@ -20,8 +21,8 @@ public class BoardView implements Iterable<Row>{
      * This built in iterator method
      * is needed for the spark to iterate through the rows
      * in the boardview
-     * @return
-     * the new RowIterator object
+     *
+     * @return the new RowIterator object
      */
     @Override
     public Iterator<Row> iterator() {
@@ -53,8 +54,7 @@ public class BoardView implements Iterable<Row>{
             Row new_row = new Row(Math.abs(7-i), spaces);
             new_rows.add(new_row);
         }
-        BoardView new_board = new BoardView(new_rows);
-        return new_board;
+        return new BoardView(new_rows);
     }
 
     //update the board when a move is validated and submitted

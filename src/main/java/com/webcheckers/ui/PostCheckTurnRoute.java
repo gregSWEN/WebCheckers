@@ -22,21 +22,20 @@ public class PostCheckTurnRoute implements Route {
     }
 
     @Override
-    public Object handle(Request request, Response response){
+    public Object handle(Request request, Response response) {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
         GameModel game = user.getGame();
 
         //determine if it's the current user's turn or not
         String turn;
-        if(user == game.getRedPlayer() && game.getActiveColor() == Piece.Color.RED){
+        if(user == game.getRedPlayer() && game.getActiveColor() == Piece.Color.RED) {
             turn = "true";  //if the user is red
-        }else if(user == game.getWhitePlayer() && game.getActiveColor() == Piece.Color.WHITE){
+        } else if(user == game.getWhitePlayer() && game.getActiveColor() == Piece.Color.WHITE) {
             turn = "true";  //if the user is white
-        }else{
+        } else {
             turn = "false"; //if it's not their turn
         }
         return gson.toJson(Message.info(turn));
-
     }
 }

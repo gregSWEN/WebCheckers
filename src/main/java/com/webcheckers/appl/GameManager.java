@@ -10,8 +10,12 @@ public class GameManager {
     private PlayerLobby lobby = null;
     private Map<Integer, GameModel> games = new HashMap<>();
 
-    public final static String GAME_PLAY_MESSAGE_YOU = "it\'s your turn. Move your piece and click the submit link. If you want to erase your move click the reset link";
-    public final static String GAME_PLAY_MESSAGE_OTHER = "it\'s %s turn. The page will refresh periodically and you will be informed when it is your turn";
+    public final static String GAME_PLAY_MESSAGE_YOU =
+            "it's your turn. Move your piece and click the submit link." +
+                    "If you want to erase your move click the reset link";
+    public final static String GAME_PLAY_MESSAGE_OTHER =
+            "it's %s turn. The page will refresh periodically" +
+                    "and you will be informed when it is your turn";
 
     public Collection<Player> players(){
         return lobby.listOfPlayers();
@@ -28,7 +32,7 @@ public class GameManager {
     public static BoardView make_board(){
         List<Row> rows = new ArrayList<>();
         int length = 8;
-        List<Integer> numbers = new ArrayList<Integer>(Arrays.asList(0, 1, 0, 1, 0, 1, 0, 1));
+        List<Integer> numbers = new ArrayList<>(Arrays.asList(0, 1, 0, 1, 0, 1, 0, 1));
         for(int i = 0; i < length; i++){
             List<Space> spaces = new ArrayList<>();
             int swit = numbers.get(i);
@@ -59,15 +63,14 @@ public class GameManager {
             Row row = new Row(i, spaces);
             rows.add(row);
         }
-        BoardView board = new BoardView(rows);
-        return board;
+        return new BoardView(rows);
     }
 
     public void addGame(GameModel game) {
         games.put(games.size(), game);
     }
 
-    public int howManyGames(){return games.size();}
+    public int howManyGames(){ return games.size(); }
 
     public GameModel getGame(int id) {
         return games.get(id);

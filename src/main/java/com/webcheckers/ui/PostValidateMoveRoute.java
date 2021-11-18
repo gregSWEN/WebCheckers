@@ -23,6 +23,7 @@ public class PostValidateMoveRoute implements Route {
     private final Gson gson = new Gson();
     private GameModel gameModel;
     private GameManager manager;
+
     public PostValidateMoveRoute(TemplateEngine templateEngine, GameManager manager/*, GameModel gameModel*/) {
         Objects.requireNonNull(templateEngine, "templateEngine must not be null");
         //Objects.requireNonNull(gameModel, "gameModel must not be null");
@@ -42,26 +43,22 @@ public class PostValidateMoveRoute implements Route {
         //BoardView board = gson.fromJson(boardStr, com.webcheckers.model.BoardView.class);
         ValidateMove validateMove;
 
-        if(user.getMadeMove() == false) {
+        if(!user.getMadeMove()) {
             if (game.getActiveColor() == Piece.Color.RED) {
                 validateMove = new ValidateMove(move, board.flip_board());
             } else {
                 validateMove = new ValidateMove(move, board);
             }
-
             if (validateMove.isValidMove().getType() == Message.Type.INFO) {
                 user.addMove(move);
                 user.madeTurn(true);
-                if(validateMove.isValidMove().getText().equals("You can Capture another Piece, submit first")){
+                if(validateMove.isValidMove().getText().equals("You can Capture another Piece, submit first")) {
                     user.setMultiCapture(true);
                 }
-
-                //System.out.println(move);
             }
             return gson.toJson(validateMove.isValidMove());
-        }else{
+        } else {
             return gson.toJson(Message.error("Already made a move"));
         }
-
     }
 }

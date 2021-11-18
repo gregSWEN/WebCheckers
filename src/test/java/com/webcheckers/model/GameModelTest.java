@@ -11,7 +11,7 @@ public class GameModelTest {
     public void ctor_withArg() {
         Player player1 = new Player("red");
         Player player2 = new Player("white");
-        GameModel model = new GameModel(player1, player2);
+        GameModel model = new GameModel(player1, player2, 0);
 
         assertEquals(player1, model.getRedPlayer());
     }
@@ -19,7 +19,7 @@ public class GameModelTest {
     public void ctor_withArg2() {
         Player player1 = new Player("red");
         Player player2 = new Player("white");
-        GameModel model = new GameModel(player1, player2);
+        GameModel model = new GameModel(player1, player2, 0);
 
         assertEquals(player2, model.getWhitePlayer());
     }

@@ -3,22 +3,22 @@ package com.webcheckers.model;
 public class Piece {
     public enum Type{
         SINGLE,
-        KING;
+        KING
     }
-    public enum Color{
+    public enum Color {
         RED,
-        WHITE;
+        WHITE
     }
 
-    private Type type;
-    private Color color;
+    private final Type type;
+    private final Color color;
 
     /**
      * initializes the Piece object
      * @param type
      * @param color
      */
-    public Piece(Type type, Color color){
+    public Piece(Type type, Color color) {
         this.type = type;
         this.color = color;
     }
@@ -41,10 +41,10 @@ public class Piece {
         return type;
     }
 
-    public Color getOppositeColor(){
-        if(this.color == Color.RED){
+    public Color getOppositeColor() {
+        if(this.color == Color.RED) {
             return Color.WHITE;
-        }else{
+        } else {
             return Color.RED;
         }
     }

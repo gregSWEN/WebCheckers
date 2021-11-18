@@ -29,7 +29,7 @@ public class PostSignOutRoute implements Route {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) {
         final Session session = request.session();
         Player user = session.attribute("currentUser");
         Message message;

@@ -31,26 +31,25 @@ public class GetGameRoute implements Route {
      * the HTTP response
      * @return
      * THE render of the game board displayed as a grid with the colored checkers
-     * @throws Exception
      */
     @Override
     public Object handle(Request request, Response response) throws Exception {
-
         final Session httpSession = request.session();
         final GameManager gameManager = httpSession.attribute(GetHomeRoute.gameManagerKey);
         Player currentPlayer = httpSession.attribute("currentUser");
         String string_of_Id = request.queryParams("game_id");
         GameModel game;
+
         if(string_of_Id != null) {
             int game_id = Integer.parseInt(string_of_Id);
             game = gameManager.getGame(game_id);
-            currentPlayer.startGame(game);//THIS DOESN't START GAME IT SETS THE GAME IN PLAYER
-        }else{
+            currentPlayer.startGame(game); //THIS DOESN't START GAME IT SETS THE GAME IN PLAYER
+        } else {
             game = currentPlayer.getGame();
         }
 
         // build the view-model for the player
-        if(gameManager != null && game != null){
+        if(gameManager != null && game != null) {
             final Map<String, Object> vm = new HashMap<>();
 
             //build the board
@@ -60,28 +59,26 @@ public class GetGameRoute implements Route {
             vm.put("redPlayer", game.getRedPlayer());
             vm.put("whitePlayer", game.getWhitePlayer());
             vm.put("viewMode", ViewMode.PLAY);
-            if(currentPlayer == game.getRedPlayer()){
+            if(currentPlayer == game.getRedPlayer()) {
                 vm.put("board", game.getBoard().flip_board());
-            }else{
+            } else {
                 vm.put("board", game.getBoard());
             }
 
             //check if the game ended
-            if(game.getGameStatus()){
+            if(game.getGameStatus()) {
                 final Map<String, Object> modeOptions = new HashMap<>(2);
                 modeOptions.put("isGameOver", true);
                 if(game.get_how_game_ended().equals("resigned")) {
                     modeOptions.put("gameOverMessage", game.get_loser().getName() + " resigned");
-                }else{
+                } else {
                     modeOptions.put("gameOverMessage", game.get_winner().getName() + " won, captured all pieces");
                 }
                 vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
                 currentPlayer.endGame();
             }
-
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
-        }
-        else{
+        } else {
             response.redirect(WebServer.HOME_URL);
             return null;
         }

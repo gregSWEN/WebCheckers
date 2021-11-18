@@ -46,7 +46,6 @@ public class PostSigninRoute implements Route {
         final Map<String, Object> vm = new HashMap<>();
 
         final Session session = request.session();
-
         final String nameString = request.queryParams(PLAYER_NAME_ATTR);
         Message message = gameManager.returnLobby().addPlayer(nameString);
 

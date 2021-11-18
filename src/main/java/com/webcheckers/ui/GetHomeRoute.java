@@ -19,15 +19,10 @@ import com.webcheckers.util.Message;
  */
 public class GetHomeRoute implements Route {
   private static final String CURRENT_GAMES = "current_games";
-
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
-
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
-
-  static final String gameManagerKey = "test"; //CHANGE THIS, made this to make code work
-
+  static final String gameManagerKey = "Game";
   private final TemplateEngine templateEngine;
-
   private final GameManager gameManager;
 
   /**
@@ -62,35 +57,20 @@ public class GetHomeRoute implements Route {
     final Session httpSession = request.session();
     Player currentPlayer = httpSession.attribute("currentUser");  //get current player if there is one
 
-    //put player from homescreen in game if an opponent selected them
-//    if(currentPlayer != null){
-//      if(currentPlayer.getGame() != null) {
-//        response.redirect("/game");
-//        return null;
-//      }
-//    }
-
     //making message to show size of players
     int num = gameManager.returnLobby().sizeOfLobby();
-    Message sizeOfLobbyMsg = Message.info("Current Number of Players: "+num);
+    Message sizeOfLobbyMsg = Message.info("Current Number of Players: "+ num);
 
     vm.put("title", "Welcome!");
     if(currentPlayer == null) {
       vm.put("message", WELCOME_MSG);
-    }else{
+    } else {
       vm.put(PostSigninRoute.LIST_PLAYERS, gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()));
       vm.put(PostSigninRoute.CURRENT_USER, gameManager.returnLobby().getPlayer(currentPlayer.getName()));
       vm.put(CURRENT_GAMES, currentPlayer.getPlayerGames());  //only games that aren't over
-
-//      for(String test: gameManager.returnLobby().listOtherPlayers(currentPlayer.getName()))
-//      {
-//        System.out.println(test);
-//      }
     }
-
     // display the number of plays currently logged in
     vm.put("num_of_players", sizeOfLobbyMsg);
-
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }

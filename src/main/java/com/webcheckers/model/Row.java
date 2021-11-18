@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Row implements Iterable<Space>{
-    private int index;
-    private List<Space> spaces;
+    private final int index;
+    private final List<Space> spaces;
 
     /**
      * initializes the row object
