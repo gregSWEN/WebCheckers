@@ -95,7 +95,10 @@ The user will go to the home page when first coming to the application. The user
 then be able to get to the /signin page. If the name entered is valid, then they will be
 taken to the /home page. If the name entered is invalid, then they will stay at the /signin
 page. When the user is signed in and at the home page, the user will then be able to get to the
-/game page to play a game. `GET /GameRoute` is called to begin the game.
+/game page to play a game. `GET /GameRoute` is called to begin the game. Drag and drop mechanics are used to move
+the checkers from square to square. Buttons are used to submit the turn, undo the move, resign the game, and receive
+a hint. The page will refresh periodically to update the board once the opponent submits their turn or resigns the
+game.
 
 
 ### UI Tier
@@ -122,12 +125,14 @@ page. When the user is signed in and at the home page, the user will then be abl
 > you describe the design of the three tiers._
 
 The UI is composed of the routes needed to properly navigate the website and
-play the game. The user starts at the home route, then `GET /signin` is called to allow
-the user to log in. After a successful log in, the user is taken back to the homepage, 
-where `GET /GameRoute` is called to begin. When a move is made, `POST /ValidateMove`
-is called which will verify the move is legal. If the move is legal and the submit button 
-is pressed, then `POST /SubmitTurn` is called, which will update the board and allow the 
-opponent to move. This process repeats until the game is over.
+play the game. All routes created inherit from the `Route` interface.
+The user starts at the home route, then `GET /signin` is called to allow
+the user to log in. After a successful log-in, the user is taken back to the homepage, 
+where `GET /GameRoute` is called when a Player clicks on another Player to begin the game.
+When a move is made, `POST /ValidateMove` is called which will verify the move is legal.
+If the move is legal and the submit button is pressed, then `POST /SubmitTurn` is called,
+which will update the board and allow the opponent to move. This process repeats until the
+game is over.
 ![Sequence Diagram for PostValidateMoveRoute](validateMoveSD.png)
 
 
@@ -172,6 +177,8 @@ a principle that could be improved throughout the design. In addition, there are
 classes that have been replaced with new classes, but have not been removed from the architecture.
 This causes issues with coupling and can be fixed by replacing the obsolete classes with their successor
 in the design, as well as implementing more abstraction so the issue can be avoided in the future.
+
+
 
 
 ## Testing
