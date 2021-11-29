@@ -24,7 +24,6 @@ successfully play a game of checkers.
 
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
@@ -36,12 +35,12 @@ successfully play a game of checkers.
 This section describes the features of the application.
 
 ### Definition of MVP
+
 A user should be able to sign in to start playing checkers. A user once signed in
 can start a game with another player. Each player should be able to play a standard game of
 checkers and have the option to resign during the game.
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
 
 * As a user I want to be able to sign in with the desired username of my choice.
 * As a user I want to be able to start a game and play with another.
@@ -50,7 +49,11 @@ checkers and have the option to resign during the game.
 * As a user I want to be able to forfeit the game when I feel helpless to end the game.
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+
+* Provide a button to give a hint to the Player.
+* The hint will return a list of possible moves the PLayer can make.
+* The Player can start multiple games at the same time and switch between the games.
+
 
 
 ## Application Domain
@@ -95,34 +98,15 @@ The user will go to the home page when first coming to the application. The user
 then be able to get to the /signin page. If the name entered is valid, then they will be
 taken to the /home page. If the name entered is invalid, then they will stay at the /signin
 page. When the user is signed in and at the home page, the user will then be able to get to the
-/game page to play a game. `GET /GameRoute` is called to begin the game. Drag and drop mechanics are used to move
-the checkers from square to square. Buttons are used to submit the turn, undo the move, resign the game, and receive
-a hint. The page will refresh periodically to update the board once the opponent submits their turn or resigns the
-game.
+/game page to play a game. `GET /GameRoute` is called to begin the game. Drag and drop mechanics
+are used to move the checkers from square to square. Buttons are used to submit the turn, undo the move,
+resign the game, and receive a hint. The page will refresh periodically to update the board once the
+opponent submits their turn or resigns the game.
 
 
 ### UI Tier
-> _Provide a summary of the Server-side UI tier of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class structure or object diagrams) with some
-> details such as critical attributes and methods._
-
-> _You must also provide any dynamic models, such as statechart and
-> sequence diagrams, as is relevant to a particular aspect of the design
-> that you are describing.  For example, in WebCheckers you might create
-> a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
-> state machine to manage the game._
-
-> _If a dynamic model, such as a statechart describes a feature that is
-> not mostly in this tier and cuts across multiple tiers, you can
-> consider placing the narrative description of that feature in a
-> separate section for describing significant features. Place this after
-> you describe the design of the three tiers._
+Provide summary, add sequence diagrams/statecharts, go through what gets called as the game progresses.
 
 The UI is composed of the routes needed to properly navigate the website and
 play the game. All routes created inherit from the `Route` interface.
@@ -137,9 +121,6 @@ game is over.
 
 
 ### Application Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
 
 When a user goes to sign in, their name is put in the `PlayerLobby` to be stored. If
 the name entered is already in the lobby, then the name is invalid and the user will have to
@@ -148,9 +129,6 @@ in a game and create the board.
 
 
 ### Model Tier
-> _Provide a summary of the Model tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
 
 When a user successfully signs in, they now become a `Player` in the lobby. When 
 the players start a game, the `Boardview` represents the board, which consists of `Row`s
@@ -162,14 +140,8 @@ the piece moved. The `ValidateMove` class is then used to verify whether the mov
 
 
 ### Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements. After completion of the Code metrics exercise, you
-> will also discuss the resutling metric measurements.  Indicate the
-> hot spots the metrics identified in your code base, and your
-> suggested design improvements to address those hot spots._
+
+Discuss improvements and talk about code metrics
 
 While Object-Oriented principles are followed, the use and consistency of them
 are not apparent throughout the architecture. The Law of Demeter, in particular, is
@@ -178,16 +150,23 @@ classes that have been replaced with new classes, but have not been removed from
 This causes issues with coupling and can be fixed by replacing the obsolete classes with their successor
 in the design, as well as implementing more abstraction so the issue can be avoided in the future.
 
-
+In addition, the code metrics yield some areas of improvement across multiple categories. The lines of code
+metric show that each class has at most 139 lines of code, with one exception. `ValidateMove` has 238
+lines of code, which is high compared to the rest of the project. This can be fixed by breaking the class in
+to smaller classes. The complexity metric show that `ValidateMove` and `GetGameRoute` are more complex than the rest of
+the classes. This is due to the complexity of the methods involved in the classes. This can be fixed by breaking down
+the methods within the class or breaking up the responsibility of the class in to smaller classes. The Chidamber-Kemerer
+metric show that `ValidateMove` has a high method complexity relative to the rest of the classes. In addition, the classes
+have good cohesion with each other. The Javadoc metric show that comments are sparse throughout the project and could be
+improved upon. The Martin packaging metrics show that the UI tier has a lot of calls from classes that are outside the package
+and the Model tier has methods that are called from outside the package.
 
 
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
 
-`PlayerLoby`, `ValidateMove`, `GetSignInRoute`, `PostSignInRoute`,
-`GetHomeRoute`, `GameModel`, and a few others were tested. The tests could
-have been more through with more testing.
+Unit testing was performed on some of the UI tier and the Application tier.
 
 
 ### Acceptance Testing
