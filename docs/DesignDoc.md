@@ -1,7 +1,7 @@
 ---
 geometry: margin=1in
 ---
-# PROJECT Design Documentation
+# Web Checkers Design Documentation
 
 ## Team Information
 * Team name: thePurpleNarwhals
@@ -55,16 +55,17 @@ checkers and have the option to resign during the game.
 * The Player can start multiple games at the same time and switch between the games.
 
 
-
 ## Application Domain
 
 This section describes the application domain.
 
 ![The WebCheckers Domain Model](domain-model.png)
 
-A Player will play a Checkers game, making the move using the pieces. The Game
-has a Board for the game to be played on. The Board is made up of Rows and Spaces, which
-the pieces will be stored on.
+A list of Players will be in a menu after signing in. A Player will play a Checkers game,
+making the move using the pieces. The Game has a Board for the game to be played on. The
+Board is made up of Rows and Spaces, which the pieces will be stored on. The Player can then make
+a Move to progress the game. A Player can play multiple games at the same time and also get a hint
+during the game.
 
 ## Architecture and Design
 
@@ -113,12 +114,25 @@ play the game. All routes created inherit from the `Route` interface.
 The user starts at the home route, then `GET /signin` is called to allow
 the user to log in. After a successful log-in, the user is taken back to the homepage, 
 where `GET /GameRoute` is called when a Player clicks on another Player to begin the game.
-When a move is made, `POST /ValidateMove` is called which will verify the move is legal.
-If the move is legal and the submit button is pressed, then `POST /SubmitTurn` is called,
-which will update the board and allow the opponent to move. This process repeats until the
-game is over.
+
+In the Game, if it is your turn, when a move is made, `POST /ValidateMove` is called which will
+verify the move is legal. If the move is legal and the submit button is pressed, then `POST
+/SubmitTurn` is called, which will update the board and allow the opponent to move. This process
+repeats until the game is over. Figure 4 shows the sequence diagram of `PostValidateMoveRoute`.
+
 ![Sequence Diagram for PostValidateMoveRoute](validateMoveSD.png)
 
+If a move is made and the Player wants to undo the move, then `PostBackupMoveRoute` is called, which
+puts the board back in its previous state. If the Player wants a hint, then `PostMakeHintRoute` is called,
+which will generate the hint and return it to the board. Figure 5 shows the connection of these
+routes.
+
+![Statechart of making a turn](myTurn-statechart.png)
+
+If it is not your turn, then the page will continuously refresh until the turn updates. This is done
+by calling `PostCheckTurnRoute` every 5 seconds to refresh the page. If it is the end of the game, then
+`PostResignGameRoute` is called to end the game, which updates the Game page and hides all buttons except
+the button to exit the game.
 
 ### Application Tier
 
@@ -134,21 +148,22 @@ When a user successfully signs in, they now become a `Player` in the lobby. When
 the players start a game, the `Boardview` represents the board, which consists of `Row`s
 and `Space`s, which the `Piece`s are then placed on. A `GameModel` is also used to represent one game.
 When a move is made on the board, a `Move` is created, which contains the start and end `Position` of 
-the piece moved. The `ValidateMove` class is then used to verify whether the move was valid.
+the piece moved. The `ValidateMove` class is then used to verify whether the move was valid. If the user requests
+it, a hint can be made using `MakeHint`.
+
 ![UML Diagram for the checkers board](boardUML.png)
 
 
-
 ### Design Improvements
-
-Discuss improvements and talk about code metrics
 
 While Object-Oriented principles are followed, the use and consistency of them
 are not apparent throughout the architecture. The Law of Demeter, in particular, is
 a principle that could be improved throughout the design. In addition, there are some
 classes that have been replaced with new classes, but have not been removed from the architecture.
 This causes issues with coupling and can be fixed by replacing the obsolete classes with their successor
-in the design, as well as implementing more abstraction so the issue can be avoided in the future.
+in the design, as well as implementing more abstraction so the issue can be avoided in the future. In addition,
+refactoring can be done to separate concerns within the main tiers. Classes within the tiers should be put into
+packages to separate classes that focus on different aspects of the program.
 
 In addition, the code metrics yield some areas of improvement across multiple categories. The lines of code
 metric show that each class has at most 139 lines of code, with one exception. `ValidateMove` has 238
@@ -158,8 +173,11 @@ the classes. This is due to the complexity of the methods involved in the classe
 the methods within the class or breaking up the responsibility of the class in to smaller classes. The Chidamber-Kemerer
 metric show that `ValidateMove` has a high method complexity relative to the rest of the classes. In addition, the classes
 have good cohesion with each other. The Javadoc metric show that comments are sparse throughout the project and could be
-improved upon. The Martin packaging metrics show that the UI tier has a lot of calls from classes that are outside the package
-and the Model tier has methods that are called from outside the package.
+improved upon. The Martin packaging metrics show that the UI tier calls from classes that are outside the package
+and the Model tier has methods that are called from outside the package. This shows that data from the Model tier is exchanged
+heavily with the UI tier. In addition, the application tier has coupling with the other tiers. The number of calls can be
+reduced by creating controller classes in each package that will handle any data that must be communicated between
+packages. This will funnel the transfer of data and reduce coupling between the packages.
 
 
 ## Testing
