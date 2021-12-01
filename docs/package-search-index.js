@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.webcheckers"},{"l":"com.webcheckers.appl"},{"l":"com.webcheckers.model"},{"l":"com.webcheckers.ui"},{"l":"com.webcheckers.util"}]
